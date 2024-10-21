@@ -1,0 +1,29 @@
+.toast-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    padding: 3px;
+    z-index: 1200;
+}
+
+.toast-container .message-container {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+    /* Adjust the max-width to your preference */
+}
+
+.toast-container .ngb-toast-header {
+    display: flex;
+    align-items: center;
+}
+
+.toast-container .ngb-toast-header small {
+    margin-left: auto;
+}
+
+.toast-container .error-message {
+    display: inline;
+    white-space: nowrap;
+}

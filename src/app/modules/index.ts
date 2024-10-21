@@ -7,3 +7,6 @@ export * from './terms-conditions/terms-conditions.component'
 export * from './delivery/delivery.component'
 export * from './faqs/faqs.component'
 export * from './returns/returns.component'
+export * from './checkout/checkout.component'
+export * from './prodcut-info/prodcut-info.component'
+

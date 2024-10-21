@@ -1,5 +1,6 @@
 
 import { Routes } from '@angular/router';
+import { AuthGuard } from '../core/guards/auth.guard';
 // import { AuthGuard } from '../core/guards/auth.guard';
 
 
@@ -34,9 +35,9 @@ const ModuleRoutes: Routes = [
     {
         path: 'faqs', loadComponent: () => import('./index').then(c => c.FaqsComponent)
     },
-    // {
-    //     path: 'shop/product/:id', loadComponent: () => import('./index').then(c => c.ProductInfoComponent)
-    // },
+    {
+        path: 'shop/product/:id', loadComponent: () => import('./index').then(c => c.ProdcutInfoComponent)
+    },
     // {
     //     path: 'collection', loadComponent: () => import('./index').then(c => c.CollectionComponent)
     // },
@@ -52,9 +53,9 @@ const ModuleRoutes: Routes = [
     // {
     //     path: 'shopping-cart', canActivate: [AuthGuard], loadComponent: () => import('./index').then(c => c.ShoppingCartComponent)
     // },
-    // {
-    //     path: 'checkout', canActivate: [AuthGuard], loadComponent: () => import('./index').then(c => c.CheckoutComponent)
-    // },
+    {
+        path: 'checkout', canActivate: [AuthGuard], loadComponent: () => import('./index').then(c => c.CheckoutComponent)
+    },
     // {
     //     path: 'magazines', loadComponent: () => import('./index').then(c => c.BlogListComponent)
     // },
