@@ -96,9 +96,16 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "public"
+              "public",
+              {
+                "glob": "**/*",
+                "input": "public"
+              }
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "src/assets/css/style.css",
+              "src/assets/css/responsive.css",
               "src/styles.scss"
             ],
             "scripts": []

@@ -17,8 +17,14 @@ const ModuleRoutes: Routes = [
     {
         path: 'contact', loadComponent: () => import('./index').then(c => c.ContactUsComponent)
     },
+    // {
+    //     path: 'our-store', loadComponent: () => import('./index').then(c => c.OurStoreComponent)
+    // },
     {
-        path: 'our-store', loadComponent: () => import('./index').then(c => c.OurStoreComponent)
+        path: 'shop', loadComponent: () => import('./index').then(c => c.ShopComponent)
+    },
+    {
+        path: 'product/:id', loadComponent: () => import('./index').then(c => c.ProductInfoComponent)
     },
     {
         path: 'terms-conditions', loadComponent: () => import('./index').then(c => c.TermsConditionsComponent)
