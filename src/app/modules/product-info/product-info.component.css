@@ -1,0 +1,15 @@
+.carousel-controls-bottom {
+    display: flex;
+    justify-content: center;
+    /* Center the buttons */
+    position: absolute;
+    bottom: 10px;
+    /* Adjust this value based on your design */
+    width: 100%;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    margin: 0 10px;
+    /* Add some space between buttons if needed */
+}

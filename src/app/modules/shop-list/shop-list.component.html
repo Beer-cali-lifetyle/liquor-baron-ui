@@ -1,0 +1,69 @@
+<section class="main-section pb-3">
+  <div class="container-baron container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="title-text text-center">
+          <h2>Shop</h2>
+        </div>
+      </div>
+    </div>
+    <section class="pt-0 ps-6 pe-6 lg-ps-2 lg-pe-2 sm-ps-0 sm-pe-0">
+      <div class="container-fluid">
+        <div class="row flex-row-reverse">
+          <!-- Products Section -->
+          <div class="col-10 ps-5 md-ps-15px md-mb-60px">
+            <div class="row">
+              <div class="col-12 col-md-6 col-lg-4 mb-4" *ngFor="let product of products">
+                <div class="product-card shadow-sm" [routerLink]="['/product', product?.id]">
+                  <div class="product-tumb py-4">
+                    <img [src]="imgBaseUrl + product?.product_image" class="img-fluid uniform-img" alt="product">
+                  </div>
+                  <div class="product-details p-3 text-center">
+                    <h4><a href="">{{ product?.name }}</a></h4>
+                    <p class="text-muted">{{ product?.description }}</p>
+                    <div class="product-bottom-details d-flex justify-content-between align-items-center">
+                      <div class="product-price">
+                        ${{ product?.price }}
+                      </div>
+                      <div class="product-links d-flex">
+                        <a href="#" class="mx-1"><i class="fa fa-heart"></i></a>
+                        <a href="#" class="mx-1"><i class="fa fa-shopping-cart"></i></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Pagination Section -->
+            <div class="w-100 d-flex mt-4 justify-content-center md-mt-30px">
+              <ngb-pagination
+                [page]="currentPage"
+                [collectionSize]="products?.total"
+                [pageSize]="pageSize"
+                [maxSize]="5"
+                [boundaryLinks]="true"
+                [ellipses]="true"
+                (pageChange)="onPageChange($event)"
+                class="pagination-style-01 fs-13 fw-500 mb-0">
+              </ngb-pagination>
+            </div>
+          </div>
+          <!-- Sidebar Section -->
+          <div class="col shop-sidebar mt-5">
+            <div class="mb-30px">
+              <span class="alt-font fw-500 fs-19 text-dark-gray d-block mb-10px mt-5">Filter by categories</span>
+              <ul class="shop-filter fs-16 list-unstyled">
+                <li *ngFor="let item of categories" class="d-flex justify-content-between align-items-center mb-2">
+                  <label class="d-flex align-items-center">
+                    <input type="radio" name="category" [value]="item?.id" [id]="item?.id">
+                    <span class="ms-2">{{ item?.catname }}</span>
+                  </label>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</section>

@@ -1263,3 +1263,19 @@
   text-decoration: line-through;
   color: #888;
 }
+
+
+/* For webkit browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* For Firefox */
+html {
+  scrollbar-width: none;
+}
+
+/* For Internet Explorer 10+ and older versions of Edge */
+html {
+  -ms-overflow-style: none;
+}

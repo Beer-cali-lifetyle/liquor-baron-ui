@@ -17,11 +17,11 @@ const ModuleRoutes: Routes = [
     {
         path: 'contact', loadComponent: () => import('./index').then(c => c.ContactUsComponent)
     },
-    // {
-    //     path: 'our-store', loadComponent: () => import('./index').then(c => c.OurStoreComponent)
-    // },
     {
-        path: 'shop', loadComponent: () => import('./index').then(c => c.ShopComponent)
+        path: 'our-store', loadComponent: () => import('./index').then(c => c.OurStoreComponent)
+    },
+    {
+        path: 'shop', loadComponent: () => import('./index').then(c => c.ShopListComponent)
     },
     {
         path: 'product/:id', loadComponent: () => import('./index').then(c => c.ProductInfoComponent)
@@ -42,7 +42,7 @@ const ModuleRoutes: Routes = [
         path: 'faqs', loadComponent: () => import('./index').then(c => c.FaqsComponent)
     },
     {
-        path: 'shop/product/:id', loadComponent: () => import('./index').then(c => c.ProdcutInfoComponent)
+        path: 'shop/product/:id', loadComponent: () => import('./index').then(c => c.ProductInfoComponent)
     },
     // {
     //     path: 'collection', loadComponent: () => import('./index').then(c => c.CollectionComponent)

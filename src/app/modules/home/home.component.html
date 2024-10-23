@@ -10,7 +10,7 @@
             <div class="carousel-caption d-none d-md-block text-start start-0">
               <p>WINTER 2024 COLLECTIONS</p>
               <h2>Flayer Essential Collection</h2>
-              <button class="btn btn-transparent shop-btn">Shop Now</button>
+              <button class="btn btn-transparent shop-btn" routerLink="/shop">Shop Now</button>
             </div>
           </div>
           <!-- Second slide -->
@@ -19,7 +19,7 @@
             <div class="carousel-caption d-none d-md-block text-start start-0">
               <p>WINTER 2024 COLLECTIONS</p>
               <h2>Flayer Essential Collection</h2>
-              <button class="btn btn-transparent shop-btn">Shop Now</button>
+              <button class="btn btn-transparent shop-btn" routerLink="/shop">Shop Now</button>
             </div>
           </div>
           <!-- Third slide -->
@@ -28,7 +28,7 @@
             <div class="carousel-caption d-none d-md-block text-start start-0">
               <p>WINTER 2024 COLLECTIONS</p>
               <h2>Flayer Essential Collection</h2>
-              <button class="btn btn-transparent shop-btn">Shop Now</button>
+              <button class="btn btn-transparent shop-btn" routerLink="/shop">Shop Now</button>
             </div>
           </div>
         </div>
@@ -47,86 +47,22 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-3">
-        <div class="product-card" [routerLink]="['/product', '1']">
-          <div class="badge">Hot</div>
+      <div class="col-3" *ngFor="let product of products">
+        <div class="product-card" [routerLink]="['/product', product?.id]">
+          <!-- <div class="badge">Hot</div> -->
           <div class="product-tumb py-4">
-            <img src="assets/image/product/1.png" alt="product">
+            <img [src]="imgBaseUrl + product?.product_image" alt="product">
           </div>
 
 
           <div class="product-details p-3">
 
-            <h4><a href="">AVIATION</a></h4>
-            <p>Aviation American Gin Deadpool Limited Edition, 70cl</p>
+            <h4><a href="">{{product?.name}}</a></h4>
+            <p>{{product?.description}}</p>
             <div class="product-bottom-details">
-              <div class="product-price"><small>$24.00</small>$20.00</div>
-              <div class="product-links">
-                <a href=""><i class="fa fa-heart"></i></a>
-                <a href=""><i class="fa fa-shopping-cart"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-3">
-        <div class="product-card" [routerLink]="['/product', '1']">
-          <div class="badge">Hot</div>
-          <div class="product-tumb py-4">
-            <img src="assets/image/product/2.png" alt="product">
-          </div>
-
-
-          <div class="product-details p-3">
-
-            <h4><a href="">AVIATION</a></h4>
-            <p>Aviation American Gin Deadpool Limited Edition, 70cl</p>
-            <div class="product-bottom-details">
-              <div class="product-price"><small>$24.00</small>$20.00</div>
-              <div class="product-links">
-                <a href=""><i class="fa fa-heart"></i></a>
-                <a href=""><i class="fa fa-shopping-cart"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-3">
-        <div class="product-card" [routerLink]="['/product', '1']">
-          <div class="badge">Hot</div>
-          <div class="product-tumb py-4">
-            <img src="assets/image/product/3.png" alt="product">
-          </div>
-
-
-          <div class="product-details p-3">
-
-            <h4><a href="">AVIATION</a></h4>
-            <p>Aviation American Gin Deadpool Limited Edition, 70cl</p>
-            <div class="product-bottom-details">
-              <div class="product-price"><small>$24.00</small>$20.00</div>
-              <div class="product-links">
-                <a href=""><i class="fa fa-heart"></i></a>
-                <a href=""><i class="fa fa-shopping-cart"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-3">
-        <div class="product-card" [routerLink]="['/product', '1']">
-          <div class="badge">Hot</div>
-          <div class="product-tumb py-4">
-            <img src="assets/image/product/4.png" alt="product">
-          </div>
-
-
-          <div class="product-details p-3">
-
-            <h4><a href="">AVIATION</a></h4>
-            <p>Aviation American Gin Deadpool Limited Edition, 70cl</p>
-            <div class="product-bottom-details">
-              <div class="product-price"><small>$24.00</small>$20.00</div>
+              <div class="product-price">
+                <!-- <small>$24.00</small> -->
+                ${{product?.price}}</div>
               <div class="product-links">
                 <a href=""><i class="fa fa-heart"></i></a>
                 <a href=""><i class="fa fa-shopping-cart"></i></a>
@@ -139,7 +75,7 @@
     <div class="row">
       <div class="col-12 text-center">
         <div class="button-load-more">
-          <button>Load More</button>
+          <button routerLink="/shop">Load More</button>
         </div>
       </div>
     </div>

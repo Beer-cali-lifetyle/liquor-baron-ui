@@ -1,16 +1,18 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { UiLoaderService } from '../../../core/services/loader.service';
+import { Component, OnInit } from '@angular/core';
+import { UiLoaderService } from "../../../core/services/loader.service";
 import { Subscription } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-loader',
-  standalone: true,
-  imports: [CommonModule],
   templateUrl: './loader.component.html',
-  styleUrl: './loader.component.scss'
+  styleUrls: ['./loader.component.css'],
+  standalone: true,
+  imports: [
+    CommonModule
+  ]
 })
-export class LoaderComponent {
+export class LoaderComponent implements OnInit {
 
   loading: boolean = false;
   loadingSubcription: Subscription = new Subscription;
@@ -23,4 +25,5 @@ export class LoaderComponent {
     });
 
   }
+
 }

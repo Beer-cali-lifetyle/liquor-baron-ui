@@ -1,0 +1,63 @@
+<section class="pt-0 d-flex justify-content-center align-items-center" style="height: 100vh;">
+  <div class="container card shadow-lg rounded">
+    <div class="row g-0 justify-content-center card-body">
+      <div class="col-xl-4 col-lg-5 col-md-10 contact-form-style-04 md-mb-50px"
+        data-custom-anime='{ "translateY": [0, 0], "opacity": [0,1], "duration": 600, "delay":100, "staggervalue": 150, "easing": "easeOutQuad" }'>
+        <span class="fs-26 xs-fs-24 alt-font fw-600 text-dark-gray mb-20px d-block">Sign Up</span>
+        <form [formGroup]="form" (ngSubmit)="onSignup()">
+          <label class="text-dark-gray mb-10px fw-500">
+            Name<span class="text-red">*</span>
+          </label>
+          <input class="mb-20px bg-very-light-gray form-control"
+            [class.is-invalid]="form.get('name')?.invalid && form.get('name')?.touched" formControlName="name"
+            type="text" name="name" placeholder="Enter your name" />
+          <div *ngIf="form.get('name')?.invalid && form.get('name')?.touched" class="text-red">
+            <small *ngIf="form.get('name')?.errors?.['required']">Name is required.</small>
+          </div>
+
+          <label class="text-dark-gray mb-10px fw-500">
+            Email address<span class="text-red">*</span>
+          </label>
+          <input class="mb-20px bg-very-light-gray form-control"
+            [class.is-invalid]="form.get('email')?.invalid && form.get('email')?.touched" formControlName="email"
+            type="email" name="email" placeholder="Enter your email" />
+          <div *ngIf="form.get('email')?.invalid && form.get('email')?.touched" class="text-red">
+            <small *ngIf="form.get('email')?.errors?.['required']">Email is required.</small>
+            <small *ngIf="form.get('email')?.errors?.['email']">Please enter a valid email address.</small>
+          </div>
+
+          <label class="text-dark-gray mb-10px fw-500">
+            Password<span class="text-red">*</span>
+          </label>
+          <input class="mb-20px bg-very-light-gray form-control"
+            [class.is-invalid]="form.get('password')?.invalid && form.get('password')?.touched"
+            formControlName="password" type="password" name="password" placeholder="Enter your password" />
+          <div *ngIf="form.get('password')?.invalid && form.get('password')?.touched" class="text-red">
+            <small *ngIf="form.get('password')?.errors?.['required']">Password is required.</small>
+          </div>
+
+          <label class="text-dark-gray mb-10px fw-500">
+            Confirm Password<span class="text-red">*</span>
+          </label>
+          <input class="mb-20px bg-very-light-gray form-control"
+            [class.is-invalid]="form.get('password_confirmation')?.invalid && form.get('password_confirmation')?.touched"
+            formControlName="password_confirmation" type="password" name="password_confirmation" placeholder="Confirm your password" />
+          <div *ngIf="form.get('password_confirmation')?.invalid && form.get('password_confirmation')?.touched" class="text-red">
+            <small *ngIf="form.get('password_confirmation')?.errors?.['required']">Password confirmation is required.</small>
+            <small *ngIf="form.get('password_confirmation')?.errors?.['mustMatch']">Passwords must match.</small>
+          </div>
+
+          <input type="hidden" name="redirect" value="" />
+
+          <button class="btn btn-medium btn-round-edge btn-dark-gray btn-box-shadow submit w-100" type="button" (click)="onSignup()"
+            [disabled]="form.invalid">
+            Sign Up
+          </button>
+
+          <div class="form-results mt-20px d-none"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+

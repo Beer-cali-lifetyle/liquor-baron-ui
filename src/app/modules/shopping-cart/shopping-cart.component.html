@@ -1,0 +1,105 @@
+
+
+<section class="top-space-margin half-section bg-gradient-very-light-gray">
+  <div class="container">
+      <div class="row align-items-center justify-content-center" data-custom-anime='{ "el": "childs", "translateY": [-15, 0], "opacity": [0,1], "duration": 300, "delay": 0, "staggervalue": 200, "easing": "easeOutQuad" }'>
+          <div class="col-12 col-xl-8 col-lg-10 text-center position-relative page-title-extra-large">
+              <h1 class="alt-font fw-600 text-dark-gray mb-10px">Shopping cart</h1> 
+          </div>
+          <div class="col-12 breadcrumb breadcrumb-style-01 d-flex justify-content-center">
+              <ul>
+                  <li><a href="index.html">Home</a></li> 
+                  <li>Shopping cart</li>
+              </ul>
+          </div>
+      </div>
+  </div>
+</section>
+<!-- end section -->
+<!-- start section -->
+<section class="pt-0">
+  <div class="container">
+      <div class="row align-items-start">
+          <div class="col-lg-8 pe-50px md-pe-15px md-mb-50px xs-mb-35px">
+              <div class="row align-items-center">
+                  <div class="col-12">
+                      <table class="table cart-products">
+                          <thead>
+                              <tr>
+                                  <th scope="col"></th>
+                                  <th scope="col" class="alt-font fw-600">Product</th>
+                                  <th scope="col"></th>
+                                  <th scope="col" class="alt-font fw-600">Price</th>
+                                  <th scope="col" class="alt-font fw-600">Quantity</th>
+                                  <th scope="col" class="alt-font fw-600">Total</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr *ngFor="let item of contextService.cart()?.data"> 
+                                  <td class="product-remove">
+                                      <a class="fs-20 fw-500" (click)="removeItemFromCart(item?.id)">×</a>
+                                  </td>
+                                  <td class="product-thumbnail"><a ><img class="cart-product-image"  [src]="imgBaseUrl + item?.product?.image_file" alt=""></a></td>
+                                  <td class="product-name">
+                                      <a  class="text-dark-gray fw-500 d-block lh-initial">{{item?.product?.name}}</a> 
+                                      <span class="fs-14">Color: Pink</span>
+                                  </td>
+                                  <td class="product-price" data-title="Price">${{item?.product?.price}}</td>
+                                  <td class="product-quantity" data-title="Quantity">
+                                      <div class="quantity">
+                                          <button type="button" class="qty-minus" (click)="decrement(item?.quantity, item?.id)">-</button>
+                                          <input class="qty-text" type="text" id="1" [value]="item?.quantity" aria-label="qty-text">
+                                          <button type="button" class="qty-plus" (click)="increment(item?.quantity, item?.id)">+</button>
+                                      </div>
+                                  </td> 
+                                  <td class="product-subtotal" data-title="Total">${{item?.product?.price * item?.quantity}}</td> 
+                              </tr>
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+              <div class="row mt-20px">
+                  <!-- <div class="col-xl-6 col-xxl-7 col-md-6"> 
+                      <div class="coupon-code-panel">
+                          <input type="text" class="bg-white border-radius-4px" placeholder="Coupon code">
+                          <a href="#" class="btn apply-coupon-btn fs-13 fw-600 text-uppercase">Apply</a>
+                      </div>
+                  </div> -->
+                  <div class="col-xl-6 col-xxl-5 col-md-6 text-center text-md-end sm-mt-15px">
+                      <a (click)="emptyCart()" class="btn btn-small border-1 btn-round-edge btn-transparent-light-gray text-transform-none me-15px lg-me-5px">Empty cart</a>
+                      <!-- <a href="#" class="btn btn-small border-1 btn-round-edge btn-transparent-light-gray text-transform-none">Update cart</a> -->
+                  </div>
+              </div>
+          </div>
+          <div class="col-lg-4">
+              <div class="bg-very-light-gray border-radius-6px p-50px xl-p-30px lg-p-25px">
+                  <span class="fs-26 alt-font fw-600 text-dark-gray mb-5px d-block">Cart totals</span>
+                  <table class="w-100 total-price-table">
+                      <tbody>
+                          <tr>
+                              <th class="w-45 fw-600 text-dark-gray alt-font">Subtotal</th>
+                              <td class="text-dark-gray fw-600">${{calculateSubTotal(contextService.cart())}}</td>
+                          </tr>
+
+                          <tr class="total-amount">
+                              <th class="fw-600 text-dark-gray alt-font pb-0">Total</th>
+                              <td class="pb-0" data-title="Total">
+                                  <h6 class="d-block fw-700 mb-0 text-dark-gray alt-font">${{calculateSubTotal(contextService.cart())}}</h6>
+                                  <!-- <span class="fs-14">(Includes $19.29 tax)</span> -->
+                              </td>
+                          </tr>
+                      </tbody>
+                  </table>
+                  <a routerLink="/checkout"  class="btn btn-dark-gray btn-large btn-switch-text btn-round-edge btn-box-shadow w-100 mt-25px">
+                      <span>
+                          <span class="btn-double-text" data-text="Proceed to checkout">Proceed to checkout</span>
+                      </span>
+                  </a>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+
+
+<app-script-load></app-script-load>
