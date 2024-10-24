@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { ScriptLoadComponent } from '../script-load/script-load.component';
 import { ApiService } from '../../shared/services/api.service';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { UiToasterService } from '../../core/services/toaster.service';
@@ -13,7 +12,7 @@ import { environment } from '../../../environments/environment';
   styleUrls: ['./shopping-cart.component.css'],
   standalone: true,
   imports: [
-    CommonModule, ScriptLoadComponent, RouterModule
+    CommonModule, RouterModule
   ]
 })
 export class ShoppingCartComponent implements OnInit {

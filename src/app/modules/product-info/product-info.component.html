@@ -5,29 +5,27 @@
         <div class="main text-center">
 
           <div id="productCarousel" class="carousel slide product-main-images" data-bs-ride="carousel" data-bs-interval="5000" data-bs-pause="false">
-            <!-- Carousel items -->
             <div class="carousel-inner">
-              <!-- Dynamically render images from productInfo.images -->
-              <div class="carousel-item" *ngFor="let item of productInfo?.images; let i = index" [ngClass]="{'active': i === 0}">
-                <img [src]="imgBaseUrl + item?.product_sub_image" class="d-block centered-image" alt="Product Image {{i+2}}">
-              </div>
-              
-              <!-- Main product image always included -->
-              <div class="carousel-item" *ngIf="productInfo?.product?.product_image">
+              <div class="carousel-item active" *ngIf="productInfo?.product?.product_image">
                 <img [src]="imgBaseUrl + productInfo?.product?.product_image" class="d-block centered-image" alt="Product Image 1">
               </div>
+    
+              <div class="carousel-item" *ngFor="let item of productInfo?.images; let i = index">
+                <img [src]="imgBaseUrl + item?.product_sub_image" class="d-block centered-image" alt="Product Image {{i+2}}">
+              </div>
             </div>
-          
-            <!-- Controls at the bottom, centered -->
+
             <div class="carousel-controls-bottom">
-              <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
+              <button type="button" class="btn btn-secondary btn-arrow-left" data-bs-target="#productCarousel" data-bs-slide="prev">Prev</button>
+              <button type="button" class="btn btn-secondary btn-arrow-right"  data-bs-target="#productCarousel" data-bs-slide="next">Next</button>
+              <!-- <button class="carousel-control" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
               </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
+              <button class="carousel-control" type="button">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
-              </button>
+              </button> -->
             </div>
           </div>
           
@@ -370,7 +368,7 @@
               <div class="button-cart-width mb-4 mt-4">
                 <button type="button" (click)="addToCart(productInfo?.product?.id)" *ngIf="!cartInfo?.quantity">Add to
                   Cart</button>
-                <button type="button" *ngIf="cartInfo?.quantity" routerLink="/shopping-cart">Go to cart</button>
+                <button type="button" *ngIf="cartInfo?.quantity" routerLink="/cart">Go to cart</button>
               </div>
             </div>
           </div>

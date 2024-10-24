@@ -19,3 +19,4 @@ export * from './returns/returns.component';
 export * from './shop-list/shop-list.component';
 export * from './product-info/product-info.component';
 export * from './product-info/product-info.component';
+export * from './shopping-cart/shopping-cart.component';

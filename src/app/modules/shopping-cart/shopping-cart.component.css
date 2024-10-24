@@ -1,0 +1,24 @@
+.image img {
+    object-fit: contain;
+    max-height: 100px;
+    max-width: 100px;
+}
+
+.btn-quantity {
+    background-color: #840029;
+    color: white;
+    border: 0;
+    padding: 0px 10px;
+}
+
+.qty-text {
+    border: 0;
+    padding-left: 15px;
+    max-width: 50px;
+}
+
+.btn-continue {
+    margin-top: 20px;
+    background-color: #840029;
+    color: white;
+}

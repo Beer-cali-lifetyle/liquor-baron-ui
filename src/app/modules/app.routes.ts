@@ -18,14 +18,18 @@ const ModuleRoutes: Routes = [
         path: 'contact', loadComponent: () => import('./index').then(c => c.ContactUsComponent)
     },
     {
-        path: 'our-store', loadComponent: () => import('./index').then(c => c.OurStoreComponent)
-    },
-    {
         path: 'shop', loadComponent: () => import('./index').then(c => c.ShopListComponent)
     },
     {
         path: 'product/:id', loadComponent: () => import('./index').then(c => c.ProductInfoComponent)
     },
+    {
+        path: 'shop/product/:id', loadComponent: () => import('./index').then(c => c.ProductInfoComponent)
+    },
+    // {
+    //     path: 'our-store', loadComponent: () => import('./index').then(c => c.OurStoreComponent)
+    // },
+
     {
         path: 'terms-conditions', loadComponent: () => import('./index').then(c => c.TermsConditionsComponent)
     },
@@ -44,6 +48,12 @@ const ModuleRoutes: Routes = [
     {
         path: 'shop/product/:id', loadComponent: () => import('./index').then(c => c.ProductInfoComponent)
     },
+    {
+        path: 'cart', canActivate: [AuthGuard], loadComponent: () => import('./index').then(c => c.ShoppingCartComponent)
+    },
+    {
+        path: 'checkout', canActivate: [AuthGuard], loadComponent: () => import('./index').then(c => c.CheckoutComponent)
+    },
     // {
     //     path: 'collection', loadComponent: () => import('./index').then(c => c.CollectionComponent)
     // },
@@ -54,14 +64,8 @@ const ModuleRoutes: Routes = [
     //     path: 'profile', canActivate: [AuthGuard], loadComponent: () => import('./index').then(c => c.ProfileComponent)
     // },
     // {
-    //     path: 'contact', loadComponent: () => import('./index').then(c => c.ContactComponent)
-    // },
-    // {
     //     path: 'shopping-cart', canActivate: [AuthGuard], loadComponent: () => import('./index').then(c => c.ShoppingCartComponent)
     // },
-    {
-        path: 'checkout', canActivate: [AuthGuard], loadComponent: () => import('./index').then(c => c.CheckoutComponent)
-    },
     // {
     //     path: 'magazines', loadComponent: () => import('./index').then(c => c.BlogListComponent)
     // },
