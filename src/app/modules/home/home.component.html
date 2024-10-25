@@ -49,28 +49,21 @@
     <div class="row">
       <div class="col-3" *ngFor="let product of products">
         <div class="product-card" [routerLink]="['/product', product?.id]">
-          <!-- <div class="badge">Hot</div> -->
           <div class="product-tumb py-4">
-            <img [src]="imgBaseUrl + product?.product_image" alt="product">
+            <img [src]="imgBaseUrl + product?.product_image" class="img-fluid uniform-img" alt="product">
           </div>
-
-
-          <div class="product-details p-3">
-
-            <h4><a href="">{{product?.name}}</a></h4>
+          <div class="product-details p-3 text-center">
+            <h4>{{product?.name}}</h4>
             <p>{{product?.description}}</p>
-            <div class="product-bottom-details">
-              <div class="product-price">
-                <!-- <small>$24.00</small> -->
-                ${{product?.price}}</div>
-              <div class="product-links">
-                <a href=""><i class="fa fa-heart"></i></a>
-                <a href=""><i class="fa fa-shopping-cart"></i></a>
+            <div class="product-bottom-details d-flex justify-content-center">
+              <div class="product-price text-center">
+                ${{product?.price}}
               </div>
             </div>
           </div>
         </div>
       </div>
+      
     </div>
     <div class="row">
       <div class="col-12 text-center">
@@ -94,10 +87,10 @@
   </div>
   <div class="container overflow-hidden">
     <div class="row gy-5">
-      <div class="col-6 col-md-3 align-self-center text-center">
-        <div class="blend-container">
-          <img src="assets/image/cat_whiskey.jpg" class="blend-image" />
-          <p class="fw-bold mt-2">Whiskey</p>
+      <div class="col-6 col-md-3 align-self-center text-center" *ngFor="let category of categories">
+        <div class="blend-container" (click)="redirectToShopList('category', category.id)">
+          <img [src]="imgBaseUrl + category?.image_file" class="blend-image" />
+          <p class="fw-bold mt-2">{{category?.catname}}</p>
         </div>
       </div>
       <div class="col-6 col-md-3 align-self-center text-center">

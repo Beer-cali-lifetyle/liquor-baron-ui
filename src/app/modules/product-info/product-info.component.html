@@ -6,7 +6,10 @@
 
           <div id="productCarousel" class="carousel slide product-main-images" data-bs-ride="carousel" data-bs-interval="5000" data-bs-pause="false">
             <div class="carousel-inner">
-              <div class="carousel-item active" *ngIf="productInfo?.product?.product_image">
+              <div class="carousel-item" *ngFor="let item of productInfo?.images; let i = index" [ngClass]="{'active': i === 0}">
+                <img [src]="imgBaseUrl + item?.product_sub_image" class="d-block centered-image" alt="Product Image {{i+2}}">
+              </div>
+              <div class="carousel-item" *ngIf="productInfo?.product?.product_image">
                 <img [src]="imgBaseUrl + productInfo?.product?.product_image" class="d-block centered-image" alt="Product Image 1">
               </div>
     
@@ -14,7 +17,7 @@
                 <img [src]="imgBaseUrl + item?.product_sub_image" class="d-block centered-image" alt="Product Image {{i+2}}">
               </div>
             </div>
-
+          
             <div class="carousel-controls-bottom">
               <button type="button" class="btn btn-secondary btn-arrow-left" data-bs-target="#productCarousel" data-bs-slide="prev">Prev</button>
               <button type="button" class="btn btn-secondary btn-arrow-right"  data-bs-target="#productCarousel" data-bs-slide="next">Next</button>

@@ -1,11 +1,9 @@
-/* Ensure all images have a uniform height */
 .carousel-inner img {
-    height: 500px; /* Set a fixed height */
-    object-fit: cover; /* Ensure images maintain aspect ratio and fill the height */
-    width: 100%; /* Make sure images fill the width */
+    height: 500px; 
+    object-fit: cover; 
+    width: 100%;
 }
 
-/* Carousel controls positioned together in the center */
 .carousel-controls-bottom {
     display: flex;
     justify-content: center;
@@ -16,10 +14,9 @@
 
 .carousel-control-prev,
 .carousel-control-next {
-    margin: 0 5px; /* Add space between buttons */
+    margin: 0 5px;
 }
 
-/* Optional: Hide the image scroll indicators if needed */
 .carousel-indicators {
     display: none;
 }
@@ -27,14 +24,10 @@
 
 
 body {
-    /* just for this demo. */
-    
     padding: 30px;
  }
  
  .btn {
-    /* just for this demo. */
-    
     margin-top: 5px;
  }
  
@@ -57,21 +50,14 @@ body {
  .btn-arrow-right:after,
  .btn-arrow-left:before,
  .btn-arrow-left:after {
-    /* make two squares (before and after), looking similar to the button */
     
     content: "";
     position: absolute;
     top: 5px;
-    /* move it down because of rounded corners */
-    
     width: 22px;
-    /* same as height */
-    
     height: 22px;
-    /* button_outer_height / sqrt(2) */
-    
     background: inherit;
-    /* use parent background */
+
     
     border: inherit;
     /* use parent border */
