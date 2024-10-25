@@ -106,6 +106,7 @@ export class ProductInfoComponent extends AppBase implements OnInit {
   }
 
   async addToWishlist(id: any) {
+    debugger;
     if (this.contextService.user()) {
       const payload = {
         productId: id
