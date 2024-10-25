@@ -1,0 +1,40 @@
+<section class="pt-0 ps-6 pe-6 lg-ps-2 lg-pe-2 sm-ps-0 sm-pe-0 mt-5">
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <!-- Loop through wishListItems array -->
+      <div class="col-4" *ngFor="let product of wishLstItems?.data; let i = index">
+        <div class="product-card">
+          <!-- <div class="badge">Hot</div> -->
+          <div class="product-tumb">
+            <a [routerLink]="['/shop/product', product?.product?.id]">
+              <img [src]="imgBaseUrl + product?.product?.product_image" alt="Product image" class="img-fluid">
+            </a>
+          </div>
+          <div class="product-details">
+            <h4>
+              <a [routerLink]="['/shop/product', product?.product?.id]">{{ product?.product?.name }}</a>
+            </h4>
+            <p>{{ product?.product?.description || 'No description available' }}</p>
+            <div class="product-bottom-details">
+              <div class="product-price">
+                <small>$200.00</small> ${{ product?.product?.price }}
+              </div>
+              <div class="product-links">
+                <a (click)="addToWishlist(product?.product?.id, i)" title="Add to wishlist">
+                  <i class="fa fa-heart"></i>
+                </a>
+                <a (click)="addToCart(product?.product?.id)" title="Add to cart">
+                  <i class="fa fa-shopping-cart"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Add all to cart button -->
+      <div class="col-12 mt-4 text-center">
+        <!-- <button (click)="addAllToCart()" class="btn btn-dark">Add all to Cart</button> -->
+      </div>
+    </div>
+  </div>
+</section>

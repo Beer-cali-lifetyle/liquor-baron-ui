@@ -1,11 +1,12 @@
 .upper {
-    position: relative;
-    z-index: 10;
-  }
+  position: sticky;
+  width: 100%;
+  z-index: 10;
+  background-color: #faf1ea;
+}
 
-  .lower {
-    position: relative;
-    z-index: 1; 
-  }
-
-  
+.lower {
+  position: relative;
+  z-index: 1;
+  margin-top: 200px;
+}

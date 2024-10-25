@@ -15,7 +15,7 @@ const ModuleRoutes: Routes = [
         path: 'about', loadComponent: () => import('./index').then(c => c.AboutUsComponent)
     },
     {
-        path: 'contact', loadComponent: () => import('./index').then(c => c.ContactUsComponent)
+        path: 'contact', loadComponent: () => import('./index').then(c => c.ContactComponent)
     },
     {
         path: 'shop', loadComponent: () => import('./index').then(c => c.ShopListComponent)
@@ -26,10 +26,12 @@ const ModuleRoutes: Routes = [
     {
         path: 'shop/product/:id', loadComponent: () => import('./index').then(c => c.ProductInfoComponent)
     },
-    // {
-    //     path: 'our-store', loadComponent: () => import('./index').then(c => c.OurStoreComponent)
-    // },
-
+    {
+        path: 'our-store', loadComponent: () => import('./index').then(c => c.OurStoreComponent)
+    },
+    {
+        path: 'my-account', loadComponent: () => import('./index').then(c => c.MainComponent)
+    },
     {
         path: 'terms-conditions', loadComponent: () => import('./index').then(c => c.TermsConditionsComponent)
     },
