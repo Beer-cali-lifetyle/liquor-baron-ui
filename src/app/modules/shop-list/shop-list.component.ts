@@ -87,8 +87,9 @@ export class ShopListComponent extends AppBase implements OnInit, AfterViewInit 
   // }
 
   async fetchproductsWithFilter(data: any) {
+    this.products = []
     await this.ApiService.fetchFilteredProduct(data).then((res) => {
-      this.products = res;
+      this.products = res?.data;
     })
   }
 

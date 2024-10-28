@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../shared/services/api.service';
 import { ContextService } from '../../../core/services/context.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-orders',
@@ -9,11 +10,11 @@ import { ContextService } from '../../../core/services/context.service';
   styleUrls: ['./orders.component.css'],
   standalone: true,
   imports: [
-    CommonModule
+    CommonModule, RouterModule
   ]
 })
 export class OrdersComponent implements OnInit {
-  orders: any;
+  orders: any = [];
   constructor(
     private ApiService: ApiService,
     private contextService: ContextService

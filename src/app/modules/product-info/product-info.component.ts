@@ -124,7 +124,7 @@ export class ProductInfoComponent extends AppBase implements OnInit {
       this.wishlist = null;
       await this.ApiService.fetchWishlist().then(res => {
         res?.data?.map((item: any) => {
-          if (item?.product?.id === this.productInfo?.id) {
+          if (item?.product?.id === this.productInfo?.product?.id) {
             this.wishlist = item;
           }
         })

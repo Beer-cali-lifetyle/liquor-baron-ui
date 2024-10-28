@@ -181,3 +181,7 @@
 .product-links {
   margin-top: 10px;
 }
+
+.border-category {
+  border-bottom: 5px solid gray;
+}
