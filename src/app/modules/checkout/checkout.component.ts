@@ -113,22 +113,52 @@ export class CheckoutComponent extends AppBase implements OnInit {
   }
 
   async placeOrder() {
-    if (this.contextService.cart()?.data.length > 0 && this.contextService.user()?.id) {
-      const payload = {
-        user_id: this.contextService.user()?.id,
-        items: this.contextService.cart()?.data?.map((product: any) => {
-          return { item_id: product?.product?.id, name: product?.product?.name, quantity: product?.quantity, price: product?.product?.price }
-        }),
-        total_amount: this.subTotal,
-        address: this.selectedBillingAddress,
-        payment_method: this.selectedPaymentMethod
+    if (this.selectedBillingAddress && this.selectedPaymentMethod) {
+      debugger;
+      const value = {
+        cart: this.contextService.cart(),
+        user: this.contextService.user()?.id
       }
-      
-      await this.ApiService.placeOrder(payload).then(async (res) => {
-        if (res) {
-          this.toaster.Success('Order Placed Succesfully')
+      console.log(value)
+      if (this.contextService.cart()?.data.length > 0 && this.contextService.user()?.id) {
+        if (this.selectedPaymentMethod === 'cod') {
+          const payload = {
+            user_id: this.contextService.user()?.id,
+            items: this.contextService.cart()?.data?.map((product: any) => {
+              return { item_id: product?.product?.id, name: product?.product?.name, quantity: product?.quantity, price: product?.product?.price }
+            }),
+            total_amount: this.subTotal,
+            delivery_address: this.selectedBillingAddress,
+            payment_method: this.selectedPaymentMethod,
+            status: 'active'
+          }
+
+          await this.ApiService.placeOrder(payload).then(async (res) => {
+            if (res) {
+              this.toaster.Success('Order Placed Succesfully')
+            }
+          })
+        } else {
+          const payload = {
+            user_id: this.contextService.user()?.id,
+            items: this.contextService.cart()?.data?.map((product: any) => {
+              return { item_id: product?.product?.id, name: product?.product?.name, quantity: product?.quantity, price: product?.product?.price }
+            }),
+            amount: this.subTotal,
+            delivery_address: this.selectedBillingAddress,
+            payment_method: this.selectedPaymentMethod,
+            status: 'active'
+          }
+
+          await this.ApiService.placeOrderOnline(payload).then(async (res) => {
+            if (res) {
+              this.toaster.Success('Order Placed Succesfully')
+            }
+          })
         }
-      })
+      }
+    } else {
+      this.toaster.Warning('Please select delivery address and Payment method to proceed.');
     }
   }
 

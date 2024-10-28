@@ -86,7 +86,7 @@ export class ProductInfoComponent extends AppBase implements OnInit {
       await this.ApiService.getCartProducts().then((res) => {
         this.contextService.cart.set(res)
         res?.data?.map((item: any) => {
-          
+
           if (item?.product?.id === this.productInfo?.product?.id) {
             this.cartInfo = item
             this.quantity = item?.quantity;
@@ -133,9 +133,16 @@ export class ProductInfoComponent extends AppBase implements OnInit {
   }
 
   async fetchRelatedProducts() {
-    await this.ApiService.fetchFilteredProduct({ categoryId: this.productInfo?.product?.cat_id, perPage: 10, page: 1 }).then((res) => {
+    await this.ApiService.fetchFilteredProduct({ categoryId: this.productInfo?.product?.cat_id, perPage: 4, page: 1 }).then((res) => {
       this.relatedProducts = res?.data;
     })
+  }
+
+  async selectRelated(id: any) {
+    await this.ApiService.fetchProduct(id).then((res) => {
+      this.productInfo = res;
+      window.scrollTo({ top: 0, behavior: 'smooth' }); // Smooth scroll to the top
+    });
   }
 
   async removeFromWishlist() {

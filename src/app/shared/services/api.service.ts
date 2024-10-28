@@ -146,6 +146,10 @@ export class ApiService {
     return await this.httpRequest.POST(`/orders`, data);
   }
 
+  async placeOrderOnline(data: any) {
+    return await this.httpRequest.POST(`/create-checkout-session`, data);
+  }
+
   async fetchOrders(id: any) {
     return await this.httpRequest.GET(`/users/${id}/orders`);
   }

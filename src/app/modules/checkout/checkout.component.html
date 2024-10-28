@@ -1,26 +1,24 @@
-
-
 <section class="top-space-margin half-section bg-gradient-very-light-gray">
-    <div class="container">
-      <div class="row align-items-center justify-content-center"
-        data-custom-anime='{ "el": "childs", "translateY": [-15, 0], "opacity": [0,1], "duration": 300, "delay": 0, "staggervalue": 200, "easing": "easeOutQuad" }'>
-        <div class="col-12 col-xl-8 col-lg-10 text-center position-relative page-title-extra-large">
-          <h1 class="alt-font fw-600 text-dark-gray mb-10px">Checkout</h1>
-        </div>
-        <div class="col-12 breadcrumb breadcrumb-style-01 d-flex justify-content-center">
-          <ul>
-            <li><a href="index.html">Home</a></li>
-            <li>Checkout</li>
-          </ul>
-        </div>
+  <div class="container">
+    <div class="row align-items-center justify-content-center"
+      data-custom-anime='{ "el": "childs", "translateY": [-15, 0], "opacity": [0,1], "duration": 300, "delay": 0, "staggervalue": 200, "easing": "easeOutQuad" }'>
+      <div class="col-12 col-xl-8 col-lg-10 text-center position-relative page-title-extra-large">
+        <h1 class="alt-font fw-600 text-dark-gray mb-10px">Checkout</h1>
+      </div>
+      <div class="col-12 breadcrumb breadcrumb-style-01 d-flex justify-content-center">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li>Checkout</li>
+        </ul>
       </div>
     </div>
-  </section>
-  <!-- end section -->
-  <!-- start section -->
-  <section class="pt-0">
-    <div class="container">
-      <!-- <div class="row justify-content-center mb-8 lg-mb-10 align-items-center">
+  </div>
+</section>
+<!-- end section -->
+<!-- start section -->
+<section class="pt-0">
+  <div class="container">
+    <!-- <div class="row justify-content-center mb-8 lg-mb-10 align-items-center">
         <div class="col-auto icon-with-text-style-08 lg-mb-10px">
           <div class="feature-box feature-box-left-icon">
             <div class="feature-box-icon me-5px">
@@ -47,74 +45,75 @@
           </div>
         </div>
       </div> -->
-      <div class="row align-items-start">
-        <div class="col-lg-7 pe-50px md-pe-15px md-mb-50px xs-mb-35px">
-          <span class="fs-26 alt-font fw-600 text-dark-gray mb-20px d-block">Billing details</span>
-  
-          <div class="mb-5" *ngIf="addresses.length > 0">
-            <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing card">
-              <div class="section general-info payment-info card-body bg-light">
-                <div class="info">
-                  <div class="list-group mt-4">
-                    <label class="list-group-item" *ngFor="let item of addresses; let i=index">
-                      <div class="d-flex w-100">
-                        <div class="billing-radio me-2">
-                          <div class="form-check">
-                            <input type="radio" name="billingAddress" [id]="'billingAddress' + i" [value]="item"
-                              [(ngModel)]="selectedBillingAddress" [checked]="item?.is_default">
-                          </div>
-                        </div>
-                        <div class="billing-content">
-                          <div class="fw-bold fs-5">{{item?.full_name}}</div>
-                          <p>{{item?.address}}, {{item?.locality}}, {{item?.city}}, {{item?.state}},
-                            {{item?.mobile_number}}</p>
+      
+    <div class="row align-items-start">
+      <div class="col-lg-7 pe-50px md-pe-15px md-mb-50px xs-mb-35px">
+        <span class="fs-5 fw-bold alt-font fw-600 text-dark-gray mb-20px d-block mb-3">Billing details</span>
+
+        <div class="mb-5" *ngIf="addresses.length > 0">
+          <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing card">
+            <div class="section general-info payment-info card-body bg-light">
+              <div class="info">
+                <div class="list-group mt-4">
+                  <label class="list-group-item" *ngFor="let item of addresses; let i=index">
+                    <div class="d-flex w-100">
+                      <div class="billing-radio me-2">
+                        <div class="form-check">
+                          <input type="radio" name="billingAddress" [id]="'billingAddress' + i" [value]="item"
+                            [(ngModel)]="selectedBillingAddress" [checked]="item?.is_default">
                         </div>
                       </div>
-                    </label>
-                  </div>
-  
-  
+                      <div class="billing-content">
+                        <div class="fw-bold fs-5">{{item?.full_name}}</div>
+                        <p>{{item?.address}}, {{item?.locality}}, {{item?.city}}, {{item?.state}},
+                          {{item?.mobile_number}}</p>
+                      </div>
+                    </div>
+                  </label>
                 </div>
+
+
               </div>
             </div>
           </div>
-  
-          <button button class="btn btn-secondary add-payment col-12" (click)="openModalToAdd()">
-            Add New Address
-          </button>
-  
         </div>
-        <div class="col-lg-5">
-          <div class="bg-very-light-gray border-radius-6px p-50px lg-p-25px your-order-box">
-            <span class="fs-26 alt-font fw-600 text-dark-gray mb-5px d-block">Your order</span>
-            <table class="w-100 total-price-table your-order-table">
-              <tbody>
-                <tr>
-                  <th class="w-60 lg-w-55 xs-w-50 fw-600 text-dark-gray alt-font">Product</th>
-                  <td class="fw-600 text-dark-gray alt-font">Total</td>
-                </tr>
-                <tr class="product" *ngFor="let item of contextService.cart()?.data">
-                  <td class="product-thumbnail">
-                    <a href="demo-jewellery-store-single-product.html"
-                      class="text-dark-gray fw-500 d-block lh-initial">{{item?.product?.name}} x {{item?.quantity}}</a>
-                    <span class="fs-14 d-block">Color: Pink</span>
-                  </td>
-                  <td class="product-price" data-title="Price">${{item?.product?.price}}</td>
-                </tr>
-                <tr>
-                  <th class="w-50 fw-600 text-dark-gray alt-font">Subtotal</th>
-                  <td class="text-dark-gray fw-600">${{calculateSubTotal(contextService.cart())}}</td>
-                </tr>
-                <tr class="shipping">
-                  <th class="fw-600 text-dark-gray alt-font">Shipping</th>
-                  <td data-title="Shipping">
-                    <ul class="p-0">
-                      <li class="d-flex align-items-center">
-                        <input id="free_shipping" type="radio" name="shipping-option"
-                          class="d-block w-auto mb-0 me-10px p-0" checked="checked">
-                        <label class="md-line-height-18px" for="free_shipping">Free shipping</label>
-                      </li>
-                      <!-- <li class="d-flex align-items-center">
+
+        <button button class="btn btn-secondary add-payment col-12" (click)="openModalToAdd()">
+          Add New Address
+        </button>
+
+      </div>
+      <div class="col-lg-5">
+        <div class="bg-very-light-gray border-radius-6px p-50px lg-p-25px your-order-box">
+          <span class="fs-26 alt-font fw-600 text-dark-gray mb-5px d-block fw-bold">Your order</span>
+          <table class="w-100 total-price-table your-order-table">
+            <tbody>
+              <tr>
+                <th class="w-60 lg-w-55 xs-w-50 fw-600 text-dark-gray alt-font">Product</th>
+                <td class="fw-600 text-dark-gray alt-font">Total</td>
+              </tr>
+              <tr class="product" *ngFor="let item of contextService.cart()?.data">
+                <td class="product-thumbnail">
+                  <a href="demo-jewellery-store-single-product.html"
+                    class="text-dark-gray fw-500 d-block lh-initial">{{item?.product?.name}} x {{item?.quantity}}</a>
+
+                </td>
+                <td class="fw-bold" data-title="Price">${{item?.product?.price * item?.quantity}}</td>
+              </tr>
+              <tr>
+                <th class="w-50 fw-600 text-dark-gray alt-font">Subtotal</th>
+                <td class="text-dark-gray">${{calculateSubTotal(contextService.cart())}}</td>
+              </tr>
+              <tr class="shipping">
+                <th class="fw-600 text-dark-gray alt-font">Shipping</th>
+                <td data-title="Shipping">
+                  <ul class="p-0">
+                    <li class="d-flex align-items-center">
+                      <!-- <input id="free_shipping" type="radio" name="shipping-option"
+                        class="d-block w-auto mb-0 me-10px p-0" checked="checked"> -->
+                      <label class="md-line-height-18px" for="free_shipping">Free shipping</label>
+                    </li>
+                    <!-- <li class="d-flex align-items-center">
                         <input id="flat" type="radio" name="shipping-option" class="d-block w-auto mb-0 me-10px p-0">
                         <label class="md-line-height-18px" for="flat">Flat: $12.00</label>
                       </li>
@@ -123,180 +122,187 @@
                           class="d-block w-auto mb-0 me-10px p-0">
                         <label class="md-line-height-18px" for="local_pickup">Local pickup</label>
                       </li> -->
-                    </ul>
-                  </td>
-                </tr>
-                <tr class="total-amount">
-                  <th class="fw-600 text-dark-gray alt-font">Total</th>
-                  <td data-title="Total">
-                    <h6 class="d-block fw-700 mb-0 text-dark-gray alt-font">${{calculateSubTotal(contextService.cart())}}
-                    </h6>
-                    <span class="fs-14">(Includes $19.29 tax)</span>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <div
-              class="p-40px lg-p-25px bg-white border-radius-6px box-shadow-large mt-10px mb-30px sm-mb-25px checkout-accordion">
-              <div class="w-100" id="accordion-style-05">
-                <!-- start tab content -->
-                <div class="heading active-accordion">
-                  <label class="mb-5px d-flex">
-                    <input class="d-inline w-auto me-5px mb-0 p-0" type="radio" value="cod" [(ngModel)]="selectedPaymentMethod" name="payment-option">
-                    <span class="d-inline-block text-dark-gray fw-500">Cash on delivery</span>
-                    <a class="accordion-toggle" data-bs-toggle="collapse" data-bs-parent="#accordion-style-05"
-                      href="#style-5-collapse-3"></a>
-                  </label>
-                </div>
-                <div id="style-5-collapse-3" class="collapse" data-bs-parent="#accordion-style-05">
-                  <div class="p-25px bg-very-light-gray mt-20px mb-20px fs-14 lh-24">Pay with cash upon delivery.</div>
-                </div>
-                <!-- end tab content -->
-                <!-- start tab content -->
-                <div class="heading active-accordion">
-                  <label class="mb-5px d-flex">
-                    <input class="d-inline w-auto me-5px mb-0 p-0" value="online_payment" type="radio" [(ngModel)]="selectedPaymentMethod" name="payment-option">
-                    <span class="d-inline-block text-dark-gray fw-500">Pay U <img src="images/paypal-logo.jpg"
-                        class="w-120px ms-10px" alt="" /></span>
-                    <a class="accordion-toggle" data-bs-toggle="collapse" data-bs-parent="#accordion-style-05"
-                      href="#style-5-collapse-4"></a>
-                  </label>
-                </div>
-                <div id="style-5-collapse-4" class="collapse" data-bs-parent="#accordion-style-05">
-                  <div class="p-25px bg-very-light-gray mt-20px fs-14 lh-24">You can pay with your credit card if you
-                    don't have a PayPal account.</div>
-                </div>
-                <!-- end tab content -->
+                  </ul>
+                </td>
+              </tr>
+              <tr class="total-amount">
+                <th class="fw-600 text-dark-gray alt-font">Total</th>
+                <td data-title="Total">
+                  <h6 class="d-block fw-700 mb-0 text-dark-gray alt-font">${{calculateSubTotal(contextService.cart())}}
+                  </h6>
+                  <!-- <span class="fs-14">(Includes $19.29 tax)</span> -->
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div
+            class="p-40px lg-p-25px bg-white border-radius-6px box-shadow-large mt-10px mb-30px sm-mb-25px checkout-accordion">
+            <div class="w-100 p-3" id="accordion-style-05">
+              <!-- start tab content -->
+              <div class="heading active-accordion">
+                <label class="mb-5px d-flex">
+                  <input class="d-inline w-auto me-5px mb-0 p-0" type="radio" value="cod"
+                    [(ngModel)]="selectedPaymentMethod" name="payment-option">
+                  <span class="d-inline-block text-dark-gray fw-50 p-2">Cash on delivery</span>
+                  <a class="accordion-toggle" data-bs-toggle="collapse" data-bs-parent="#accordion-style-05"
+                    href="#style-5-collapse-3"></a>
+                </label>
               </div>
+              <div id="style-5-collapse-3" class="collapse" data-bs-parent="#accordion-style-05">
+                <div class="p-25px bg-very-light-gray mt-20px mb-20px fs-14 lh-24">Pay with cash upon delivery.</div>
+              </div>
+              <!-- end tab content -->
+              <!-- start tab content -->
+              <div class="heading active-accordion">
+                <label class="mb-5px d-flex">
+                  <input class="d-inline w-auto me-5px mb-0 p-0" value="online_payment" type="radio"
+                    [(ngModel)]="selectedPaymentMethod" name="payment-option">
+                  <span class="d-inline-block text-dark-gray fw-500 p-2">Stripe <img src="images/paypal-logo.jpg"
+                      class="w-120px ms-10px" alt="" /></span>
+                  <a class="accordion-toggle" data-bs-toggle="collapse" data-bs-parent="#accordion-style-05"
+                    href="#style-5-collapse-4"></a>
+                </label>
+              </div>
+              <div id="style-5-collapse-4" class="collapse" data-bs-parent="#accordion-style-05">
+                <div class="p-25px bg-very-light-gray mt-20px fs-14 lh-24">You can pay with your credit card if you
+                  don't have a PayPal account.</div>
+              </div>
+              <!-- end tab content -->
             </div>
-            <p class="fs-14 lh-24">Your personal data will be used to process your order, support your experience
-              throughout this website, and for other purposes described in our <a
-                class="text-decoration-line-bottom text-dark-gray fw-500" href="#">privacy policy.</a></p>
-            <div class="position-relative terms-condition-box text-start d-flex align-items-center">
-              <label>
-                <input type="checkbox" name="terms_condition" value="1" class="check-box align-middle">
-                <span class="box fs-14 lh-28">I have agree to the website <a href="#"
-                    class="text-decoration-line-bottom text-dark-gray fw-500">terms and conditions.</a></span>
-              </label>
-            </div>
-            <a (click)="placeOrder()"
-              class="btn btn-dark-gray btn-large btn-switch-text btn-round-edge btn-box-shadow w-100 mt-30px">
-              <span>
-                <span class="btn-double-text" data-text="Place order">Place order</span>
-              </span>
-            </a>
           </div>
+          <p class="fs-14 lh-24">Your personal data will be used to process your order, support your experience
+            throughout this website, and for other purposes described in our <a
+              class="text-decoration-line-bottom text-dark-gray fw-500" href="#">privacy policy.</a></p>
+          <div class="position-relative terms-condition-box text-start d-flex align-items-center">
+            <label>
+              <input type="checkbox" name="terms_condition" value="1" class="check-box align-middle">
+              <span class="box fs-14 lh-28 ms-2">I have agree to the website <a href="#"
+                  class="text-decoration-line-bottom text-dark-gray fw-500">terms and conditions.</a></span>
+            </label>
+          </div>
+          <button (click)="placeOrder()" class="btn btn-continue">
+            Place Order
+          </button>
         </div>
       </div>
     </div>
-  </section>
-  
-  
-  
-  
-  
-  <ng-template #modalContent let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title">Address</h4>
-      <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
-    </div>
-    <div class="modal-body">
-      <div class="col">
-        <div class="title-with-forms">
-          <div class="body-forms">
-            <form [formGroup]="form" (ngSubmit)="onSubmit()" class="row g-3 general-info">
-              <div class="col-md-6 type-form">
-                <label class="form-label flex-">Full Name *</label>
-                <input type="text" class="form-control" formControlName="fullName" placeholder="Full Name">
-                <div *ngIf="form.get('fullName')?.touched && form.get('fullName')?.invalid">
-                  <div class="text-danger p-small" *ngIf="form.get('fullName')?.errors?.['required']">Full name is required.</div>
+  </div>
+</section>
+
+
+
+
+
+<ng-template #modalContent let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Address</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
+  </div>
+  <div class="modal-body">
+    <div class="col">
+      <div class="title-with-forms">
+        <div class="body-forms">
+          <form [formGroup]="form" (ngSubmit)="onSubmit()" class="row g-3 general-info">
+            <div class="col-md-6 type-form">
+              <label class="form-label flex-">Full Name *</label>
+              <input type="text" class="form-control" formControlName="fullName" placeholder="Full Name">
+              <div *ngIf="form.get('fullName')?.touched && form.get('fullName')?.invalid">
+                <div class="text-danger p-small" *ngIf="form.get('fullName')?.errors?.['required']">Full name is
+                  required.</div>
+              </div>
+            </div>
+
+            <div class="col-md-6 type-form">
+              <label class="form-label flex-">Mobile Number *</label>
+              <input type="text" class="form-control" formControlName="mobileNumber" placeholder="Mobile Number">
+              <div *ngIf="form.get('mobileNumber')?.touched && form.get('mobileNumber')?.invalid">
+                <div class="text-danger p-small" *ngIf="form.get('mobileNumber')?.errors?.['required']">Mobile number is
+                  required.</div>
+              </div>
+            </div>
+
+            <div class="col-md-6 type-form">
+              <label class="form-label flex-">Pin Code *</label>
+              <input type="text" class="form-control" formControlName="pinCode" placeholder="Pin Code">
+              <div *ngIf="form.get('pinCode')?.touched && form.get('pinCode')?.invalid">
+                <div class="text-danger p-small" *ngIf="form.get('pinCode')?.errors?.['required']">Pin code is required.
                 </div>
               </div>
-          
-              <div class="col-md-6 type-form">
-                <label class="form-label flex-">Mobile Number *</label>
-                <input type="text" class="form-control" formControlName="mobileNumber" placeholder="Mobile Number">
-                <div *ngIf="form.get('mobileNumber')?.touched && form.get('mobileNumber')?.invalid">
-                  <div class="text-danger p-small" *ngIf="form.get('mobileNumber')?.errors?.['required']">Mobile number is required.</div>
+            </div>
+
+            <div class="col-md-6 type-form">
+              <label class="form-label flex-">Alternate Phone Number *</label>
+              <input type="text" class="form-control" formControlName="altPhoneNumber"
+                placeholder="Alternate Phone Number">
+              <div *ngIf="form.get('altPhoneNumber')?.touched && form.get('altPhoneNumber')?.invalid">
+                <div class="text-danger p-small" *ngIf="form.get('altPhoneNumber')?.errors?.['required']">Alternate
+                  phone number is required.</div>
+              </div>
+            </div>
+
+            <div class="col-md-12 type-form">
+              <label class="form-label flex-">Address *</label>
+              <textarea class="form-control" formControlName="address" placeholder="Address"></textarea>
+              <div *ngIf="form.get('address')?.touched && form.get('address')?.invalid">
+                <div class="text-danger p-small" *ngIf="form.get('address')?.errors?.['required']">Address is required.
                 </div>
               </div>
-          
-              <div class="col-md-6 type-form">
-                <label class="form-label flex-">Pin Code *</label>
-                <input type="text" class="form-control" formControlName="pinCode" placeholder="Pin Code">
-                <div *ngIf="form.get('pinCode')?.touched && form.get('pinCode')?.invalid">
-                  <div class="text-danger p-small" *ngIf="form.get('pinCode')?.errors?.['required']">Pin code is required.</div>
+            </div>
+
+            <div class="col-md-6 type-form">
+              <label class="form-label flex-">Locality *</label>
+              <input type="text" class="form-control" formControlName="locality" placeholder="Locality">
+              <div *ngIf="form.get('locality')?.touched && form.get('locality')?.invalid">
+                <div class="text-danger p-small" *ngIf="form.get('locality')?.errors?.['required']">Locality is
+                  required.</div>
+              </div>
+            </div>
+
+            <div class="col-md-6 type-form">
+              <label class="form-label flex-">City/District/Town *</label>
+              <input type="text" class="form-control" formControlName="city" placeholder="City/District/Town">
+              <div *ngIf="form.get('city')?.touched && form.get('city')?.invalid">
+                <div class="text-danger p-small" *ngIf="form.get('city')?.errors?.['required']">City/District/Town is
+                  required.</div>
+              </div>
+            </div>
+
+            <div class="col-md-6 type-form">
+              <label class="form-label flex-">State *</label>
+              <select class="form-control" formControlName="state">
+                <option disabled value="">Select State</option>
+                <option *ngFor="let state of USStates" [value]="state">{{ state }}</option>
+              </select>
+              <div *ngIf="form.get('state')?.touched && form.get('state')?.invalid">
+                <div class="text-danger p-small" *ngIf="form.get('state')?.errors?.['required']">State is required.
                 </div>
               </div>
-    
-              <div class="col-md-6 type-form">
-                <label class="form-label flex-">Alternate Phone Number *</label>
-                <input type="text" class="form-control" formControlName="altPhoneNumber" placeholder="Alternate Phone Number">
-                <div *ngIf="form.get('altPhoneNumber')?.touched && form.get('altPhoneNumber')?.invalid">
-                  <div class="text-danger p-small" *ngIf="form.get('altPhoneNumber')?.errors?.['required']">Alternate phone number is required.</div>
-                </div>
+            </div>
+
+            <div class="col-md-6 type-form">
+              <label class="form-label flex-">Landmark *</label>
+              <input type="text" class="form-control" formControlName="landmark" placeholder="Landmark">
+              <div *ngIf="form.get('landmark')?.touched && form.get('landmark')?.invalid">
+                <div class="text-danger p-small" *ngIf="form.get('landmark')?.errors?.['required']">Landmark is
+                  required.</div>
               </div>
-          
-              <div class="col-md-12 type-form">
-                <label class="form-label flex-">Address *</label>
-                <textarea class="form-control" formControlName="address" placeholder="Address"></textarea>
-                <div *ngIf="form.get('address')?.touched && form.get('address')?.invalid">
-                  <div class="text-danger p-small" *ngIf="form.get('address')?.errors?.['required']">Address is required.</div>
-                </div>
-              </div>
-          
-              <div class="col-md-6 type-form">
-                <label class="form-label flex-">Locality *</label>
-                <input type="text" class="form-control" formControlName="locality" placeholder="Locality">
-                <div *ngIf="form.get('locality')?.touched && form.get('locality')?.invalid">
-                  <div class="text-danger p-small" *ngIf="form.get('locality')?.errors?.['required']">Locality is required.</div>
-                </div>
-              </div>
-          
-              <div class="col-md-6 type-form">
-                <label class="form-label flex-">City/District/Town *</label>
-                <input type="text" class="form-control" formControlName="city" placeholder="City/District/Town">
-                <div *ngIf="form.get('city')?.touched && form.get('city')?.invalid">
-                  <div class="text-danger p-small" *ngIf="form.get('city')?.errors?.['required']">City/District/Town is required.</div>
-                </div>
-              </div>
-          
-              <div class="col-md-6 type-form">
-                <label class="form-label flex-">State *</label>
-                <select class="form-control" formControlName="state">
-                  <option disabled value="">Select State</option>
-                  <option *ngFor="let state of USStates" [value]="state">{{ state }}</option>
-                </select>
-                <div *ngIf="form.get('state')?.touched && form.get('state')?.invalid">
-                  <div class="text-danger p-small" *ngIf="form.get('state')?.errors?.['required']">State is required.</div>
-                </div>
-              </div>
-          
-              <div class="col-md-6 type-form">
-                <label class="form-label flex-">Landmark *</label>
-                <input type="text" class="form-control" formControlName="landmark" placeholder="Landmark">
-                <div *ngIf="form.get('landmark')?.touched && form.get('landmark')?.invalid">
-                  <div class="text-danger p-small" *ngIf="form.get('landmark')?.errors?.['required']">Landmark is required.</div>
-                </div>
-              </div>
-          
-              <!-- <div class="col-md-12 mt-1 type-form">
+            </div>
+
+            <!-- <div class="col-md-12 mt-1 type-form">
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" formControlName="defaultAddress" id="customCheck1">
                   <label class="form-check-label" for="customCheck1">Make this my default address</label>
                 </div>
               </div> -->
-          
-              <div class="col-md-12 modal-footer">
-                <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
-                <button type="submit" class="btn maroon">{{ 'Add' }}</button>
-              </div>
-            </form>
-          </div>
-          
+
+            <div class="col-md-12 modal-footer">
+              <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+              <button type="submit" class="btn maroon">{{ 'Add' }}</button>
+            </div>
+          </form>
         </div>
+
       </div>
     </div>
-    </ng-template>
-
-  
+  </div>
+</ng-template>
