@@ -125,10 +125,10 @@ export class CheckoutComponent extends AppBase implements OnInit {
           const payload = {
             user_id: this.contextService.user()?.id,
             items: this.contextService.cart()?.data?.map((product: any) => {
-              return { item_id: product?.product?.id, name: product?.product?.name, quantity: product?.quantity, price: product?.product?.price }
+              return { product_id: product?.product?.id, name: product?.product?.name, quantity: product?.quantity, price: product?.product?.price }
             }),
             total_amount: this.subTotal,
-            delivery_address: this.selectedBillingAddress,
+            delivery_address: this.formatAddress(this.selectedBillingAddress),
             payment_method: this.selectedPaymentMethod,
             status: 'active'
           }
@@ -142,17 +142,17 @@ export class CheckoutComponent extends AppBase implements OnInit {
           const payload = {
             user_id: this.contextService.user()?.id,
             items: this.contextService.cart()?.data?.map((product: any) => {
-              return { item_id: product?.product?.id, name: product?.product?.name, quantity: product?.quantity, price: product?.product?.price }
+              return { product_id: product?.product?.id, name: product?.product?.name, quantity: product?.quantity, price: product?.product?.price }
             }),
             amount: this.subTotal,
-            delivery_address: this.selectedBillingAddress,
+            delivery_address: this.formatAddress(this.selectedBillingAddress),
             payment_method: this.selectedPaymentMethod,
-            status: 'active'
+            status: 'pending'
           }
 
           await this.ApiService.placeOrderOnline(payload).then(async (res) => {
-            if (res) {
-              this.toaster.Success('Order Placed Succesfully')
+            if (res && res.url) {
+              window.location.href = res.url;
             }
           })
         }
@@ -161,5 +161,12 @@ export class CheckoutComponent extends AppBase implements OnInit {
       this.toaster.Warning('Please select delivery address and Payment method to proceed.');
     }
   }
+
+
+  formatAddress(address: any) {
+    const { full_name, address: addr, locality, landmark, city, state, pin_code, mobile_number } = address;
+
+    return `${full_name || ''}, ${addr || ''}, ${locality || ''}${landmark ? ', ' + landmark : ''}, ${city || ''} - ${pin_code || ''}, ${state || ''}, Mobile: ${mobile_number || ''}`.replace(/,\s*,/g, ',').replace(/,\s*$/, '').trim();
+}
 
 }

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../shared/services/api.service';
 import { ContextService } from '../../../core/services/context.service';
 import { RouterModule } from '@angular/router';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-orders',
@@ -15,6 +16,7 @@ import { RouterModule } from '@angular/router';
 })
 export class OrdersComponent implements OnInit {
   orders: any = [];
+  imgBaseUrl: string = environment.api.base_url;
   constructor(
     private ApiService: ApiService,
     private contextService: ContextService
