@@ -638,7 +638,7 @@ section.main-section {
   background: #ffffff;
 }
 .badge {
-  position: absolute;
+  /* position: absolute; */
   right: 10%;
   bottom: 28%;
   text-transform: uppercase;
