@@ -56,20 +56,24 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-3" *ngFor="let product of products">
+      <div class="col-3 product-card-container" *ngFor="let product of products; let i=index">
   
         <div class="product-card" [routerLink]="['/product', product?.id]">
-          <div class="product-tumb py-4">
+          <div class="product-tumb pt-4 pb-1">
             <img [src]="imgBaseUrl + product?.product_image" class="img-fluid uniform-img" alt="product">
+            <!-- <div class="badge-wrapper"> -->
+              <div class="badge">Limited Edition</div>
+            <!-- </div> -->
           </div>
-          <div class="produt-tag  mx-3">Limited Edtion</div>
           <div class="product-details p-3">
             <h4>{{product?.name}}</h4>
             <p>{{product?.description}}</p>
-            <div class="product-bottom-details d-flex">
+            <div class="product-bottom-details d-flex justify-content-between">
               <div class="product-price">
                 ${{product?.price}}
               </div>
+              <i class="bi bi-lg bi-bag-plus" *ngIf="!product?.addedTocart" (click)="addToCart($event, product?.id, i)"></i>
+              <i class="bi bi-bag-check" *ngIf="product?.addedTocart"></i>
             </div>
           </div>
         </div>

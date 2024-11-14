@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ApiService } from '../../../shared/services/api.service';
 import { CommonModule } from '@angular/common';
 
@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
 })
 
 export class HeaderComponent implements OnInit {
-  constructor(private ApiService: ApiService) { }
+  constructor(private ApiService: ApiService, private router: Router) { }
   subCategories: any[] = [];
 
   async ngOnInit() {
@@ -25,4 +25,13 @@ export class HeaderComponent implements OnInit {
       this.subCategories = res?.categories[0]?.subcategories;
     })
   }
+
+  redirectToShopList(type: string, id: number, title: string) {
+    if (type === 'category') {
+      this.router.navigate(['/shop'], { queryParams: { categoryId: id, title: title } });
+    } else if (type === 'subcategory') {
+      this.router.navigate(['/shop'], { queryParams: { subcategoryId: id, title: title } });
+    }
+  }
+
 }

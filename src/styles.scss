@@ -242,30 +242,24 @@
     font-size: 65px;
   }
   
-  .product-card {
-    width: 100%;
+  .product-tumb {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers the image and badge horizontally */
     position: relative;
-    box-shadow: 0 2px 7px #dfdfdf;
-    margin: 50px auto;
-    background: #ffffff;
-  }
-  .badge {
-    // position: absolute;
-    right: 0;
-    bottom: 28%;
-    text-transform: uppercase;
-    font-size: 16px;
-    font-weight: 700;
-    background: red;
-    color: #fff;
-    padding: 5px 15px;
-    border-radius: 0;
   }
   
-  .product-tumb {
-      display: flex;
-      align-items: center;
-      justify-content: center;
+  .badge {
+    background-color: #ff6347;
+    color: white;
+    padding: 7px 15px;
+    font-size: 12px;
+    border-radius: 4px;
+    white-space: nowrap;
+    align-self: flex-end; /* Aligns badge to the right */
+    margin-top: 15px; /* Space between image and badge */
+    margin-right: 10px;/* Prevents text wrapping */
+    float: right;
   }
   .product-tumb {
     padding: 60px 0px;
@@ -278,8 +272,10 @@
   }
   
   .product-details {
-      padding: 50px;
-     
+    padding: 35px 55px !important;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
   }
   
   .product-catagory {
@@ -319,6 +315,11 @@
       border-top: 1px solid #eee;
       padding-top: 20px;
   }
+
+  .product-bottom-details i {
+font-size: 20px;
+font-weight: 600;
+}
   
   .product-bottom-details div {
       float: left;
@@ -327,7 +328,7 @@
   
   .product-price {
     font-size: 28px;
-    color: #000000;
+    color: #000000a3;
     font-family: 'Fnord Forty';
   }
   
@@ -1228,29 +1229,40 @@
     font-family: 'Fnord Forty';
   }
   
-
-
+  .product-card h4 {
+    color: #840029;
+  }
   
-.product-card {
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  overflow: hidden;
-}
+  .product-card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px; /* Adds spacing between cards */
+  }
+  
+  .product-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch; /* Ensures content stretches to full height */
+    flex: 1 1 300px; /* Allows the card to grow to fill space but maintains minimum width */
+    margin-top: 35px;
+    box-shadow: 0 4px 8px rgba(239, 239, 239, 0.405);
+    background-color: #fff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
 
 .product-card:hover {
-  transform: scale(1.05); /* Slightly enlarges the card */
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Adds a deeper shadow */
+  // transform: scale(1.05); 
+  box-shadow: -1px 10px 64px -5px rgba(145, 145, 145, 0.568); /* Adds a deeper shadow */
 }
 
 .product-tumb img {
   width: 100%;
-  transition: transform 0.3s ease;
+  transition: transform 0.6s ease;
 }
 
 .product-card:hover .product-tumb img {
-  transform: scale(1.1); /* Slightly zooms in the product image on hover */
+  transform: scale(1.08); /* Slightly zooms in the product image on hover */
 }
 
 .product-links a {

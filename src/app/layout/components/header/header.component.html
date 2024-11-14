@@ -26,8 +26,8 @@
       </button>
       <div class="collapse navbar-collapse align-middle" id="navbar-content">
           <ul class="navbar-nav main-navs ms-auto mb-2 mb-lg-0">
-            <li class="nav-item" *ngFor="let item of subCategories | slice:0:3" [routerLink]="['/shop', item?.id]">
-              <a class="nav-link active" aria-current="page" routerLink="/home" routerLink="/home">{{item?.subcategory_name}}</a>
+            <li class="nav-item" *ngFor="let item of subCategories | slice:0:3" (click)="redirectToShopList('subcategory', item?.id, item?.subcategory_name)">
+              <a class="nav-link active" aria-current="page">{{item?.subcategory_name}}</a>
             </li>
             <!-- <li class="nav-item">
               <a class="nav-link" href="#" routerLink="/shop">Shop</a>
@@ -40,9 +40,9 @@
             </li> -->
           </ul>
           <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
+            <li class="nav-item" routerLink="/our-store">
               <img src="assets/image/icons/location.png">
-              <a class="nav-link active" aria-current="page" routerLink="/our-store">OUR STORES</a>
+              <a class="nav-link active" aria-current="page">OUR STORES</a>
             </li>
             <li class="nav-item" routerLink="/my-account">
               <img src="assets/image/icons/user.png">

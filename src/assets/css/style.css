@@ -630,13 +630,6 @@ section.main-section {
   font-size: 65px;
 }
 
-.product-card {
-  width: 100%;
-  position: relative;
-  box-shadow: 0 2px 7px #dfdfdf;
-  margin: 50px auto;
-  background: #ffffff;
-}
 .badge {
   /* position: absolute; */
   right: 10%;
@@ -651,9 +644,26 @@ section.main-section {
 }
 
 .product-tumb {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centers the image and badge horizontally */
+  position: relative;
+}
+
+.badge-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 5px; /* Adds spacing between image and badge */
+}
+
+.badge {
+  background-color: #ff6347; /* Customize badge color */
+  color: white;
+  padding: 4px 8px;
+  font-size: 12px; /* Adjust font size */
+  border-radius: 4px;
+  white-space: nowrap; /* Prevents text wrapping */
 }
 .product-tumb {
   padding: 60px 0px;
@@ -665,10 +675,6 @@ section.main-section {
   background: #ffffff;
 }
 
-.product-details {
-    padding: 50px;
-   
-}
 
 .product-catagory {
     display: block;
@@ -678,7 +684,7 @@ section.main-section {
     color: #ccc;
     margin-bottom: 10px;
 }
-
+/* 
 .product-details h4 a {
   font-weight: 500;
   display: block;
@@ -700,7 +706,7 @@ section.main-section {
   line-height: normal;
   margin-bottom: 18px;
   color: #000000;
-}
+} */
 
 .product-bottom-details {
     overflow: hidden;
@@ -1371,11 +1377,6 @@ input, textarea {
   border: 1px solid #ffffff;
 }
 
-.product-card p {
-  font-size: 24px;
-  font-family: 'Fnord Forty';
-  font-weight: 400;
-}
 .wrapper .product-details {
   text-align: left;
 }
@@ -1675,6 +1676,7 @@ h5.name-text a {
 aside.payment-de a.btn {
   background: #202020;
   border: none;
+  border-radius: 0;
 }
 
 .payment-de.bg-white ul.list-unstyled {
@@ -1898,4 +1900,724 @@ ul.rating_card_start {
   margin: 5px 0px 8px;
   font-family: 'Fnord Forty';
   font-size: 18px;
+}
+
+
+/*============== signin-registration ================*/
+
+section.signin {
+  padding: 60px 0px;
+}
+
+section.signin .head-retail h4 {
+  padding-top: 20px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #8C8C8C;
+  color: #8C8C8C;
+  font-family: 'clarity_citysemi_bold';
+  margin-bottom: 13px;
+}
+
+.form-register label.form-label {
+  color: #8c8c8c;
+  margin-bottom: 5px;
+}
+
+.form-register .form-labels {
+  padding-top: 15px;
+}
+
+.form-register .form-labels input {
+  color: #000;
+  border: 1px solid #8c8c8c;
+  padding: 7px 14px;
+}
+
+.row.checkbox-row {
+  flex-wrap: nowrap;
+  width: 100%;
+  margin: 0;
+  padding-top: 17px;
+  justify-content: space-between;
+}
+
+.row.checkbox-row .form-labels {
+  width: auto;
+  padding: 0;
+}
+
+.row.checkbox-row .form-labels label {
+  font-size: 15px;
+}
+
+.red {
+  color: red;
+}
+
+.form-labels button.btn-border {
+  border: 0px;
+  padding: 6px 22px;
+  color: #fff;
+  background: #840029;
+  border-radius: 5px;
+}
+
+button.no-border {
+  background: none;
+  border: 0px solid #000;
+  margin-left: 10px;
+  font-size: 15px;
+}
+
+.gap-increase {
+  justify-content: space-between;
+}
+
+
+
+/*=============== shipping =================*/
+
+.nav-shipping {
+  text-align: center;
+  width: 100%;
+}
+
+.left-white {
+  width: 50%;
+  background-color: #fff;
+}
+
+.right-red {
+  width: 50%;
+}
+
+.padding-equal {
+  padding: 60px 30px 60px 95px;
+}
+
+.padding-equal-right {
+  padding: 60px 95px 60px 30px;
+}
+
+.row.row-left-right {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.alert.alert-danger {
+  font-size: 14px;
+}
+
+.text-check {
+  display: flex;
+  gap: 10px;
+}
+
+.text-check label {
+  font-size: 13px;
+}
+
+.text-check input {
+  background: #000 !important;
+  color: #000;
+}
+
+.payment-mode {
+  display: flex;
+  justify-content: space-between;
+}
+
+.payment-mode button {
+  border: none;
+  box-shadow: 0px 0px 6px 1px #dedede;
+  border-radius: 10px;
+}
+
+.payment-mode button img {
+  width: 158px;
+  border-radius: 6px;
+}
+
+.express-head {
+  margin-top: 25px;
+}
+
+.express-head h4 {
+  font-size: 20px;
+  color: #8c8c8c;
+  text-align: center;
+  margin-bottom: 12px;
+  font-family: 'clarity_citysemi_bold';
+}
+
+.bottom-or {
+  display: flex;
+  margin-top: 15px;
+}
+
+.bottom-or hr {
+  width: 46%;
+}
+
+.bottom-or p {
+  margin: 0;
+  font-size: 18px;
+  width: 8%;
+  display: flex;
+  justify-content: center;
+  color: #9b9b9b;
+}
+
+.contact-payment {
+  margin-top: 20px;
+}
+
+.contact-payment h4 {
+  font-size: 20px;
+  font-family: 'clarity_citysemi_bold';
+}
+
+.input-email input {
+  border: 1px solid #ddd !important;
+  padding: 10px;
+  width: 100%;
+  border-radius: 6px !important;
+}
+
+.alert.alert-light {
+  margin-top: 20px;
+  color: #363636;
+  font-size: 13px;
+}
+
+form.delivery-form {
+  background: #fcfcfd;
+  padding: 25px 10px 25px;
+  border-radius: 7px;
+}
+
+form.delivery-form .row {
+  width: 100%;
+  margin: 0;
+}
+
+form.delivery-form input {
+  padding: 10px;
+  background: #ffffff !important;
+  border: 1px solid #ddd !important;
+  border-radius: 5px !important;
+  font-size: 14px;
+}
+
+form.delivery-form select {
+  padding: 12px 10px;
+  background: #ffffff !important;
+  border: 1px solid #ddd !important;
+  border-radius: 5px !important;
+  font-size: 14px;
+  width: 100%;
+}
+
+form.delivery-form textarea {
+  padding: 10px 10px;
+  background: #ffffff !important;
+  border: 1px solid #ddd !important;
+  border-radius: 5px !important;
+  font-size: 14px;
+  width: 100%;
+}
+
+form.delivery-form .form-group {
+  margin: 11px 0 11px;
+}
+
+form.delivery-form input::placeholder,
+form.delivery-form textarea::placeholder {
+  font-size: 14px !important;
+}
+
+.text-check.inputting-check {
+  justify-content: space-between;
+  margin-top: 20px;
+  align-items: center;
+}
+
+.text-check.inputting-check .button-flex button {
+  background: #840029;
+  border: none;
+  padding: 10px 20px;
+}
+
+.foot-shipping hr {
+  margin-bottom: 6px;
+}
+
+.foot-shipping p {
+  font-size: 13px;
+  margin: 0;
+}
+
+.listing-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.listing-right.second-right {
+  margin-top: 20px;
+}
+
+.listing-right p {
+  margin-bottom: 0px;
+  font-size: 14px;
+  width: 60%;
+}
+
+.listing-right p:last-child {
+  width: 20%;
+  text-align: right;
+}
+
+.listing-right img {
+  background: #fff;
+  padding: 10px;
+  border-radius: 10px;
+  width: 63px;
+}
+
+.apply-but {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.apply-but input {
+  width: 86%;
+  border: 1px solid #ddd !important;
+  background: #fff !important;
+  padding: 8px 10px;
+  border-radius: 4px !important;
+}
+
+.apply-but button {
+  border: none;
+  background: #840029;
+  color: #fff;
+  padding: 8px 30px;
+  font-size: 14px;
+  border-radius: 4px;
+}
+
+.apply-total {
+  margin-top: 12px;
+}
+
+.apply-total .p-total {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.apply-total .p-total p {
+  font-size: 13px;
+  margin: 0;
+}
+
+.p-total.free-grand span.grandone {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.p-total.free-grand span.cad {
+  font-size: 18px;
+  margin-left: 6px;
+  font-weight: 600;
+}
+
+.img-bottle {
+  position: relative;
+}
+
+.img-bottle p.one {
+  position: absolute;
+  top: -7px;
+  right: -7px;
+  width: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #6e6b69;
+  border-radius: 50px;
+  color: #fff;
+  font-size: 12px;
+  height: auto;
+  padding: 1px;
+}
+
+
+
+/*============ shipping-store-pickup =============*/
+
+.contact-addresses {
+  display: flex;
+}
+
+.contact-addresses p {
+  margin: 0;
+  font-size: 14px;
+}
+
+p.\31 st-contact {
+  width: 20%;
+  color: #8c8c8c;
+}
+
+p.\32 nd-contact {
+  width: 68%;
+}
+
+p.\33 rd-contact {
+  width: 12%;
+  text-align: right;
+}
+
+p.\33 rd-contact a {
+  font-size: 14px;
+}
+
+.listing-adresses {
+  padding: 15px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 7px;
+}
+
+.listing-adresses hr {
+  margin: 10px 0;
+
+}
+
+.one-box {
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  text-align: center;
+  width: 30%;
+}
+
+.three-section {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.one-box img {
+  width: 30px;
+}
+
+.one-box p {margin: 10px 0 0 0;}
+
+.one-box hr {
+  margin: 10px 0 15px;
+}
+
+.one-box button {
+  border: none;
+  font-size: 14px;
+  background: #840029;
+  padding: 6px 15px;
+  border-radius: 5px;
+  color: #fff;
+  border: 1px solid #840029;
+}
+
+.one-box.select-one button {
+  border: 1px solid #840029;
+  background: #fff;
+  color: #840029;
+}
+
+.inputting-pickup.active {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  background: #f0f5ff;
+}
+
+.inputting-pickup {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  background: #ffffff;
+}
+
+.inputting-pickup label {
+  font-size: 14px;
+}
+
+.pickup-location {
+  margin-top: 20px;
+}
+
+.pickup-location p.pickup-heading {
+  margin: 0 0 5px;
+}
+
+.form-floating > .bi-calendar-date + .datepicker_input + label {
+  padding-left: 3.5rem;
+  z-index: 3;
+}
+
+.row.row-selector {
+  width: 100%;
+  flex-wrap: nowrap;
+  margin: 0;
+  padding: 0;
+  gap: 20px;
+}
+
+.inputting-added {
+  padding: 0;
+  width: 48%;
+  position: relative;
+}
+
+.form-floating.mb-4.d-flex {
+  margin: 0 !important;
+}
+
+.row.row-selector input {
+  width: 100%;
+  border: 1px solid #ddd !important;
+  font-size: 14px !important;
+  border-radius: 6px !important;
+}
+
+.inputting-added::after {
+  content: '>';
+  position: absolute;
+  top: 15px;
+  right: 14px;
+  z-index: 11;
+  color: #000;
+  transform: rotate(90deg);
+}
+
+.store-pickup {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 15px;
+  background: #f0f5ff;
+  border-radius: 6px;
+}
+
+.store-pickup p {
+  margin: 0;
+  font-size: 14px;
+}
+
+p.store-light {
+  color: #8c8c8c;
+}
+
+p.store-dark {
+  font-weight: 600;
+}
+
+.button-flex.button-return button.btn.btn-primary {
+  background: #fff;
+  color: #0d6efd;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+}
+
+.button-flex.button-return button.btn.btn-primary img {
+  width: 6px;
+}
+
+.locally-deliver .inputting-pickup label {
+  width: 80%;
+}
+
+.locally-deliver .inputting-pickup p {
+  margin: 0;
+  width: 16%;
+  text-align: right;
+}
+
+.one-box.select-one.active button {
+  background: #840029;
+  color: #fff;
+}
+
+
+
+/*============ shipping-three ===============*/
+
+.contact-payment.payment-product h4 {
+  margin: 0;
+}
+
+.contact-payment.payment-product p.m-0 {
+  font-size: 14px;
+  color: #8c8c8c;
+}
+
+.contact-payment.payment-product {
+  margin-top: 30px;
+}
+
+.contact-payment.payment-product .pickup-location {
+  margin-top: 10px;
+}
+
+.contact-payment.payment-product form.delivery-form {
+  border-radius: 0px 0px 0px 0px;
+}
+
+.contact-payment.payment-product .pickup-location label {
+  width: 55%;
+}
+
+.contact-payment.payment-product .pickup-location .images-cards {
+  width: 40%;
+  text-align: right;
+}
+
+.pickup-location.plucking-location {
+  margin: 0 !important;
+}
+
+
+/*=============== order-confirm ===================*/
+
+
+.confirm-tick {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.confirm-tick .detail-confirm p {
+  font-size: 14px;
+  margin: 0;
+}
+
+.confirm-tick img {
+  width: 50px;
+  object-fit: cover;
+}
+
+.confirm-tick .detail-confirm p.light-shade {
+  color: #8c8c8c;
+}
+
+.confirm-tick .detail-confirm p.dark-shade {
+  color: #000;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.confirmation {
+  margin-top: 20px;
+}
+
+.confirmation .alert-success.alerting {
+  background: #D8F1D8;
+  padding: 15px;
+  display: flex;
+  gap: 10px;
+  border-radius: 0px 0px 7px 7px;
+}
+
+.confirmation img {
+  width: 100%;
+}
+
+.confirmation .alert-success.alerting .image-green img {
+  width: 24px;
+  object-fit: cover;
+}
+
+.confirmation .alert-success.alerting .para-alert p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.confirmation .alert-success.alerting .para-alert p.first-alert {
+  color: #3c643c;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.confirmation .alert-success.alerting .para-alert p.second-alert {
+  font-size: 14px;
+  color: #80a580;
+}
+
+.detailed-confirm {
+  display: flex;
+  margin: 0 0 15px 0;
+}
+
+.first-confirm {
+  width: 50%;
+}
+
+.box-confirmed {
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 7px 7px 0 0;
+}
+
+p.confirmed {
+  font-size: 15px;
+  margin: 0;
+}
+
+p.confirmed span {
+  font-size: 14px;
+  color: #8c8c8c;
+}
+
+.detailed-confirm:last-child {
+  margin: 0;
+}
+
+.text-check.inputting-check.success-pot .button-flex.button-return button.btn.btn-primary {
+  padding: 0px !important;
+  color: #000;
+}
+
+
+/*============== create-account ================*/
+
+p.form-control.disabled-control {
+  margin: 0;
+  background: #c5ecda;
+  font-size: 14px;
+  padding: 10px;
+  border-radius: 0;
+  color: #8c8c8c;
+}
+
+p.form-control.disabled-control span {
+  font-size: 15px;
+  font-weight: 600;
+  color: #198754;
+}
+
+.form-labels p.red-color {
+  margin: 0;
+  font-size: 13px;
+  color: red;
 }

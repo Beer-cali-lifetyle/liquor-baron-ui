@@ -210,18 +210,24 @@
           <hr>
 
           <div class="row mb-5">
-            <div class="col-3" *ngFor="let product of relatedProducts">
-              <div class="product-card" (click)="selectRelated(product?.id)">
-                <div class="product-tumb py-4">
+            <div class="col-4 product-card-container" *ngFor="let product of relatedProducts; let i=index">
+  
+              <div class="product-card" [routerLink]="['/product', product?.id]">
+                <div class="product-tumb pt-4 pb-1">
                   <img [src]="imgBaseUrl + product?.product_image" class="img-fluid uniform-img" alt="product">
+                  <!-- <div class="badge-wrapper"> -->
+                    <div class="badge">Limited Edition</div>
+                  <!-- </div> -->
                 </div>
-                <div class="product-details p-3 text-center">
+                <div class="product-details p-3">
                   <h4>{{product?.name}}</h4>
                   <p>{{product?.description}}</p>
-                  <div class="product-bottom-details d-flex justify-content-center">
-                    <div class="product-price text-center">
+                  <div class="product-bottom-details d-flex justify-content-between">
+                    <div class="product-price">
                       ${{product?.price}}
                     </div>
+                    <i class="bi bi-lg bi-bag-plus" *ngIf="!product?.addedTocart" (click)="addToCartRelated($event, product?.id, i)"></i>
+                    <i class="bi bi-bag-check" *ngIf="product?.addedTocart"></i>
                   </div>
                 </div>
               </div>
@@ -292,7 +298,9 @@
                     <button class="qty-btn-plus btn-light" type="button" (click)="increment()"><i
                         class="bi bi-plus-lg"></i></button>
                   </div>
-
+                  
+                  
+                  <button class="btn-add" type="button" (click)="add12()">Add 12</button>
                   <!-- <label class="btn btn-outline-light" for="btncheck2">Add 12</label> -->
                 </div>
               </div>
@@ -302,7 +310,7 @@
           <div class="row">
             <div class="col">
               <div class="button-cart-width mb-4 mt-4">
-                <button type="button" (click)="addToCart(productInfo?.product?.id)" *ngIf="!cartInfo?.quantity">Add to
+                <button type="button" (click)="addToCart($event, productInfo?.product?.id, 7)" *ngIf="!cartInfo?.quantity">Add to
                   Cart</button>
                 <button type="button" *ngIf="cartInfo?.quantity" routerLink="/cart">Go to cart</button>
               </div>

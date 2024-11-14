@@ -146,25 +146,12 @@ body {
    transition: all 0.3s ease-in-out;
    height: 250px; /* Ensures consistent card height */
  }
- 
-
-.product-card {
-   display: flex;
-   flex-direction: column;
-   justify-content: space-between;
-   height: 450px; /* Fixed height for the card */
-   background-color: #fff;
-   border: 1px solid #e0e0e0;
-   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-   margin-bottom: 20px;
- }
- 
+  
  .product-tumb {
-   height: 200px; /* Fixed height for the image container */
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center-align the image if needed */
  }
  
  .uniform-img {
@@ -172,13 +159,6 @@ body {
    height: 100%;
    object-fit: cover;
    max-height: 15em; /* Ensures images fill the area while maintaining aspect ratio */
- }
- 
- .product-details {
-   padding: 15px;
-   flex-grow: 1;
-   display: flex;
-   flex-direction: column;
  }
  
  .product-bottom-details {
@@ -256,24 +236,6 @@ body {
  .shop-footer {
    min-height: 80px; /* Ensures consistent footer height */
  }
- 
-
- 
-.product-card {
- display: flex;
- flex-direction: column;
- justify-content: space-between;
- height: 450px; /* Fixed height for the card */
- background-color: #fff;
- border: 1px solid #e0e0e0;
- box-shadow: 0 2px 8px rgba(0,0,0,0.1);
- margin-bottom: 20px;
- justify-content: center;
-}
-
-.product-card h4{
- color: #840029;
-}
 
 .product-tumb {
  height: 300px; 
@@ -290,13 +252,6 @@ body {
  max-height: 15em; /* Ensures images fill the area while maintaining aspect ratio */
 }
 
-.product-details {
- padding: 15px;
- flex-grow: 1;
- display: flex;
- flex-direction: column;
-}
-
 .product-price {
  font-size: 18px;
  font-weight: bold;
@@ -308,4 +263,12 @@ body {
 
 .border-category {
  border-bottom: 5px solid gray;
+}
+
+.btn-add {
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.823);
+  color: white;
+  padding: 15px;
+  border-radius: 0;
 }

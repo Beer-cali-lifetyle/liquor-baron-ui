@@ -26,110 +26,115 @@
           </div>
         </div>
       </div>
-      <div class="row">
+      <div class="row mt-5">
                 <!-- Items list + Delivery / pickup tabs -->
-                <div class="col-lg-8">
-                  <div class="row bg-white p-5" *ngFor="let item of contextService.cart()?.data">
+                <div class="col-lg-7">
+                  <div class="row bg-white p-3 mb-3" *ngFor="let item of contextService.cart()?.data">
                     <div class="col-lg-2">
                       <div class="align-items-center text-center image">
                           <img [src]="imgBaseUrl + item?.product?.product_image" width="180px" alt="Thumbnail">
                       </div>
                     </div>
                     <div class="col-lg-10 align-self-center">
-                      <div class="d-flex justify-content-between">
+                      <div class="d-flex justify-content-between mb-3">
                         <h5 class="name-text">
-                          <a href="`#">{{item?.product?.name}}</a>
+                          <a>{{item?.product?.name}}</a>
                           <br>
                           <span class="text-body-secondary">{{item?.product?.description}}</span>
                         </h5>
-                        <div class="list-unstyled gap-1 fs-xs mb-0 d-flex">
-                          <div class="remove-productss d-block">
+                        <div class="list-unstyled gap-1 fs-xs mb-0">
+                          <div class="remove-productss d-block float-end mb-2">
                             <button type="button" (click)="removeItemFromCart(item?.id)" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                          </div>
+                          <div class="product-price mt-3">
+                            {{item?.product?.price | currency}}
                           </div>
                           <!-- <del class="text-body-tertiary fs-sm fw-normal d-block">$24.00</del> $20.00 -->
                         </div>
                       </div>
-                      <hr>
+                      <hr class="dark-hr mt-0">
                       <div class="d-flex justify-content-between">
                         <div class="select-products">
                           <label class="form-label">Quantity</label>
                           <div class="quantity">
-                            <button type="button" class="btn-quantity" (click)="decrement(item?.quantity, item?.id)">-</button>
-                            <input class="qty-text" type="text" id="1" [value]="item?.quantity" aria-label="qty-text">
-                            <button type="button" class="btn-quantity" (click)="increment(item?.quantity, item?.id)">+</button>
+                            <select class="qty-select" [(ngModel)]="item.quantity" (change)="onQuantityChange($event, item?.id)">
+                              <option *ngFor="let qty of quantityOptions" [value]="qty">{{ qty }}</option>
+                            </select>
+                          </div>
                         </div>
+                        <div class="list-unstyled gap-1 fs-xs mb-0 price-text">
+                        <span class="float-end">Total</span> <br>
+                        <div class=" price-text total-amt mt-3">
+                         {{item?.product?.price * item?.quantity | currency}}
                         </div>
-                        <div class="list-unstyled gap-1 fs-xs mb-0 d-flex price-text">
-                          ${{item?.product?.price * item?.quantity}}
-                        </div>
-                      </div>
+                      </div></div>
                     </div>
                 </div>
 
                   <br>
               </div>
               
-              <div class="col-lg-4">
+              <div class="col-lg-5">
                 <!-- Order summary (sticky sidebar) -->
                 <aside class="payment-de bg-white p-5">
                   <div class="top-0">
-                    <div class="alert alert-success text-dark-emphasis fs-sm border-0 rounded-4 mb-4" role="alert">
-                      Congratulations 🎉 You have added more than <span class="fw-semibold">$50</span> to your cart. <span class="fw-semibold">Delivery is free</span> for you!
-                    </div>
-                    <h2 class="h5 border-bottom pb-4 mb-4 me-3">Order summary</h2>
+                  <div class="border-bottom pb-4 mb-4"><i class="bi bi-truck"></i> Local shippins $9.99 on all orders.</div>
+                    <!-- <h2 class="h5 border-bottom pb-4 mb-4 me-3">Order summary</h2> -->
                     <div class="tab-content">
       
                       <!-- Delivery tab -->
                       <div class="tab-pane show active" id="delivery" role="tabpanel" aria-labelledby="cart-delivery-tab">
                         <ul class="list-unstyled fs-sm gap-3 mb-0">
                           <li class="d-flex justify-content-between">
-                            Subtotal (8 items):
-                            <span class="text-dark-emphasis fw-medium">${{calculateSubTotal(contextService.cart())}}</span>
-                          </li>
+                            Subtotal
+                            <span class="text-dark-emphasis fw-medium">{{calculateSubTotal(contextService.cart()) | currency}}</span>
+                          </li><br>
                           <li class="d-flex justify-content-between">
-                            Saving:
+                            Delivery
                             <span class="text-danger fw-medium">-$0.00</span>
-                          </li>
+                          </li><br>
                           <li class="d-flex justify-content-between">
-                            Delivery:
-                            <span class="text-dark-emphasis fw-medium">Free</span>
+                            Total
+                            <span class="text-dark-emphasis fw-medium">{{calculateSubTotal(contextService.cart()) | currency}}</span>
                           </li>
                         </ul>
                         <div class="border-top pt-4 mt-4">
-                          <div class="d-flex justify-content-between mb-3">
+                          <!-- <div class="d-flex justify-content-between mb-3">
                             <span class="fs-sm">Estimated total:</span>
                             <span class="h5 mb-0">${{calculateSubTotal(contextService.cart())}}</span>
-                          </div>
+                          </div> -->
                           <a class="btn btn-lg btn-primary w-100" routerLink="/checkout">
                             Proceed to checkout
                             <i class="ci-chevron-right fs-lg ms-1 me-n1"></i>
                           </a>
                         </div>
-                      </div>
-      
-                      <!-- Pickup tab -->
-                      <div class="tab-pane" id="pickup" role="tabpanel" aria-labelledby="cart-pickup-tab">
-                        <ul class="list-unstyled fs-sm gap-3 mb-0">
-                          <li class="d-flex justify-content-between">
-                            Subtotal (8 items):
-                            <span class="text-dark-emphasis fw-medium">$71.70</span>
-                          </li>
-                          <li class="d-flex justify-content-between">
-                            Saving:
-                            <span class="text-danger fw-medium">-$2.79</span>
-                          </li>
-                        </ul>
-                        <div class="border-top pt-4 mt-4">
-                          <div class="d-flex justify-content-between mb-3">
-                            <span class="fs-sm">Estimated total:</span>
-                            <span class="h5 mb-0">$68.91</span>
+                        <div class="accordion" id="accordionExample">
+                          <div class="accordion-item">
+                            <h2 class="accordion-header">
+                              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                               <strong> <i class="bi bi-lock"></i> Secure payments</strong>
+                              </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                              <div class="accordion-body">
+                              All transaction made on this site are safe and secured.  </div>
+                            </div>
                           </div>
-                          <a class="btn btn-lg btn-primary w-100 rounded-pill" href="checkout-v2-pickup.html">
-                            Proceed to checkout
-                            <i class="ci-chevron-right fs-lg ms-1 me-n1"></i>
-                          </a>
+                          <div class="accordion-item">
+                            <h2 class="accordion-header">
+                              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                               <strong> <i class="bi bi-recycle"></i> Easy returns</strong>
+                              </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                              <div class="accordion-body">
+                                 </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
+      
+                      
                     </div>
                   </div>
                 </aside>

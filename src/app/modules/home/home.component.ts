@@ -64,7 +64,8 @@ export class HomeComponent extends AppBase implements OnInit {
     })
   }
 
-  async addToCart(id: any, i: number) {
+  async addToCart(event: Event, id: number, i: number) {
+    event.stopPropagation();
     this.products[i]['addedTocart'] = this.products[i]?.addedTocart ? !this.products[i]?.addedTocart : true;
     if (this.contextService.user()) {
       const payload = {

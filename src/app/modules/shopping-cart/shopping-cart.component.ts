@@ -5,6 +5,8 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { UiToasterService } from '../../core/services/toaster.service';
 import { ContextService } from '../../core/services/context.service';
 import { environment } from '../../../environments/environment';
+import { FormsModule, NgModel } from '@angular/forms';
+import { SharedModule } from '../../shared/shared/shared.module';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -12,12 +14,13 @@ import { environment } from '../../../environments/environment';
   styleUrls: ['./shopping-cart.component.css'],
   standalone: true,
   imports: [
-    CommonModule, RouterModule
+    CommonModule, RouterModule, FormsModule, SharedModule
   ]
 })
 export class ShoppingCartComponent implements OnInit {
   imgBaseUrl: string = environment.api.base_url;
   cartInfo: any;
+  quantityOptions: number[] = Array.from({ length: 100 }, (_, i) => i + 1);
   constructor(
     private ApiService: ApiService,
     private activatedRoute: ActivatedRoute,
@@ -48,26 +51,18 @@ export class ShoppingCartComponent implements OnInit {
     })
   }
 
+  onQuantityChange(event: Event, id: string) {
+    const target = event.target as HTMLSelectElement | null;
+    const value = target ? target.value : '1'; // Fallback to '1' if target is null
+    const newQuantity = parseInt(value, 10);
+    this.updateQuantity(newQuantity, id);
+  }
+  
   async updateQuantity(quantity: number, id: string) {
-    const payload = {
-      quantity: quantity
-    }
+    const payload = { quantity };
     await this.ApiService.updateQuantity(payload, id).then(async res => {
       await this.getCart();
-    })
-  }
-
-  increment(quantity: number, id: string) {
-    quantity++;
-    this.updateQuantity(quantity, id);
-
-  }
-
-  decrement(quantity: number, id: string) {
-    if (quantity > 1) {
-      quantity--;
-      this.updateQuantity(quantity, id);
-    }
+    });
   }
 
   async emptyCart() {

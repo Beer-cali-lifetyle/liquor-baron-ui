@@ -51,6 +51,13 @@ export class ProductInfoComponent extends AppBase implements OnInit {
     }
   }
 
+  add12() {
+      this.quantity = this.quantity + 12;
+      if (this.cartInfo?.id) {
+        this.updateQuantity();
+      }
+  }
+
   decrement() {
     if (this.quantity > 1) {
       this.quantity--;
@@ -60,19 +67,39 @@ export class ProductInfoComponent extends AppBase implements OnInit {
     }
   }
 
-  async addToCart(id: any, i?: number) {
+  async addToCart(event: Event, id: number, i: number) {
+    event.stopPropagation();
+    debugger;
+    // this.relatedProducts[i].addedTocart = this.relatedProducts[i].addedTocart !== undefined ? !this.relatedProducts[i].addedTocart : true;
     if (this.contextService.user()) {
-      if (i) {
-        this.relatedProducts[i]['addedTocart'] = true;
-      } const payload = {
+      const payload = {
         productId: id,
-        quantity: this.quantity
+        quantity: this?.quantity
       }
       await this.ApiService.addToCart(payload).then(async res => {
         await this.getCart();
-        await this.toaster.Success('Added to cart successfully')
+        // await this.toaster.Success('Added to cart successfully')
       })
-    } else {
+    }
+    else {
+      this.router.navigate(['/auth/sign-in'])
+    }
+  }
+  async addToCartRelated(event: Event, id: number, i: number) {
+    event.stopPropagation();
+    debugger;
+    this.relatedProducts[i].addedTocart = this.relatedProducts[i].addedTocart !== undefined ? !this.relatedProducts[i].addedTocart : true;
+    if (this.contextService.user()) {
+      const payload = {
+        productId: id,
+        quantity: 1
+      }
+      await this.ApiService.addToCart(payload).then(async res => {
+        await this.getCart();
+        // await this.toaster.Success('Added to cart successfully')
+      })
+    }
+    else {
       this.router.navigate(['/auth/sign-in'])
     }
   }
@@ -89,6 +116,7 @@ export class ProductInfoComponent extends AppBase implements OnInit {
 
           if (item?.product?.id === this.productInfo?.product?.id) {
             this.cartInfo = item
+            debugger
             this.quantity = item?.quantity;
           }
         })
@@ -133,7 +161,7 @@ export class ProductInfoComponent extends AppBase implements OnInit {
   }
 
   async fetchRelatedProducts() {
-    await this.ApiService.fetchFilteredProduct({ categoryId: this.productInfo?.product?.cat_id, perPage: 4, page: 1 }).then((res) => {
+    await this.ApiService.fetchFilteredProduct({ categoryId: this.productInfo?.product?.cat_id, perPage: 3, page: 1 }).then((res) => {
       this.relatedProducts = res?.data;
     })
   }
