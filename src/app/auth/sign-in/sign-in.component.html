@@ -10,10 +10,10 @@
   </div>
 
   <div class="right-section col-6">
-    <div class="login-form w-50 p-4 shadow-lg rounded">
-      <section class="">
-        <header class="text-center text-2xl font-bold text-white mb-3 fs-4">
-          Login Now
+    <div class="login-form form-width p-4 shadow-lg rounded">
+      <section class="" *ngIf="!showSignUp">
+        <header class="text-center text-2xl fw-bold text-maroon mb-3 fs-4">
+         Sign In
         </header>
     
         <form [formGroup]="form" (ngSubmit)="signIn()">
@@ -69,13 +69,129 @@
           </div>
         
           <div class="text-center">
-            <p class="mb-1">
-              <a href="#" class="text-white text-decoration-none">Forgot password?</a>
-            </p>
-            <p>
+            <!-- <p class="mb-1">
+              <a href="#" class="text-maroon text-decoration-none">Forgot password?</a>
+            </p> -->
+            <p class="mt-3">
               Don't have an account?
-              <a (click)="toggle()" class="text-white text-decoration-none pointer">
-                Sign up here
+              <a  class="text-maroon fw-bold text-decoration-none pointer" (click)="toggleSignUp()">
+           Register
+              </a>
+            </p>
+          </div>
+        </form>
+      </section>
+
+      <section class="" *ngIf="showSignUp">
+        <header class="text-center text-2xl fw-bold text-maroon mb-3 fs-4">
+       Registration
+        </header>
+    
+        <form [formGroup]="signUpForm" (ngSubmit)="onSignup()">
+          <div class="form-group mb-1">
+            <label for="firstName" class="form-label">First Name</label>
+            <div class="input-group">
+              <input
+                type="text"
+                id="firstName"
+                placeholder="Enter your first name"
+                class="form-control custom-input"
+                formControlName="firstName"
+              />
+            </div>
+            <div *ngIf="signUpForm.get('firstName')?.invalid && signUpForm.get('firstName')?.touched" class="text-danger mt-1">
+              <small *ngIf="signUpForm.get('firstName')?.errors?.['required']">
+                First name is required.
+              </small>
+            </div>
+          </div>
+      
+          <div class="form-group mb-1">
+            <label for="lastName" class="form-label">Last Name</label>
+            <div class="input-group">
+              <input
+                type="text"
+                id="lastName"
+                placeholder="Enter your last name"
+                class="form-control custom-input"
+                formControlName="lastName"
+              />
+            </div>
+            <div *ngIf="signUpForm.get('lastName')?.invalid && signUpForm.get('lastName')?.touched" class="text-danger mt-1">
+              <small *ngIf="signUpForm.get('lastName')?.errors?.['required']">
+                Last name is required.
+              </small>
+            </div>
+          </div>
+      
+          <div class="form-group mb-1">
+            <label for="email" class="form-label">Email</label>
+            <div class="input-group">
+              <input
+                type="text"
+                id="email"
+                placeholder="Enter your email"
+                class="form-control custom-input"
+                formControlName="email"
+              />
+            </div>
+            <div *ngIf="signUpForm.get('email')?.invalid && signUpForm.get('email')?.touched" class="text-danger mt-1">
+              <small *ngIf="signUpForm.get('email')?.errors?.['required']">
+                Email is required.
+              </small>
+              <small *ngIf="signUpForm.get('email')?.errors?.['email']">
+                Please enter a valid email address.
+              </small>
+            </div>
+          </div>
+      
+          <div class="form-group mb-1">
+            <label for="password" class="form-label">Password</label>
+            <div class="input-group">
+              <input
+                type="password"
+                id="password"
+                placeholder="Enter your password"
+                class="form-control custom-input"
+                formControlName="password"
+              />
+            </div>
+            <div *ngIf="signUpForm.get('password')?.invalid && signUpForm.get('password')?.touched" class="text-danger mt-1">
+              <small *ngIf="signUpForm.get('password')?.errors?.['required']">
+                Password is required.
+              </small>
+            </div>
+          </div>
+      
+          <div class="form-group mb-4">
+            <label for="password_confirmation" class="form-label">Confirm Password</label>
+            <div class="input-group">
+              <input
+                type="password"
+                id="password_confirmation"
+                placeholder="Confirm your password"
+                class="form-control custom-input"
+                formControlName="password_confirmation"
+              />
+            </div>
+            <div *ngIf="signUpForm.hasError('mustMatch') && signUpForm.get('password_confirmation')?.touched" class="text-danger mt-1">
+              <small>
+                Passwords must match.
+              </small>
+            </div>
+          </div>
+      
+          <div class="form-group d-grid mb-3">
+            <button type="submit" class="btn btn-primary btn-block">
+              Register
+            </button>
+          </div>
+      
+          <div class="text-center">
+            <p class="mt-3">
+              Already have an account?
+              <a class="text-maroon fw-bold text-decoration-none pointer" (click)="toggleSignUp()">
+                Sign in here
               </a>
             </p>
           </div>

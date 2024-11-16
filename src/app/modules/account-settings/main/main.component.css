@@ -1,5 +1,8 @@
-.maroon {
-    background-color: #840029 !important;
-    color: white !important;
-    max-height: 45px;
+
+p {
+    color: gray;
+}
+
+li {
+    font-weight: 550;
 }

@@ -9,17 +9,20 @@ import { WishlistComponent } from '../wishlist/wishlist.component';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
+import { ContextService } from '../../../core/services/context.service';
+import { PersonalDetailsComponent } from "../personal-details/personal-details.component";
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css'],
   standalone: true,
-  imports: [CommonModule, OrdersComponent, WishlistComponent, NgbModule, ReactiveFormsModule, FormsModule]
+  imports: [CommonModule, OrdersComponent, WishlistComponent, NgbModule, ReactiveFormsModule, FormsModule, PersonalDetailsComponent]
 })
 export class MainComponent extends AppBase implements OnInit {
   @ViewChild('addressModal', { static: true }) addressModal!: TemplateRef<any>;
   address: any;
+  user: any;
   USStates = [
     "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut",
     "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana",
@@ -36,17 +39,21 @@ export class MainComponent extends AppBase implements OnInit {
     private fb: FormBuilder,
     private ApiService: ApiService,
     private toaster: UiToasterService,
-    private modalService: NgbModal
-  ) { super() }
+    private modalService: NgbModal,
+    private contextService: ContextService
+  ) {
+    super()
+    this.user = this.contextService.user();
+  }
 
 
   activeTab = 1;
-
   setActiveTab(tab: number) {
     this.activeTab = tab;
   }
 
   async ngOnInit() {
+    console.log(this.user)
     this.form = this.fb.group({
       fullName: ['', Validators.required],
       mobileNumber: ['', [Validators.required, Validators.pattern(/^\+?[1-9]\d{1,14}$/)]],

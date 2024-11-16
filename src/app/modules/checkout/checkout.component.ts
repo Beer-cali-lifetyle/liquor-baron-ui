@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild, TemplateRef, ChangeDetectorRef } from '@angular/core';
 import { ApiService } from '../../shared/services/api.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AppBase } from '../../../app-base.component';
 import { UiToasterService } from '../../core/services/toaster.service';
@@ -13,10 +13,11 @@ import { ContextService } from '../../core/services/context.service';
   styleUrls: ['./checkout.component.scss'],
   standalone: true,
   imports: [
-    CommonModule, FormsModule, ReactiveFormsModule
+    CommonModule, FormsModule, ReactiveFormsModule, NgbNavModule
   ]
 })
 export class CheckoutComponent extends AppBase implements OnInit {
+  activeTab = 1;
   addresses: any = [];
   @ViewChild('modalContent') modalContent: TemplateRef<any> | undefined;
   subTotal: any;
@@ -55,7 +56,13 @@ export class CheckoutComponent extends AppBase implements OnInit {
       defaultAddress: [false]
     });
     await this.fetchAddres();
+    await this.getCart();
 
+  }
+
+  setActiveTab(tabNumber: number): void {
+    this.activeTab = tabNumber;
+    console.log('Active Tab Number:', this.activeTab); // Optional for debugging
   }
 
   async fetchAddres() {
@@ -114,7 +121,6 @@ export class CheckoutComponent extends AppBase implements OnInit {
 
   async placeOrder() {
     if (this.selectedBillingAddress && this.selectedPaymentMethod) {
-      debugger;
       const value = {
         cart: this.contextService.cart(),
         user: this.contextService.user()?.id

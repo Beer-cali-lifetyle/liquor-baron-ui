@@ -36,6 +36,7 @@ export class SignInComponent extends AppBase implements OnInit {
   visible = false;
   signUpForm!: FormGroup;
   passwordFieldType: string = 'password';
+  showSignUp: boolean = false;
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private router: Router,
@@ -57,23 +58,16 @@ export class SignInComponent extends AppBase implements OnInit {
       password: ['', Validators.required]
     });
     this.signUpForm = this.fb.group({
-      name: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
       password_confirmation: ['', Validators.required]
     }, { validator: this.mustMatch('password', 'password_confirmation') });
   }
 
-  toggleVisibility() {
-    this.visible = !this.visible;
-    this.inputType = this.visible ? 'text' : 'password';
-    this.cd.markForCheck();
-  }
-
-  toggle() {
-    const container = document.getElementById('container');
-    container?.classList.toggle('sign-in');
-    container?.classList.toggle('sign-up');
+  toggleSignUp() {
+    this.showSignUp = !this.showSignUp;
   }
 
   async signIn() {
@@ -98,7 +92,6 @@ export class SignInComponent extends AppBase implements OnInit {
     }
   }
 
-  
   mustMatch(password: string, password_confirmation: string) {
     return (formGroup: FormGroup) => {
       const passControl = formGroup.controls[password];
@@ -116,9 +109,9 @@ export class SignInComponent extends AppBase implements OnInit {
     };
   }
 
-
   async onSignup() {
-    if (this.form.valid) {
+    console.log()
+    if (this.signUpForm.valid) {
       try {
         const res = await this.apiService.SignUp(this.form.value);
         this.context.user.set(res?.user);
@@ -130,7 +123,7 @@ export class SignInComponent extends AppBase implements OnInit {
         console.error('Sign-in error:', error);
       }
     } else {
-      this.validateForm();
+      this.validateForm(this.signUpForm);
     }
   }
 

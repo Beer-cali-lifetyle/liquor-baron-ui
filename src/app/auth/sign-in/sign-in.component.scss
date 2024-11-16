@@ -8,6 +8,10 @@
   z-index: -1;
 }
 
+.form-width {
+  width: 62%;
+}
+
 .main-container {
   min-height: 100vh;
   display: flex;
@@ -19,7 +23,7 @@
 .left-section {
   flex: 1;
   text-align: center;
-  color: white;
+  color: rgb(0, 0, 0);
   animation: slideInFromLeft 1s ease-out;
 }
 
@@ -56,7 +60,8 @@
 
 .login-form {
   margin: auto;
-  background-color: rgba(14, 8, 8, 0.774);
+  // background-color: rgba(14, 8, 8, 0.774);
+  background-color: rgba(250, 241, 234, 0.822);
   border-radius: 30px;
 }
 
@@ -69,23 +74,18 @@
   border:#740226 ;
 }
 
-.text {
-  color: white;
-}
-
 .input-group-prepend {
   font-size: 20px;
 }
 
 .custom-input {
-  color: white; /* White text for user input */
+  // color: white; 
   background-color: transparent; /* Transparent background to keep form clean */
 }
 
 /* Styling the placeholder */
 .custom-input::placeholder {
   font-size: 0.85rem; /* Make placeholder text smaller */
-  color: #ccc; /* Light gray color for the placeholder */
 }
 
 /* Adjust input focus to ensure the design looks clean */

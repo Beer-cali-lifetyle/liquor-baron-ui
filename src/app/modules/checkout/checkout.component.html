@@ -6,7 +6,7 @@
         <div class="listing-adresses">
           <div class="contact-addresses">
             <p class="1st-contact">Contact</p>
-            <p class="2nd-contact">antuankon&#64;gmail.com</p>
+            <p class="2nd-contact">{{contextService.user()?.email}}</p>
             <p class="3rd-contact"><a href="#">Change</a></p>
           </div>
           <hr>
@@ -21,30 +21,40 @@
           <h4>Shipping Method</h4>
           <div class="three-section">
 
-            <div class="one-box select-one">
-              <img src="image/shipping/pickup.png" alt="pickup">
-              <p>Store Pickup</p>
-              <hr>
-              <button type="button">Select</button>
-            </div>
-
-            <div class="one-box select-one">
-              <img src="image/shipping/delivery.png" alt="delivery">
-              <p>Store Pickup</p>
-              <hr>
-              <button type="button">Select</button>
-            </div>
-
-            <div class="one-box select-one">
-              <img src="image/shipping/shipping.png" alt="shipping">
-              <p>Store Pickup</p>
-              <hr>
-              <button type="button">Select</button>
-            </div>
+            <div 
+            class="one-box select-one" 
+            [class.active]="activeTab === 1" 
+            (click)="setActiveTab(1)">
+            <img src="image/shipping/pickup.png" alt="pickup">
+            <p>Store Pickup</p>
+            <hr>
+            <button type="button">{{activeTab === 1 ? 'Selected' : 'Select'}}</button>
+          </div>
+          
+          <div 
+            class="one-box select-one" 
+            [class.active]="activeTab === 2" 
+            (click)="setActiveTab(2)">
+            <img src="image/shipping/delivery.png" alt="delivery">
+            <p>Home Delivery</p>
+            <hr>
+            <button type="button">{{activeTab === 2 ? 'Selected' : 'Select'}}</button>
+          </div>
+          
+          <div 
+            class="one-box select-one" 
+            [class.active]="activeTab === 3" 
+            (click)="setActiveTab(3)">
+            <img src="image/shipping/shipping.png" alt="shipping">
+            <p>Shipping</p>
+            <hr>
+            <button type="button">{{activeTab === 3 ? 'Selected' : 'Select'}}</button>
+          </div>
+          
 
           </div>
         </div>
-        <div class="pickup-locally" id="picked-locally">
+        <div class="pickup-locally" id="picked-locally" *ngIf="activeTab === 1">
           <div class="pickup-location">
             <p class="pickup-heading">Select pickup location:</p>
             <div class="picking-location">
@@ -89,7 +99,7 @@
           </div>
         </div>
 
-        <div class="locally-deliver" id="deliver-local">
+        <div class="locally-deliver" id="deliver-local" *ngIf="activeTab === 2">
           <div class="pickup-location">
             <p class="pickup-heading">Choose a delivery date and time:</p>
             <div class="row row-selector">
@@ -139,7 +149,7 @@
           </div>
         </div>
 
-        <div class="locally-deliver shipping" id="shipping-locally">
+        <div class="locally-deliver shipping" id="shipping-locally" *ngIf="activeTab === 3">
           <div class="pickup-location">
             <div class="picking-location">
               <div class="inputting-pickup active">
@@ -242,199 +252,6 @@
       </div>
     </div>
 
-  </div>
-</section>
-
-
-
-<section class="top-space-margin half-section bg-gradient-very-light-gray">
-  <div class="container">
-    <div class="row align-items-center justify-content-center"
-      data-custom-anime='{ "el": "childs", "translateY": [-15, 0], "opacity": [0,1], "duration": 300, "delay": 0, "staggervalue": 200, "easing": "easeOutQuad" }'>
-      <div class="col-12 col-xl-8 col-lg-10 text-center position-relative page-title-extra-large">
-        <h1 class="alt-font fw-600 text-dark-gray mb-10px">Checkout</h1>
-      </div>
-      <div class="col-12 breadcrumb breadcrumb-style-01 d-flex justify-content-center">
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li>Checkout</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- end section -->
-<!-- start section -->
-<section class="pt-0">
-  <div class="container">
-    <!-- <div class="row justify-content-center mb-8 lg-mb-10 align-items-center">
-        <div class="col-auto icon-with-text-style-08 lg-mb-10px">
-          <div class="feature-box feature-box-left-icon">
-            <div class="feature-box-icon me-5px">
-              <i class="feather icon-feather-user top-9px position-relative text-dark-gray icon-small"></i>
-            </div>
-            <div class="feature-box-content">
-              <span class="d-inline-block text-dark-gray align-middle alt-font fw-500">Returning customer? <a href="#"
-                  class="text-decoration-line-bottom fw-600 text-dark-gray">Click here to login</a></span>
-            </div>
-          </div>
-        </div>
-        <div class="col-auto d-none d-lg-inline-block">
-          <span class="w-1px h-20px bg-extra-medium-gray d-block"></span>
-        </div>
-        <div class="col-auto icon-with-text-style-08">
-          <div class="feature-box feature-box-left-icon">
-            <div class="feature-box-icon me-5px">
-              <i class="feather icon-feather-scissors top-9px position-relative text-dark-gray icon-small"></i>
-            </div>
-            <div class="feature-box-content">
-              <span class="d-inline-block text-dark-gray align-middle alt-font fw-500">Have a coupon? <a href="#"
-                  class="text-decoration-line-bottom fw-600 text-dark-gray">Click here to enter your code</a></span>
-            </div>
-          </div>
-        </div>
-      </div> -->
-      
-    <div class="row align-items-start">
-      <div class="col-lg-7 pe-50px md-pe-15px md-mb-50px xs-mb-35px">
-        <span class="fs-5 fw-bold alt-font fw-600 text-dark-gray mb-20px d-block mb-3">Billing details</span>
-
-        <div class="mb-5" *ngIf="addresses.length > 0">
-          <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing card">
-            <div class="section general-info payment-info card-body bg-light">
-              <div class="info">
-                <div class="list-group mt-4">
-                  <label class="list-group-item" *ngFor="let item of addresses; let i=index">
-                    <div class="d-flex w-100">
-                      <div class="billing-radio me-2">
-                        <div class="form-check">
-                          <input type="radio" name="billingAddress" [id]="'billingAddress' + i" [value]="item"
-                            [(ngModel)]="selectedBillingAddress" [checked]="item?.is_default">
-                        </div>
-                      </div>
-                      <div class="billing-content">
-                        <div class="fw-bold fs-5">{{item?.full_name}}</div>
-                        <p>{{item?.address}}, {{item?.locality}}, {{item?.city}}, {{item?.state}},
-                          {{item?.mobile_number}}</p>
-                      </div>
-                    </div>
-                  </label>
-                </div>
-
-
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <button button class="btn btn-secondary add-payment col-12" (click)="openModalToAdd()">
-          Add New Address
-        </button>
-
-      </div>
-      <div class="col-lg-5">
-        <div class="bg-very-light-gray border-radius-6px p-50px lg-p-25px your-order-box">
-          <span class="fs-26 alt-font fw-600 text-dark-gray mb-5px d-block fw-bold">Your order</span>
-          <table class="w-100 total-price-table your-order-table">
-            <tbody>
-              <tr>
-                <th class="w-60 lg-w-55 xs-w-50 fw-600 text-dark-gray alt-font">Product</th>
-                <td class="fw-600 text-dark-gray alt-font">Total</td>
-              </tr>
-              <tr class="product" *ngFor="let item of contextService.cart()?.data">
-                <td class="product-thumbnail">
-                  <a href="demo-jewellery-store-single-product.html"
-                    class="text-dark-gray fw-500 d-block lh-initial">{{item?.product?.name}} x {{item?.quantity}}</a>
-
-                </td>
-                <td class="fw-bold" data-title="Price">${{item?.product?.price * item?.quantity}}</td>
-              </tr>
-              <tr>
-                <th class="w-50 fw-600 text-dark-gray alt-font">Subtotal</th>
-                <td class="text-dark-gray">${{calculateSubTotal(contextService.cart())}}</td>
-              </tr>
-              <tr class="shipping">
-                <th class="fw-600 text-dark-gray alt-font">Shipping</th>
-                <td data-title="Shipping">
-                  <ul class="p-0">
-                    <li class="d-flex align-items-center">
-                      <!-- <input id="free_shipping" type="radio" name="shipping-option"
-                        class="d-block w-auto mb-0 me-10px p-0" checked="checked"> -->
-                      <label class="md-line-height-18px" for="free_shipping">Free shipping</label>
-                    </li>
-                    <!-- <li class="d-flex align-items-center">
-                        <input id="flat" type="radio" name="shipping-option" class="d-block w-auto mb-0 me-10px p-0">
-                        <label class="md-line-height-18px" for="flat">Flat: $12.00</label>
-                      </li>
-                      <li class="d-flex align-items-center">
-                        <input id="local_pickup" type="radio" name="shipping-option"
-                          class="d-block w-auto mb-0 me-10px p-0">
-                        <label class="md-line-height-18px" for="local_pickup">Local pickup</label>
-                      </li> -->
-                  </ul>
-                </td>
-              </tr>
-              <tr class="total-amount">
-                <th class="fw-600 text-dark-gray alt-font">Total</th>
-                <td data-title="Total">
-                  <h6 class="d-block fw-700 mb-0 text-dark-gray alt-font">${{calculateSubTotal(contextService.cart())}}
-                  </h6>
-                  <!-- <span class="fs-14">(Includes $19.29 tax)</span> -->
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <div
-            class="p-40px lg-p-25px bg-white border-radius-6px box-shadow-large mt-10px mb-30px sm-mb-25px checkout-accordion">
-            <div class="w-100 p-3" id="accordion-style-05">
-              <!-- start tab content -->
-              <div class="heading active-accordion">
-                <label class="mb-5px d-flex">
-                  <input class="d-inline w-auto me-5px mb-0 p-0" type="radio" value="cod"
-                    [(ngModel)]="selectedPaymentMethod" name="payment-option">
-                  <span class="d-inline-block text-dark-gray fw-50 p-2">Cash on delivery</span>
-                  <a class="accordion-toggle" data-bs-toggle="collapse" data-bs-parent="#accordion-style-05"
-                    href="#style-5-collapse-3"></a>
-                </label>
-              </div>
-              <div id="style-5-collapse-3" class="collapse" data-bs-parent="#accordion-style-05">
-                <div class="p-25px bg-very-light-gray mt-20px mb-20px fs-14 lh-24">Pay with cash upon delivery.</div>
-              </div>
-              <!-- end tab content -->
-              <!-- start tab content -->
-              <div class="heading active-accordion">
-                <label class="mb-5px d-flex">
-                  <input class="d-inline w-auto me-5px mb-0 p-0" value="online_payment" type="radio"
-                    [(ngModel)]="selectedPaymentMethod" name="payment-option">
-                  <span class="d-inline-block text-dark-gray fw-500 p-2">Stripe <img src="images/paypal-logo.jpg"
-                      class="w-120px ms-10px" alt="" /></span>
-                  <a class="accordion-toggle" data-bs-toggle="collapse" data-bs-parent="#accordion-style-05"
-                    href="#style-5-collapse-4"></a>
-                </label>
-              </div>
-              <div id="style-5-collapse-4" class="collapse" data-bs-parent="#accordion-style-05">
-                <div class="p-25px bg-very-light-gray mt-20px fs-14 lh-24">You can pay with your credit card if you
-                  don't have a PayPal account.</div>
-              </div>
-              <!-- end tab content -->
-            </div>
-          </div>
-          <p class="fs-14 lh-24">Your personal data will be used to process your order, support your experience
-            throughout this website, and for other purposes described in our <a
-              class="text-decoration-line-bottom text-dark-gray fw-500" href="#">privacy policy.</a></p>
-          <div class="position-relative terms-condition-box text-start d-flex align-items-center">
-            <label>
-              <input type="checkbox" name="terms_condition" value="1" class="check-box align-middle">
-              <span class="box fs-14 lh-28 ms-2">I have agree to the website <a href="#"
-                  class="text-decoration-line-bottom text-dark-gray fw-500">terms and conditions.</a></span>
-            </label>
-          </div>
-          <button (click)="placeOrder()" class="btn btn-continue">
-            Place Order
-          </button>
-        </div>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -546,7 +363,7 @@
 
             <div class="col-md-12 modal-footer">
               <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
-              <button type="submit" class="btn maroon">{{ 'Add' }}</button>
+              <button type="submit" class="btn-maroon">{{ 'Add' }}</button>
             </div>
           </form>
         </div>

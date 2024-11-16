@@ -1184,7 +1184,7 @@ font-weight: 600;
   
   div#v-pills-tab {
     width: 100%;
-    max-width: 15%;
+    max-width: 20%;
   }
   
   .title-with-forms {
@@ -1290,4 +1290,45 @@ html {
 /* For Internet Explorer 10+ and older versions of Edge */
 html {
   -ms-overflow-style: none;
+}
+
+.text-maroon {
+  color: #840029 !important;
+}
+
+.form-check-input {
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: #fff;
+  border: 2px solid maroon;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  position: relative;
+  border-radius: 3px; /* optional: makes checkbox have slight rounded edges */
+  outline: none;
+}
+
+/* Checked state with maroon background and white tick */
+.form-check-input:checked {
+  background-color: maroon !important;
+  border-color: maroon !important;
+}
+
+.form-check-input:checked::after {
+  content: '✔'; /* Unicode checkmark */
+  color: white;
+  font-weight: bold;
+  position: absolute;
+  top: 0;
+  left: 4px;
+  font-size: 14px;
+}
+
+.btn-maroon {
+  background-color: #840029 !important;
+  color: white !important;
+  max-height: 42px;
+  padding: 5px 15px;
+  border-radius: 0;
 }

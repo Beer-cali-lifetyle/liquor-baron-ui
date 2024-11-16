@@ -59,7 +59,9 @@ export class HomeComponent extends AppBase implements OnInit {
   }
 
   async fetchProducts() {
-    await this.ApiService.fetcHlatestProducts({ perPage: 8, page: this.currentPage }).then(res => {
+    this.pageSize = 8;
+    this.currentPage = 1;
+    await this.ApiService.fetcHlatestProducts({ perPage: this.pageSize, page: this.currentPage }).then(res => {
       this.products = res?.data;
     })
   }
@@ -119,5 +121,12 @@ export class HomeComponent extends AppBase implements OnInit {
     }
   }
 
+
+  async loadMore() { 
+    let page = this.pageSize + 12
+    await this.ApiService.fetcHlatestProducts({ perPage: page, page: this.currentPage }).then(res => {
+      this.products = res?.data;
+    })
+  }
 
 }

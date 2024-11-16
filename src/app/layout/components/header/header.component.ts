@@ -21,7 +21,6 @@ export class HeaderComponent implements OnInit {
 
   async fetchCategories() {
     await this.ApiService.getCategories().then(async (res) => {
-      debugger;
       this.subCategories = res?.categories[0]?.subcategories;
     })
   }
