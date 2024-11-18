@@ -1,0 +1,336 @@
+.carousel-inner img {
+    height: 500px; 
+    object-fit: cover; 
+    width: 100%;
+}
+
+.carousel-controls-bottom {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    margin: 0 5px;
+}
+
+.carousel-indicators {
+    display: none;
+}
+
+
+
+body {
+    padding: 30px;
+ }
+ 
+ .btn {
+    margin-top: 5px;
+ }
+ 
+ .btn-arrow-right,
+ .btn-arrow-left {
+    position: relative;
+    padding-left: 18px;
+    padding-right: 18px;
+ }
+ 
+ .btn-arrow-right {
+    padding-left: 36px;
+ }
+ 
+ .btn-arrow-left {
+    padding-right: 36px;
+ }
+ 
+ .btn-arrow-right:before,
+ .btn-arrow-right:after,
+ .btn-arrow-left:before,
+ .btn-arrow-left:after {
+    
+    content: "";
+    position: absolute;
+    top: 5px;
+    width: 22px;
+    height: 22px;
+    background: inherit;
+
+    
+    border: inherit;
+    /* use parent border */
+    
+    border-left-color: transparent;
+    /* hide left border */
+    
+    border-bottom-color: transparent;
+    /* hide bottom border */
+    
+    border-radius: 0px 4px 0px 0px;
+    /* round arrow corner, the shorthand property doesn't accept "inherit" so it is set to 4px */
+    
+    -webkit-border-radius: 0px 4px 0px 0px;
+    -moz-border-radius: 0px 4px 0px 0px;
+ }
+ 
+ .btn-arrow-right:before,
+ .btn-arrow-right:after {
+    transform: rotate(45deg);
+    /* rotate right arrow squares 45 deg to point right */
+    
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+ }
+ 
+ .btn-arrow-left:before,
+ .btn-arrow-left:after {
+    transform: rotate(225deg);
+    /* rotate left arrow squares 225 deg to point left */
+    
+    -webkit-transform: rotate(225deg);
+    -moz-transform: rotate(225deg);
+    -o-transform: rotate(225deg);
+    -ms-transform: rotate(225deg);
+ }
+ 
+ .btn-arrow-right:before,
+ .btn-arrow-left:before {
+    /* align the "before" square to the left */
+    
+    left: -11px;
+ }
+ 
+ .btn-arrow-right:after,
+ .btn-arrow-left:after {
+    /* align the "after" square to the right */
+    
+    right: -11px;
+ }
+ 
+ .btn-arrow-right:after,
+ .btn-arrow-left:before {
+    /* bring arrow pointers to front */
+    
+    z-index: 1;
+ }
+ 
+ .btn-arrow-right:before,
+ .btn-arrow-left:after {
+    /* hide arrow tails background */
+    
+    background-color: white;
+ }
+
+
+ .heart-filled {
+   background-color: red; /* Make background red */
+   border-radius: 50%; /* Make it rounded */
+   padding: 3px; /* Adjust padding to fit icon */
+   color: white; /* Change icon color */
+ }
+ 
+ 
+ 
+ .shop-box {
+   position: relative;
+   overflow: hidden;
+   width: 100%; /* Ensure it takes the full width of its parent */
+ }
+ 
+ .shop-image {
+   position: relative;
+   transition: all 0.3s ease-in-out;
+   height: 250px; /* Ensures consistent card height */
+ }
+  
+ .product-tumb {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center-align the image if needed */
+ }
+ 
+ .uniform-img {
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
+   max-height: 15em; /* Ensures images fill the area while maintaining aspect ratio */
+ }
+ 
+ .product-bottom-details {
+   margin-top: auto; /* Keeps the price and icons at the bottom */
+ }
+ 
+ .product-price {
+   font-size: 18px;
+   font-weight: bold;
+ }
+ 
+ .product-links {
+   margin-top: 10px;
+ }
+ 
+ .shop-overlay {
+   position: absolute;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   background: rgba(0, 0, 0, 0.5);
+   opacity: 0;
+   transition: opacity 0.3s ease-in-out;
+ }
+ 
+ .shop-box:hover .shop-overlay {
+   opacity: 1;
+ }
+ 
+ .shop-buttons-wrap {
+   position: absolute;
+   bottom: 20px;
+   left: 50%;
+   transform: translateX(-50%);
+   opacity: 0;
+   transition: opacity 0.3s ease-in-out;
+   z-index: 10;
+ }
+ 
+ .shop-hover.top-right {
+   position: absolute;
+   top: 10px;
+   right: 10px;
+   opacity: 0;
+   transition: opacity 0.3s ease-in-out;
+   z-index: 10;
+ }
+ 
+ .shop-box:hover .shop-hover,
+ .shop-box:hover .shop-buttons-wrap {
+   opacity: 1;
+ }
+ 
+ 
+ .product-slider .swiper-slide {
+   display: flex;
+   justify-content: center;
+   width: 25%; 
+   box-sizing: border-box;
+   padding: 10px; 
+ }
+ 
+ .shop-box .img-fluid {
+   width: 100%;
+   height: auto;
+   transition: transform 0.3s ease-in-out;
+ }
+ 
+ .shop-box:hover .img-fluid {
+   transform: scale(1.1);
+ }
+ 
+ /* Fix height differences due to different text content */
+ .shop-footer {
+   min-height: 80px; /* Ensures consistent footer height */
+ }
+
+.product-tumb {
+ height: 300px; 
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ overflow: hidden;
+}
+
+.uniform-img {
+ width: 100%;
+ height: 100%;
+ object-fit: cover;
+ max-height: 15em; /* Ensures images fill the area while maintaining aspect ratio */
+}
+
+.product-price {
+ font-size: 18px;
+ font-weight: bold;
+}
+
+.product-links {
+ margin-top: 10px;
+}
+
+.border-category {
+ border-bottom: 5px solid gray;
+}
+
+.btn-add {
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.823);
+  color: white;
+  padding: 15px;
+  border-radius: 0;
+}
+
+
+.btn-review {
+  background-color: #800020;
+  color: white;
+  border-radius: 50px;
+}
+
+
+.review-form {
+  margin: auto;
+  padding: 0 8%;
+  margin-bottom: 50PX;
+}
+
+.star-rating {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-start;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.star-rating .star {
+  color: #ccc;
+  transition: color 0.3s ease;
+}
+
+.star-rating .star:hover,
+.star-rating .star.selected {
+  color: #800020 ;
+}
+
+.custom-file-upload {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  border: 2px dashed #ddd;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  cursor: pointer;
+}
+
+.custom-file-upload:hover {
+  border-color: #aaa;
+}
+
+.btn-send {
+  background-color: #800020;
+  color: white;
+  font-weight: bold;
+}
+
+.btn-send:hover {
+  background-color: #a00028;
+}
+
+.value {
+  font-size: 18px;
+  color: #a00028;
+}

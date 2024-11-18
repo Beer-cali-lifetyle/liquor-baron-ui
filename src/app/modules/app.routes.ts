@@ -15,10 +15,22 @@ const ModuleRoutes: Routes = [
         path: 'about', loadComponent: () => import('./index').then(c => c.AboutUsComponent)
     },
     {
-        path: 'contact', loadComponent: () => import('./index').then(c => c.ContactUsComponent)
+        path: 'contact', loadComponent: () => import('./index').then(c => c.ContactComponent)
+    },
+    {
+        path: 'shop', loadComponent: () => import('./index').then(c => c.ShopListComponent)
+    },
+    {
+        path: 'product/:id', loadComponent: () => import('./index').then(c => c.ProductInfoComponent)
+    },
+    {
+        path: 'shop/product/:id', loadComponent: () => import('./index').then(c => c.ProductInfoComponent)
     },
     {
         path: 'our-store', loadComponent: () => import('./index').then(c => c.OurStoreComponent)
+    },
+    {
+        path: 'my-account', canActivate: [AuthGuard], loadComponent: () => import('./index').then(c => c.MainComponent)
     },
     {
         path: 'terms-conditions', loadComponent: () => import('./index').then(c => c.TermsConditionsComponent)
@@ -36,7 +48,13 @@ const ModuleRoutes: Routes = [
         path: 'faqs', loadComponent: () => import('./index').then(c => c.FaqsComponent)
     },
     {
-        path: 'shop/product/:id', loadComponent: () => import('./index').then(c => c.ProdcutInfoComponent)
+        path: 'shop/product/:id', loadComponent: () => import('./index').then(c => c.ProductInfoComponent)
+    },
+    {
+        path: 'cart', canActivate: [AuthGuard], loadComponent: () => import('./index').then(c => c.ShoppingCartComponent)
+    },
+    {
+        path: 'checkout', canActivate: [AuthGuard], loadComponent: () => import('./index').then(c => c.CheckoutComponent)
     },
     // {
     //     path: 'collection', loadComponent: () => import('./index').then(c => c.CollectionComponent)
@@ -48,14 +66,8 @@ const ModuleRoutes: Routes = [
     //     path: 'profile', canActivate: [AuthGuard], loadComponent: () => import('./index').then(c => c.ProfileComponent)
     // },
     // {
-    //     path: 'contact', loadComponent: () => import('./index').then(c => c.ContactComponent)
-    // },
-    // {
     //     path: 'shopping-cart', canActivate: [AuthGuard], loadComponent: () => import('./index').then(c => c.ShoppingCartComponent)
     // },
-    {
-        path: 'checkout', canActivate: [AuthGuard], loadComponent: () => import('./index').then(c => c.CheckoutComponent)
-    },
     // {
     //     path: 'magazines', loadComponent: () => import('./index').then(c => c.BlogListComponent)
     // },

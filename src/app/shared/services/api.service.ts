@@ -1,6 +1,6 @@
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { HttpServie } from './http.service'
+import { HttpServie } from './http.service';
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
@@ -16,6 +16,10 @@ export class ApiService {
 
   async SignIn(data: any) {
     return await this.httpRequest.POST(`/login`, data);
+  }
+
+  async SignUp(data: any) {
+    return await this.httpRequest.POST(`/register`, data);
   }
 
   async getUserDetails(id: string) {
@@ -64,6 +68,10 @@ export class ApiService {
 
   async fetchAddress() {
     return await this.httpRequest.GET('/addresses');
+  }
+
+  async fetchStores() {
+    return await this.httpRequest.GET('/stores');
   }
 
   async saveAddress(data: any) {
@@ -115,11 +123,11 @@ export class ApiService {
   }
 
   async fetchWishlist() {
-    return await this.httpRequest.GET(`/wishlist`);
+    return await this.httpRequest.GET(`/wishlist`, {}, true);
   }
 
   async addToWishlist(data: any) {
-    return await this.httpRequest.POST(`/wishlist`, data);
+    return await this.httpRequest.POST(`/wishlist`, data, { withFormData: false }, true);
   }
 
   async removeFromWishlist(id: any) {
@@ -142,8 +150,20 @@ export class ApiService {
     return await this.httpRequest.POST(`/orders`, data);
   }
 
+  async placeOrderOnline(data: any) {
+    return await this.httpRequest.POST(`/create-checkout-session`, data);
+  }
+
   async fetchOrders(id: any) {
     return await this.httpRequest.GET(`/users/${id}/orders`);
+  }
+
+  async postReview(data: any) {
+    return await this.httpRequest.POST(`/reviews`, data);
+  }
+
+  async updateUser(data: any) {
+    return await this.httpRequest.POST(`/updateuser`, data);
   }
 
 }

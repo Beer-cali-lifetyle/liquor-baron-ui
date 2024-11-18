@@ -1,6 +1,5 @@
 export * from './home/home.component';
 export * from './about-us/about-us.component'
-export * from './contact-us/contact-us.component'
 export * from './our-store/our-store.component'
 export * from './privacy-cookies/privacy-cookies.component'
 export * from './terms-conditions/terms-conditions.component'
@@ -8,5 +7,16 @@ export * from './delivery/delivery.component'
 export * from './faqs/faqs.component'
 export * from './returns/returns.component'
 export * from './checkout/checkout.component'
-export * from './prodcut-info/prodcut-info.component'
-
+export * from './about-us/about-us.component';
+export * from './contact/contact.component';
+export * from './our-store/our-store.component';
+export * from './privacy-cookies/privacy-cookies.component';
+export * from './terms-conditions/terms-conditions.component';
+export * from './delivery/delivery.component';
+export * from './faqs/faqs.component';
+export * from './returns/returns.component';
+export * from './shop-list/shop-list.component';
+export * from './product-info/product-info.component';
+export * from './product-info/product-info.component';
+export * from './shopping-cart/shopping-cart.component';
+export * from './account-settings/main/main.component';

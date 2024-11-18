@@ -1,9 +1,9 @@
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { isPlatformBrowser } from '@angular/common';
-import { environment } from '../../../environment/environment'
-// import { timeout } from 'rxjs/operators';
-// import { CookieService } from 'ngx-cookie-service';
+import { environment } from '../../../environments/environment';
+import { timeout } from 'rxjs/operators';
+import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 import { UiLoaderService } from '../../core/services/loader.service';
 
@@ -21,7 +21,7 @@ export class HttpServie {
 
   constructor(
     private httpClient: HttpClient,
-    // private cookieService: CookieService,
+    private cookieService: CookieService,
     @Inject(PLATFORM_ID) private platformId: Object,
     // Inject a loader service if available
     private loaderService: UiLoaderService // Assuming you have a loader service

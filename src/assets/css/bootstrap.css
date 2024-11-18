@@ -4975,7 +4975,7 @@ textarea.form-control-lg {
 
 .progress-bar {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   overflow: hidden;
   color: var(--bs-progress-bar-color);

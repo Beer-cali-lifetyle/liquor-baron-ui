@@ -34,6 +34,7 @@
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/bootstrap-icons/font/bootstrap-icons.css",
               "src/assets/css/style.css",
               "src/assets/css/responsive.css",
               "src/styles.scss"
@@ -76,7 +77,8 @@
               "buildTarget": "liquor-baron:build:production"
             },
             "development": {
-              "buildTarget": "liquor-baron:build:development"
+              "buildTarget": "liquor-baron:build:development",
+              "hmr": true
             }
           },
           "defaultConfiguration": "development"
@@ -96,9 +98,17 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "public"
+              "public",
+              {
+                "glob": "**/*",
+                "input": "public"
+              }
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/bootstrap-icons/font/bootstrap-icons.css",
+              "src/assets/css/style.css",
+              "src/assets/css/responsive.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -106,5 +116,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }
