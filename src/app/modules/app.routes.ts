@@ -30,7 +30,7 @@ const ModuleRoutes: Routes = [
         path: 'our-store', loadComponent: () => import('./index').then(c => c.OurStoreComponent)
     },
     {
-        path: 'my-account', loadComponent: () => import('./index').then(c => c.MainComponent)
+        path: 'my-account', canActivate: [AuthGuard], loadComponent: () => import('./index').then(c => c.MainComponent)
     },
     {
         path: 'terms-conditions', loadComponent: () => import('./index').then(c => c.TermsConditionsComponent)

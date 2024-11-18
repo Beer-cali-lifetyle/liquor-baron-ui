@@ -29,8 +29,8 @@
                       <div class="product-price">
                         ${{product?.price}}
                       </div>
-                      <i class="bi bi-lg bi-bag-plus" *ngIf="!product?.addedTocart" (click)="addToCart($event, product?.id, i)"></i>
-                      <i class="bi bi-bag-check" *ngIf="product?.addedTocart"></i>
+                      <i class="bi bi-lg bi-bag-plus" *ngIf="!product?.cart_details" (click)="addToCart($event, product?.id, i)"></i>
+                      <i class="bi bi-bag-check" *ngIf="product?.cart_details"></i>
                     </div>
                   </div>
                 </div>

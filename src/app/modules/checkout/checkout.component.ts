@@ -2,10 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild, TemplateRef, ChangeDetectorRef } from '@angular/core';
 import { ApiService } from '../../shared/services/api.service';
 import { NgbModal, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
-import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AppBase } from '../../../app-base.component';
 import { UiToasterService } from '../../core/services/toaster.service';
 import { ContextService } from '../../core/services/context.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-checkout',
@@ -19,10 +20,13 @@ import { ContextService } from '../../core/services/context.service';
 export class CheckoutComponent extends AppBase implements OnInit {
   activeTab = 1;
   addresses: any = [];
+  stores: any = [];
+  storePickupForm: any;
   @ViewChild('modalContent') modalContent: TemplateRef<any> | undefined;
   subTotal: any;
   selectedBillingAddress: any;
   selectedPaymentMethod: any;
+  imgBaseUrl: string = environment.api.base_url;
   USStates = [
     "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut",
     "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana",
@@ -55,7 +59,13 @@ export class CheckoutComponent extends AppBase implements OnInit {
       altPhoneNumber: ['', Validators.pattern(/^\+?[1-9]\d{1,14}$/)],
       defaultAddress: [false]
     });
+    this.storePickupForm = this.fb.group({
+      selectedStore: ['', Validators.required],
+      pickupDate: ['', Validators.required],
+      pickupTime: ['']
+    })
     await this.fetchAddres();
+    await this.fetchStores();
     await this.getCart();
 
   }
@@ -63,6 +73,12 @@ export class CheckoutComponent extends AppBase implements OnInit {
   setActiveTab(tabNumber: number): void {
     this.activeTab = tabNumber;
     console.log('Active Tab Number:', this.activeTab); // Optional for debugging
+  }
+
+  async fetchStores() {
+    await this.ApiService.fetchStores().then((res) => {
+      this.stores = res
+    })
   }
 
   async fetchAddres() {
@@ -173,6 +189,6 @@ export class CheckoutComponent extends AppBase implements OnInit {
     const { full_name, address: addr, locality, landmark, city, state, pin_code, mobile_number } = address;
 
     return `${full_name || ''}, ${addr || ''}, ${locality || ''}${landmark ? ', ' + landmark : ''}, ${city || ''} - ${pin_code || ''}, ${state || ''}, Mobile: ${mobile_number || ''}`.replace(/,\s*,/g, ',').replace(/,\s*$/, '').trim();
-}
+  }
 
 }

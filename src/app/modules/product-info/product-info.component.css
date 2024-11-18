@@ -272,3 +272,65 @@ body {
   padding: 15px;
   border-radius: 0;
 }
+
+
+.btn-review {
+  background-color: #800020;
+  color: white;
+  border-radius: 50px;
+}
+
+
+.review-form {
+  margin: auto;
+  padding: 0 8%;
+  margin-bottom: 50PX;
+}
+
+.star-rating {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-start;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.star-rating .star {
+  color: #ccc;
+  transition: color 0.3s ease;
+}
+
+.star-rating .star:hover,
+.star-rating .star.selected {
+  color: #800020 ;
+}
+
+.custom-file-upload {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  border: 2px dashed #ddd;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  cursor: pointer;
+}
+
+.custom-file-upload:hover {
+  border-color: #aaa;
+}
+
+.btn-send {
+  background-color: #800020;
+  color: white;
+  font-weight: bold;
+}
+
+.btn-send:hover {
+  background-color: #a00028;
+}
+
+.value {
+  font-size: 18px;
+  color: #a00028;
+}

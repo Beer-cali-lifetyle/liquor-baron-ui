@@ -4,10 +4,11 @@
       <div class="wrapper">
         <div class="main text-center">
 
-          <div id="productCarousel" class="carousel slide product-main-images d-flex justify-content-center" data-bs-ride="carousel"
-            data-bs-interval="5000" data-bs-pause="false">
+          <div id="productCarousel" class="carousel slide product-main-images d-flex justify-content-center"
+            data-bs-ride="carousel" data-bs-interval="5000" data-bs-pause="false">
             <div class="carousel-inner">
-              <div class="carousel-item active d-flex justify-content-center" *ngIf="productInfo?.product?.product_image">
+              <div class="carousel-item active d-flex justify-content-center"
+                *ngIf="productInfo?.product?.product_image">
                 <img [src]="imgBaseUrl + productInfo?.product?.product_image" class="d-block centered-image"
                   alt="Product Image 1">
               </div>
@@ -17,7 +18,7 @@
                   alt="Product Image {{i+2}}">
               </div>
             </div>
-            
+
             <div class="carousel-controls-bottom" *ngIf="productInfo?.images.length > 0">
               <button type="button" class="btn btn-secondary btn-arrow-left" data-bs-target="#productCarousel"
                 data-bs-slide="prev">Prev</button>
@@ -35,72 +36,55 @@
           </div>
 
 
-          <div class="review-section-starts">
+          <div class="review-section-starts mb-5">
             <h2>Customer Reviews</h2>
           </div>
-          <p>Scroll down the page!</p>
-          <h3>How to recreate this</h3>
 
           <div class="row">
             <div class="col">
-              <ul>
-                <li>
-                  <div class="rating-res">
-                    <h2>4.8</h2>
-                  </div>
-                </li>
-                <li>
-                  <div class="stars-box">
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <p>Based on 35 reviews</p>
-                  </div>
-                </li>
-              </ul>
+              <!-- <ul class="text-decoration-none">
+                <li> -->
+              <div class="rating-res">
+              </div>
+              <!-- </li> -->
+              <!-- <li> -->
+              <div class="d-flex text-maroon">
+                <h2 class="fs-1 fw-bold me-3">{{averageRating | number: '1.1-1'}}</h2>
+                <div class="stars-box ">
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <p>Based on {{productInfo?.reviews.length}} review<span
+                      *ngIf="productInfo?.reviews.length > 1">s</span></p>
+                </div>
+              </div>
+              <!-- </li> -->
+              <!-- </ul> -->
             </div>
+
             <div class="col">
               <div class="chart">
-                <div class="rate-box">
-                  <span class="value">5</span>
+                <div *ngFor="let rating of ratings; let i = index" class="rate-box">
+                  <span class="value text-marron">{{ 5 - i }}<i class=" ms-2 bi bi-star-fill"></i></span>
                   <div class="progress-bar">
-                    <span class="progress"></span>
+                    <span class="progress" [style.width.%]="(rating.count / totalRatings) * 100"></span>
                   </div>
-                  <span class="count">0</span>
-                </div>
-                <div class="rate-box">
-                  <span class="value">4</span>
-                  <div class="progress-bar"><span class="progress"></span></div>
-                  <span class="count">0</span>
-                </div>
-                <div class="rate-box">
-                  <span class="value">3</span>
-                  <div class="progress-bar"><span class="progress"></span></div>
-                  <span class="count">0</span>
-                </div>
-                <div class="rate-box">
-                  <span class="value">2</span>
-                  <div class="progress-bar"><span class="progress"></span></div>
-                  <span class="count">0</span>
-                </div>
-                <div class="rate-box">
-                  <span class="value">1</span>
-                  <div class="progress-bar"><span class="progress"></span></div>
-                  <span class="count">0</span>
+                  <span class="count text-marron value">{{ rating.count }}</span>
                 </div>
               </div>
             </div>
             <div class="col">
-              <button type="button" class="btn btn-secondary btn-lg">Write A Review</button>
+              <button type="button" class="btn btn-secondary btn-review" (click)="openReviewForm(reviewmodal)">Write A
+                Review</button>
             </div>
           </div>
           <br>
           <br>
           <hr>
 
-          <div class="row justify-content-between">
+          <div class="row justify-content-between" *ngFor="let item of productInfo?.reviews">
             <div class="col">
               <div class="row">
                 <div class="col">
@@ -115,108 +99,35 @@
                 </div>
                 <div class="col text-start">
                   <div class="rating-reviews">
-                    <div class="stars-box">
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      Excellent
+                    <div class="stars-box text-maroon">
+                      <i class="bi bi-star-fill" *ngIf="item?.rating > 4"></i>
+                      <i class="bi bi-star-fill" *ngIf="item?.rating > 3"></i>
+                      <i class="bi bi-star-fill" *ngIf="item?.rating > 2"></i>
+                      <i class="bi bi-star-fill" *ngIf="item?.rating > 1"></i>
+                      <i class="bi bi-star-fill" *ngIf="item?.rating > 0"></i>
+                    <span class="ms-3">{{item?.review}}</span> 
                     </div>
-                    <p>Super speedy packed up and delivery, and safely as you'd definitely hope, for this easy gin with
-                      the bonus of it being a special edition, thank you!</p>
+                    <p>{{item?.comment}}</p>
                   </div>
                 </div>
                 <div class="col">
                   <div class="date-reviews">
-                    <p>24/08/24</p>
+                    <p>{{item?.created_at | date}}</p>
                   </div>
                 </div>
               </div>
             </div>
+            <hr>
           </div>
-          <hr>
-          <div class="row">
-            <div class="col">
-              <div class="row">
-                <div class="col">
-                  <div class="profile-image-name align-items-left">
-                    <a class="list-group-item list-group-item-action d-flex align-items-center" href="">
-                      <img src="assets/image/98681.jpeg" alt="@mdo" class="rounded" loading="lazy">
-                      <span>
-                        <strong> Ankon Antu</strong> <br>Verified buyer
-                      </span>
-                    </a>
-                  </div>
-                </div>
-                <div class="col text-start">
-                  <div class="rating-reviews">
-                    <div class="stars-box">
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      Excellent
-                    </div>
-                    <p>Super speedy packed up and delivery, and safely as you'd definitely hope, for this easy gin with
-                      the bonus of it being a special edition, thank you!</p>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="date-reviews">
-                    <p>24/08/24</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <hr>
-          <div class="row">
-            <div class="col">
-              <div class="row">
-                <div class="col">
-                  <div class="profile-image-name align-items-left">
-                    <a class="list-group-item list-group-item-action d-flex align-items-center" href="">
-                      <img src="assets/image/98681.jpeg" alt="@mdo" class="rounded" loading="lazy">
-                      <span>
-                        <strong> Ankon Antu</strong> <br>Verified buyer
-                      </span>
-                    </a>
-                  </div>
-                </div>
-                <div class="col text-start">
-                  <div class="rating-reviews">
-                    <div class="stars-box">
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      Excellent
-                    </div>
-                    <p>Super speedy packed up and delivery, and safely as you'd definitely hope, for this easy gin with
-                      the bonus of it being a special edition, thank you!</p>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="date-reviews">
-                    <p>24/08/24</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <hr>
 
           <div class="row mb-5">
             <div class="col-4 product-card-container" *ngFor="let product of relatedProducts; let i=index">
-  
+
               <div class="product-card" [routerLink]="['/product', product?.id]">
                 <div class="product-tumb pt-4 pb-1">
                   <img [src]="imgBaseUrl + product?.product_image" class="img-fluid uniform-img" alt="product">
                   <!-- <div class="badge-wrapper"> -->
-                    <div class="badge">Limited Edition</div>
+                  <div class="badge">Limited Edition</div>
                   <!-- </div> -->
                 </div>
                 <div class="product-details p-3">
@@ -226,13 +137,14 @@
                     <div class="product-price">
                       ${{product?.price}}
                     </div>
-                    <i class="bi bi-lg bi-bag-plus" *ngIf="!product?.addedTocart" (click)="addToCartRelated($event, product?.id, i)"></i>
-                    <i class="bi bi-bag-check" *ngIf="product?.addedTocart"></i>
+                    <i class="bi bi-lg bi-bag-plus" *ngIf="!product?.cart_details"
+                      (click)="addToCart($event, product?.id, i)"></i>
+                    <i class="bi bi-bag-check" *ngIf="product?.cart_details"></i>
                   </div>
                 </div>
               </div>
             </div>
-            
+
           </div>
 
         </div>
@@ -298,8 +210,8 @@
                     <button class="qty-btn-plus btn-light" type="button" (click)="increment()"><i
                         class="bi bi-plus-lg"></i></button>
                   </div>
-                  
-                  
+
+
                   <button class="btn-add" type="button" (click)="add12()">Add 12</button>
                   <!-- <label class="btn btn-outline-light" for="btncheck2">Add 12</label> -->
                 </div>
@@ -310,7 +222,8 @@
           <div class="row">
             <div class="col">
               <div class="button-cart-width mb-4 mt-4">
-                <button type="button" (click)="addToCart($event, productInfo?.product?.id, 7)" *ngIf="!cartInfo?.quantity">Add to
+                <button type="button" (click)="addToCart($event, productInfo?.product?.id, 7)"
+                  *ngIf="!cartInfo?.quantity">Add to
                   Cart</button>
                 <button type="button" *ngIf="cartInfo?.quantity" routerLink="/cart">Go to cart</button>
               </div>
@@ -336,3 +249,93 @@
     </div>
   </div>
 </section>
+
+
+
+<ng-template #reviewmodal>
+  <div class="container mt-5">
+    <form [formGroup]="form" (ngSubmit)="onReviewSubmit()" class="review-form">
+      <h3 class="text-center mb-4">Share your thought</h3>
+
+      <!-- Rate your experience -->
+      <div class="mb-3">
+        <label class="form-label">Rate your experience <span class="text-danger">*</span></label>
+        <div class="star-rating">
+          <span class="star" *ngFor="let star of stars; let i = index"
+            [class.selected]="i + 1 <= form.get('rating')?.value" (click)="setRating(i + 1)">
+            &#9734;
+          </span>
+        </div>
+        <div *ngIf="form.get('rating')?.touched && form.get('rating')?.invalid" class="text-danger small">
+          Please rate your experience.
+        </div>
+      </div>
+
+      <!-- Write a review -->
+      <div class="mb-3">
+        <label for="review" class="form-label">Write a review <span class="text-danger">*</span></label>
+        <textarea class="form-control" id="review" formControlName="review"
+          placeholder="Tell us what you like or dislike" rows="3"></textarea>
+        <div *ngIf="form.get('review')?.touched && form.get('review')?.invalid" class="text-danger small">
+          Please write a review.
+        </div>
+      </div>
+
+      <!-- Add a headline -->
+      <div class="mb-3">
+        <label for="headline" class="form-label">Add a headline <span class="text-danger">*</span></label>
+        <input type="text" class="form-control" id="headline" formControlName="headline"
+          placeholder="Summarize your experience" />
+        <div *ngIf="form.get('headline')?.touched && form.get('headline')?.invalid" class="text-danger small">
+          Please add a headline.
+        </div>
+      </div>
+
+      <!-- Your name and email -->
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label for="name" class="form-label">Your name <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" id="name" formControlName="name" />
+          <div *ngIf="form.get('name')?.touched && form.get('name')?.invalid" class="text-danger small">
+            Name is required.
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+          <input type="email" class="form-control" id="email" formControlName="email" />
+          <!-- <small class="form-text text-muted">We'll send you an email to verify this review came from you.</small> -->
+          <div *ngIf="form.get('email')?.touched && form.get('email')?.invalid" class="text-danger small">
+            Enter a valid email.
+          </div>
+        </div>
+      </div>
+
+      <!-- Add media -->
+      <!-- <div class="mb-3">
+        <label class="form-label">Add media</label>
+        <label class="custom-file-upload">
+          <input type="file" formControlName="media" multiple />
+          <span>Upload</span>
+        </label>
+        <small class="form-text text-muted">Upload up to 10 images and 3 videos (max. file size 2 GB)</small>
+      </div> -->
+
+      <!-- Terms and conditions -->
+      <div class="mb-3">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="terms" formControlName="terms" />
+          <label class="form-check-label" for="terms">
+            I agree to terms and conditions <span class="text-danger">*</span>
+          </label>
+          <div *ngIf="form.get('terms')?.touched && form.get('terms')?.invalid" class="text-danger small">
+            You must agree to terms and conditions.
+          </div>
+        </div>
+      </div>
+
+      <!-- Submit button -->
+      <button type="submit" class="btn btn-send w-100" [disabled]="form.invalid">SEND</button>
+
+    </form>
+  </div>
+</ng-template>

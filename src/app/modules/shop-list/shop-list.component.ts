@@ -7,6 +7,7 @@ import { environment } from '../../../environments/environment';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppBase } from '../../../app-base.component';
 import { ContextService } from '../../core/services/context.service';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-shop-list',
@@ -17,6 +18,7 @@ import { ContextService } from '../../core/services/context.service';
 })
 export class ShopListComponent extends AppBase implements OnInit, AfterViewInit {
   products: any = [];
+  stars = [1, 2, 3, 4, 5];
   categoryId: string | null = null;
   subcategoryId: string | null = null;
   subcategoryTitle: string | null = null;
@@ -69,7 +71,7 @@ export class ShopListComponent extends AppBase implements OnInit, AfterViewInit 
 
   async addToCart(event: Event, id: number, i: number) {
     event.stopPropagation();
-    this.products[i]['addedTocart'] = this.products[i]?.addedTocart ? !this.products[i]?.addedTocart : true;
+    this.products[i]['cart_details'] = this.products[i]?.cart_details ? !this.products[i]?.cart_details : true;
     if (this.contextService.user()) {
       const payload = {
         productId: id,

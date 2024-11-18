@@ -4,6 +4,9 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AppBase } from '../../../../app-base.component';
 import { ContextService } from '../../../core/services/context.service';
+import { from } from 'rxjs';
+import { ApiService } from '../../../shared/services/api.service';
+import { UiToasterService } from '../../../core/services/toaster.service';
 
 @Component({
   selector: 'app-personal-details',
@@ -16,8 +19,10 @@ import { ContextService } from '../../../core/services/context.service';
 })
 export class PersonalDetailsComponent extends AppBase implements OnInit {
   title: string = '';
-  constructor(private fb:FormBuilder,
-    private contextService: ContextService
+  constructor(private fb: FormBuilder,
+    private contextService: ContextService,
+    private ApiService: ApiService,
+    private toaster: UiToasterService
   ) { super(); }
 
   ngOnInit() {
@@ -61,7 +66,8 @@ export class PersonalDetailsComponent extends AppBase implements OnInit {
     } else {
       newEmail?.clearValidators();
       if (!this.form.get('newPassword')?.value) {
-        currentPassword?.clearValidators(); }
+        currentPassword?.clearValidators();
+      }
     }
     newEmail?.updateValueAndValidity();
     currentPassword?.updateValueAndValidity();
@@ -79,7 +85,8 @@ export class PersonalDetailsComponent extends AppBase implements OnInit {
       newPassword?.clearValidators();
       confirmPassword?.clearValidators();
       if (!this.form.get('newEmail')?.value) {
-      currentPassword?.clearValidators(); }
+        currentPassword?.clearValidators();
+      }
     }
     newPassword?.updateValueAndValidity();
     confirmPassword?.updateValueAndValidity();
@@ -92,11 +99,23 @@ export class PersonalDetailsComponent extends AppBase implements OnInit {
     return newPassword === confirmPassword ? null : { passwordMismatch: true };
   }
 
-  onSubmit() {
-    if(this.form.invalid) {
+  async onSubmit() {
+    if (this.form.invalid) {
       this.validateForm();
     } else {
-
+      const payload = {
+        name: this.form.value?.firstName + this.form.value?.lastName,
+        first_name: this.form.value.firstName,
+        last_name: this.form.value.lastName,
+        email: this.form.value.newEmail,
+        password: this.form.value.newPassword,  
+      }
+      await this.ApiService.updateUser(payload).then(res => {
+        this.contextService.user.set(res?.user);
+        localStorage.setItem('user_id', res?.user?.id);
+        localStorage.setItem('user', JSON.stringify(res?.user)); 
+        this.toaster.Success('Updated successfully')
+      })
     }
   }
 

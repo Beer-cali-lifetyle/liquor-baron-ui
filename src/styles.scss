@@ -121,12 +121,12 @@
   .carousel-caption {
     top: 40%;
   }
-  .carousel-control-prev {
-    left: -157px;
-  }
-  .carousel-control-next {
-    right: -157px;
-  }
+  // .carousel-control-prev {
+  //   left: -157px;
+  // }
+  // .carousel-control-next {
+  //   right: -157px;
+  // }
   nav.navbar.navbar-expand-lg.shadow {
     padding: 20px 0px;
   }
@@ -811,7 +811,7 @@ font-weight: 600;
   
   .chart .rate-box {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     gap: 15px;
     height: 30px;
@@ -840,13 +840,12 @@ font-weight: 600;
     border-width: 1px;
     position: relative;
     background-color: #cfd8dc91;
-  
     height: 10px;
     border-radius: 100px;
     width: 350px;
   }
   .rate-box .progress-bar .progress {
-    background-color: #66bb6a;
+    background-color: #800020 ;
     height: 100%;
     border-radius: 100px;
     transition: 300ms ease-in-out;

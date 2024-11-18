@@ -70,6 +70,10 @@ export class ApiService {
     return await this.httpRequest.GET('/addresses');
   }
 
+  async fetchStores() {
+    return await this.httpRequest.GET('/stores');
+  }
+
   async saveAddress(data: any) {
     return await this.httpRequest.POST('/addresses', data);
   }
@@ -152,6 +156,14 @@ export class ApiService {
 
   async fetchOrders(id: any) {
     return await this.httpRequest.GET(`/users/${id}/orders`);
+  }
+
+  async postReview(data: any) {
+    return await this.httpRequest.POST(`/reviews`, data);
+  }
+
+  async updateUser(data: any) {
+    return await this.httpRequest.POST(`/updateuser`, data);
   }
 
 }
