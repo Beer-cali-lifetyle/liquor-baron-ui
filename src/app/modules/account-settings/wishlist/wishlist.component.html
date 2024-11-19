@@ -3,18 +3,27 @@
     <h2>My Wishlist</h2>
     <div class="row justify-content-center">
       <!-- Loop through wishListItems array -->
-      <div class="col-3" *ngFor="let product of wishLstItems?.data; let i=index">
-        <div class="product-card" [routerLink]="['/product', product?.product?.id]">
-          <div class="product-tumb py-4">
-            <img [src]="imgBaseUrl + product?.product?.product_image" class="img-fluid uniform-img" alt="product">
+      <div class="col-3 product-card-container" *ngFor="let product of wishLstItems?.data; let i=index">
+  
+        <div class="product-card" [routerLink]="['/product', product?.id]">
+          <div class="product-tumb pt-4 pb-1">
+            <img [src]="imgBaseUrl + product?.product_image" class="img-fluid uniform-img" alt="product">
+            <!-- <div class="badge-wrapper"> -->
+              <div class="badge"   [ngClass]="{
+                'bg-auccess': product.producttag === '3', 
+                'badge-yellow': product.producttag !== '3'
+              }">{{product.producttag === '3' ? 'New Item' : 'Limited Edition'}}</div>
+            <!-- </div> -->
           </div>
-          <div class="product-details p-3 text-center">
-            <h4>{{product?.product?.name}}</h4>
-            <p>{{product?.product?.description}}</p>
-            <div class="product-bottom-details d-flex justify-content-center">
-              <div class="product-price text-center">
-                ${{product?.product?.price}}
+          <div class="product-details p-3">
+            <h4>{{product?.name}}</h4>
+            <p>{{product?.description}}</p>
+            <div class="product-bottom-details d-flex justify-content-between">
+              <div class="product-price">
+                ${{product?.price}}
               </div>
+              <i class="bi bi-lg bi-bag-plus" *ngIf="!product?.cart_details" (click)="addToCart(product?.id)"></i>
+              <i class="bi bi-bag-check" *ngIf="product?.cart_details"></i>
             </div>
           </div>
         </div>
