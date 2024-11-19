@@ -1,13 +1,13 @@
 <section class="shipping">
   <div class="row row-left-right">
 
-    <div class="left-white">
+    <div class="left-white" *ngIf="!showPayment">
       <div class="padding-equal">
         <div class="listing-adresses">
           <div class="contact-addresses">
             <p class="1st-contact">Contact</p>
             <p class="2nd-contact">{{contextService.user()?.email}}</p>
-            <p class="3rd-contact"><a href="#">Change</a></p>
+            <!-- <p class="3rd-contact"><a href="#">Change</a></p> -->
           </div>
           <!-- <hr>
           <div class="contact-addresses">
@@ -216,7 +216,7 @@
               Payment</button> -->
           </div>
           <div class="button-flex">
-            <button type="submit" class="btn btn-primary">Continue to Payment</button>
+            <button type="submit" class="btn btn-primary" (click)="continue()">Continue to Payment</button>
           </div>
         </div>
 
@@ -227,6 +227,9 @@
 
       </div>
     </div>
+
+    <div class="left-white" *ngIf="showPayment"><app-payment></app-payment></div>
+
 
     <div class="right-red">
       <div class="padding-equal-right position-sticky top-0">
