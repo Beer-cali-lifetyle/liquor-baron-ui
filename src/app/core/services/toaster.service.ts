@@ -19,14 +19,19 @@ export class UiToasterService {
     }
 
     async Success(message: string, options?: { delay?: number }) {
-        this.toasts.push({ delay: 5000, textOrTpl: message, classname: 'toast-success', iconClass: 'fa fa-check-circle', ...options, });
+        this.toasts.push({ delay: 5000, textOrTpl: message, classname: 'toast-success', iconClass: 'bi bi-check-circle-fill', ...options, });
     }
 
     async Error(message: string, options?: { delay?: number }) {
-        this.toasts.push({ delay: 5000, textOrTpl: message, classname: 'toast-error', iconClass: 'fa fa-exclamation-circle', ...options });
+        this.toasts.push({ delay: 5000, textOrTpl: message, classname: 'toast-error', iconClass: 'bi bi-exclamation-octagon-fill', ...options });
     }
 
     async Warning(message: string, options?: { delay?: number }) {
-        this.toasts.push({ delay: 5000, textOrTpl: message, classname: 'toast-warning', iconClass: 'fa fa-exclamation-triangle', ...options });
+        this.toasts.push({ delay: 5000, textOrTpl: message, classname: 'toast-warning', iconClass: 'bi bi-exclamation-triangle-fill', ...options });
     }
+
+    async Cart(options?: { delay?: number }) {
+        this.toasts.push({ cart: true, delay: 8000, textOrTpl: '', classname: 'toast-success', iconClass: 'bi bi-check-circle-fill', ...options, });
+    }
+
 }

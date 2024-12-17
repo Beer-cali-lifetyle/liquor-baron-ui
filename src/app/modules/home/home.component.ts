@@ -7,6 +7,8 @@ import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
 import { ContextService } from '../../core/services/context.service';
 import { AppBase } from '../../../app-base.component';
+import { UiToasterService } from '../../core/services/toaster.service';
+import { MiniCartComponent } from "../shopping-cart/mini-cart/mini-cart.component";
 declare var Isotope: any
 
 
@@ -15,7 +17,8 @@ declare var Isotope: any
   imports: [
     CommonModule,
     SharedModule,
-  ],
+    MiniCartComponent
+],
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
@@ -30,6 +33,7 @@ export class HomeComponent extends AppBase implements OnInit {
     private ApiService: ApiService,
     private router: Router,
     private contextService: ContextService,
+    private toaster: UiToasterService,
     private cdr: ChangeDetectorRef) {
     super();
   }
@@ -76,7 +80,7 @@ export class HomeComponent extends AppBase implements OnInit {
       }
       await this.ApiService.addToCart(payload).then(async res => {
         await this.getCart();
-        // await this.toaster.Success('Added to cart successfully')
+        await this.toaster.Cart()
       })
     }
     else {
