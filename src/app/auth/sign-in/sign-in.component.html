@@ -1,5 +1,5 @@
 <!-- Video Background -->
-<video autoplay muted loop class="video-bg">
+<!-- <video autoplay muted loop class="video-bg">
   <source src="assets/videos/wine.mp4" type="video/mp4">
   Your browser does not support HTML5 video.
 </video>
@@ -69,9 +69,6 @@
           </div>
         
           <div class="text-center">
-            <!-- <p class="mb-1">
-              <a href="#" class="text-maroon text-decoration-none">Forgot password?</a>
-            </p> -->
             <p class="mt-3">
               Don't have an account?
               <a  class="text-maroon fw-bold text-decoration-none pointer" (click)="toggleSignUp()">
@@ -199,4 +196,105 @@
       </section>
     </div>
   </div>
-</main>
+</main> -->
+
+
+
+
+
+
+
+
+
+
+
+
+<Section class="signin">
+
+  <div class="container">
+    <div class="col-12">
+      <h1 class="text-4xl text-gray-800 sm:text-4xl font-bold font-clarity">Sign In</h1>
+    </div>
+    <div class="row gap-increase">
+      <div class="col-md-5 col-12">
+        <div class="head-retail">
+          <h4>Retail Customer</h4>
+        </div>
+        <div class="form-register">
+          <form [formGroup]="form" (ngSubmit)="signIn()" class="register-form">
+
+            <div class="form-labels">
+              <label class="form-label">Email <span class="red">*</span></label>
+              <input type="email" formControlName="email" class="form-control" id="name">
+              <div
+              *ngIf="form.get('email')?.invalid && form.get('email')?.touched"
+              class="text-danger mt-1"
+            >
+              <small *ngIf="form.get('email')?.errors?.['required']">
+                Email is required.
+              </small>
+              <small *ngIf="form.get('email')?.errors?.['email']">
+                Please enter a valid email address.
+              </small>
+            </div>
+            </div>
+
+            <div class="form-labels">
+              <label class="form-label">Password <span class="red">*</span></label>
+              <input type="password" formControlName="password" class="form-control" id="name">
+              <div
+              *ngIf="form.get('password')?.invalid && form.get('password')?.touched"
+              class="text-danger mt-1"
+            >
+              <small *ngIf="form.get('password')?.errors?.['required']">
+                Password is required.
+              </small>
+            </div>
+            </div>
+
+            <div class="row checkbox-row">
+              <div class="form-labels">
+                <input type="checkbox" name="show" class="me-2" value="show">
+                <label>Show Password</label>
+              </div>
+              <div class="form-labels">
+                <input type="checkbox" name="remember" class="me-2" value="remember">
+                <label>Remember Me</label>
+              </div>
+            </div>
+
+            <div class="form-labels">
+              <!-- <p><strong>What’s this?</strong></p> -->
+              <div class="captcha">
+                <img src="image/Recapcha.png" alt="">
+              </div>
+            </div>
+
+            <div class="form-labels">
+              <button type="submit" class="btn-border">Submit</button>
+              <button class="no-border">Forget Password</button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-12">
+        <div class="head-retail">
+          <h4>Retail Customer Registration</h4>
+        </div>
+        <div class="line-registration">
+
+          <p>Creating an account has many benefits: check out faster, keep more than one address, track orders and
+            more.
+          </p>
+
+          <div class="form-labels">
+            <button type="button" class="btn-border" routerLink="/auth/sign-up">Create An Account</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</Section>

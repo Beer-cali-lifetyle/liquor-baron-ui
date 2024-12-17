@@ -5,6 +5,7 @@ export const routes: Routes = [
 
     {
         path: 'auth',
+        component: BaseLayoutComponent,
         loadChildren: () => import('./auth/auth.routes'),
     },
     {
