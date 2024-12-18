@@ -241,7 +241,7 @@
 
             <div class="form-labels">
               <label class="form-label">Password <span class="red">*</span></label>
-              <input type="password" formControlName="password" class="form-control" id="name">
+              <input [type]="passwordFieldType"  formControlName="password" class="form-control" id="name">
               <div
               *ngIf="form.get('password')?.invalid && form.get('password')?.touched"
               class="text-danger mt-1"
@@ -254,11 +254,11 @@
 
             <div class="row checkbox-row">
               <div class="form-labels">
-                <input type="checkbox" name="show" class="me-2" value="show">
+                <input type="checkbox" (input)="togglePasswordVisibility()" name="show" class="me-2 form-check-input p-0" value="show">
                 <label>Show Password</label>
               </div>
               <div class="form-labels">
-                <input type="checkbox" name="remember" class="me-2" value="remember">
+                <input type="checkbox" name="remember" class="me-2 form-check-input p-0" value="remember">
                 <label>Remember Me</label>
               </div>
             </div>
