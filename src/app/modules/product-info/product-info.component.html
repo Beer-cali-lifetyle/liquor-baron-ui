@@ -19,7 +19,7 @@
               </div>
             </div>
 
-            <div class="carousel-controls-bottom" *ngIf="productInfo?.images.length > 0">
+            <div class="carousel-controls-bottom" *ngIf="productInfo?.images?.length > 0">
               <button type="button" class="btn btn-secondary btn-arrow-left" data-bs-target="#productCarousel"
                 data-bs-slide="prev">Prev</button>
               <button type="button" class="btn btn-secondary btn-arrow-right" data-bs-target="#productCarousel"
@@ -127,7 +127,10 @@
                 <div class="product-tumb pt-4 pb-1">
                   <img [src]="imgBaseUrl + product?.product_image" class="img-fluid uniform-img" alt="product">
                   <!-- <div class="badge-wrapper"> -->
-                  <div class="badge">Limited Edition</div>
+                    <div class="badge"   [ngClass]="{
+                      'bg-auccess': product.producttag === '3', 
+                      'badge-yellow': product.producttag !== '3'
+                    }">{{product.producttag === '3' ? 'New Item' : 'Limited Edition'}}</div>
                   <!-- </div> -->
                 </div>
                 <div class="product-details p-3">
@@ -160,7 +163,7 @@
                   <i class="bi bi-star-fill"></i>
                   <i class="bi bi-star-fill"></i>
                 </ol>
-                <p class="text-white">&nbsp; 16 Reviews</p>
+                <p class="text-white">&nbsp; {{productInfo?.reviews.length}} Reviews</p>
               </div>
             </div>
           </div>

@@ -1,20 +1,29 @@
 <section class="pt-0 ps-6 pe-6 lg-ps-2 lg-pe-2 sm-ps-0 sm-pe-0 mt-5">
   <div class="container-fluid">
     <h2>My Wishlist</h2>
-    <div class="row justify-content-center">
+    <div class="row">
       <!-- Loop through wishListItems array -->
-      <div class="col-3" *ngFor="let product of wishLstItems?.data; let i=index">
+      <div class="col-3 product-card-container" *ngFor="let product of wishLstItems?.data; let i=index">
+  
         <div class="product-card" [routerLink]="['/product', product?.product?.id]">
-          <div class="product-tumb py-4">
+          <div class="product-tumb pt-4 pb-1">
             <img [src]="imgBaseUrl + product?.product?.product_image" class="img-fluid uniform-img" alt="product">
+            <!-- <div class="badge-wrapper"> -->
+              <div class="badge"   [ngClass]="{
+                'bg-auccess': product.product?.producttag === '3', 
+                'badge-yellow': product.product?.producttag !== '3'
+              }">{{product.producttag === '3' ? 'New Item' : 'Limited Edition'}}</div>
+            <!-- </div> -->
           </div>
-          <div class="product-details p-3 text-center">
+          <div class="product-details p-3">
             <h4>{{product?.product?.name}}</h4>
             <p>{{product?.product?.description}}</p>
-            <div class="product-bottom-details d-flex justify-content-center">
-              <div class="product-price text-center">
+            <div class="product-bottom-details d-flex justify-content-between">
+              <div class="product-price">
                 ${{product?.product?.price}}
               </div>
+              <i class="bi bi-lg bi-bag-plus" *ngIf="!product?.product?.cart_details" (click)="addToCart(product?.id)"></i>
+              <i class="bi bi-bag-check" *ngIf="product?.product?.cart_details"></i>
             </div>
           </div>
         </div>

@@ -48,26 +48,3 @@
   object-fit: cover;
   max-height: 15em;
 }
-
-.product-bottom-details {
-  margin-top: auto;
-  /* Keeps the price and icons at the bottom */
-}
-
-.product-price {
-  font-size: 18px;
-  font-weight: bold;
-}
-
-  .produt-tag {
-    position: relative;
-    right: 10px; /* Align to the right */
-    z-index: 1;
-    background-color: #ff5733;
-    color: white;
-    padding: 5px 10px;
-    font-size: 0.75rem;
-    border-radius: 5px; /* Optional: for a rounded badge look */
-  }
-
-

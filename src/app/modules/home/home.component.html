@@ -62,7 +62,10 @@
           <div class="product-tumb pt-4 pb-1">
             <img [src]="imgBaseUrl + product?.product_image" class="img-fluid uniform-img" alt="product">
             <!-- <div class="badge-wrapper"> -->
-              <div class="badge">Limited Edition</div>
+              <div class="badge"   [ngClass]="{
+                'bg-auccess': product.producttag === '3', 
+                'badge-yellow': product.producttag !== '3'
+              }">{{product.producttag === '3' ? 'New Item' : 'Limited Edition'}}</div>
             <!-- </div> -->
           </div>
           <div class="product-details p-3">

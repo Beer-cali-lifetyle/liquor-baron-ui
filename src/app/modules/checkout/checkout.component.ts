@@ -7,6 +7,7 @@ import { AppBase } from '../../../app-base.component';
 import { UiToasterService } from '../../core/services/toaster.service';
 import { ContextService } from '../../core/services/context.service';
 import { environment } from '../../../environments/environment';
+import { PaymentComponent } from "../payment/payment.component";
 
 @Component({
   selector: 'app-checkout',
@@ -14,8 +15,9 @@ import { environment } from '../../../environments/environment';
   styleUrls: ['./checkout.component.scss'],
   standalone: true,
   imports: [
-    CommonModule, FormsModule, ReactiveFormsModule, NgbNavModule
-  ]
+    CommonModule, FormsModule, ReactiveFormsModule, NgbNavModule,
+    PaymentComponent, PaymentComponent
+]
 })
 export class CheckoutComponent extends AppBase implements OnInit {
   activeTab = 1;
@@ -27,6 +29,7 @@ export class CheckoutComponent extends AppBase implements OnInit {
   selectedBillingAddress: any;
   selectedPaymentMethod: any;
   imgBaseUrl: string = environment.api.base_url;
+  showPayment: boolean = false;
   USStates = [
     "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut",
     "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana",
@@ -189,6 +192,11 @@ export class CheckoutComponent extends AppBase implements OnInit {
     const { full_name, address: addr, locality, landmark, city, state, pin_code, mobile_number } = address;
 
     return `${full_name || ''}, ${addr || ''}, ${locality || ''}${landmark ? ', ' + landmark : ''}, ${city || ''} - ${pin_code || ''}, ${state || ''}, Mobile: ${mobile_number || ''}`.replace(/,\s*,/g, ',').replace(/,\s*$/, '').trim();
+  }
+
+  continue() {
+    this.showPayment = true;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
 }

@@ -25,7 +25,8 @@ export class SignUpComponent extends AppBase implements OnInit {
 
   ngOnInit() {
     this.form = this.fb.group({
-      name: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
       password_confirmation: ['', Validators.required]
@@ -53,11 +54,9 @@ export class SignUpComponent extends AppBase implements OnInit {
     return (formGroup: FormGroup) => {
       const passControl = formGroup.controls[password];
       const confirmPassControl = formGroup.controls[password_confirmation];
-
       if (confirmPassControl.errors && !confirmPassControl.errors['mustMatch']) {
         return;
       }
-
       if (passControl.value !== confirmPassControl.value) {
         confirmPassControl.setErrors({ mustMatch: true });
       } else {

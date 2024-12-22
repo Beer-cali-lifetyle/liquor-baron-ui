@@ -108,6 +108,7 @@ export class ProductInfoComponent extends AppBase implements OnInit {
       }
       await this.ApiService.addToCart(payload).then(async res => {
         await this.getCart();
+        this.relatedProducts[i]['cart_details'] = this.relatedProducts[i]?.cart_details ? !this.relatedProducts[i]?.cart_details : true;
         // await this.toaster.Success('Added to cart successfully')
       })
     }
@@ -237,7 +238,14 @@ export class ProductInfoComponent extends AppBase implements OnInit {
         this.productInfo = res
         this.mainProductImage = res?.product?.product_image;
         this.totalRatings = this.productInfo?.reviews.reduce((sum: any, item: any) => sum + item.rating, 0);
-        this.averageRating = this.totalRatings / this.productInfo?.reviews.length;      });
+        this.averageRating = this.totalRatings / this.productInfo?.reviews.length; 
+        this.productInfo.reviews.forEach((review: any) => {
+          const star = review.rating;
+          const ratingItem = this.ratings.find(r => r.stars === star);
+          if (ratingItem) {
+            ratingItem.count += 1;
+          }
+        });     });
       this.closeModal();
 
     } else {

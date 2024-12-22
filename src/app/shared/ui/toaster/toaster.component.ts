@@ -2,6 +2,7 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { UiToasterService } from '../../../core/services/toaster.service';
 import { NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
+import { MiniCartComponent } from "../../../modules/shopping-cart/mini-cart/mini-cart.component";
 
 @Component({
   selector: 'app-toaster',
@@ -19,6 +20,8 @@ import { CommonModule } from '@angular/common';
 </ng-template>
 
 <ng-template #text>
+  <span *ngIf="!toast?.cart">
+<h1>No hit</h1>
   <ngb-toast-header ngbToastHeader style="background-color: yellow; color: black;">
     <div style="display: flex; align-items: center;">
       <img src="assets/images/logo-light.png" alt="" class="me-2" height="28">
@@ -29,11 +32,16 @@ import { CommonModule } from '@angular/common';
     <span [ngClass]="toast.iconClass" style="margin-left: 10px; margin-right: 10px; color: black; margin-top:10px;"></span>
     <span style="color: black;">{{ toast.textOrTpl }}</span>
   </div>
+</span>
+<span *ngIf="toast?.cart">
+<app-mini-cart></app-mini-cart>
+</span>
+
 </ng-template>
 
     `,
   standalone: true,
-  imports: [NgbToastModule, CommonModule],
+  imports: [NgbToastModule, CommonModule, MiniCartComponent],
   host: { 'class': 'toast-container position-fixed top-0 end-0 p-3' }
 })
 

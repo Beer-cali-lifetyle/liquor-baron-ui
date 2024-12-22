@@ -250,7 +250,6 @@
   }
   
   .badge {
-    background-color: #ff6347;
     color: white;
     padding: 7px 15px;
     font-size: 12px;
@@ -456,7 +455,7 @@ font-weight: 600;
   
   /**START FOOTER SECTION**/
   
-  @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+  // @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
   
   .footer-big .footer-widget {
     margin-bottom: 40px;
@@ -1331,3 +1330,27 @@ html {
   padding: 5px 15px;
   border-radius: 0;
 }
+
+
+
+.product-bottom-details {
+  margin-top: auto;
+}
+
+.product-price {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+  .produt-tag {
+    position: relative;
+    right: 10px; 
+    z-index: 1;
+    background-color: #ff5733;
+    color: white;
+    padding: 5px 10px;
+    font-size: 0.75rem;
+    border-radius: 5px; 
+  }
+
+
