@@ -20,7 +20,7 @@ import { ContextService } from '../../core/services/context.service';
   ]
 })
 export class SignUpComponent extends AppBase implements OnInit {
-
+  passwordFieldType: string = 'password';
   constructor(private fb: FormBuilder, private ApiService: ApiService, private router: Router, private context: ContextService) { super(); }
 
   ngOnInit() {
@@ -28,12 +28,13 @@ export class SignUpComponent extends AppBase implements OnInit {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(8)]],
       password_confirmation: ['', Validators.required]
     }, { validator: this.mustMatch('password', 'password_confirmation') });
   }
 
  async onSignup() {
+  console.log(this.form.value)
     if (this.form.valid) {
       try {
         const res = await this.ApiService.SignUp(this.form.value);
@@ -54,15 +55,22 @@ export class SignUpComponent extends AppBase implements OnInit {
     return (formGroup: FormGroup) => {
       const passControl = formGroup.controls[password];
       const confirmPassControl = formGroup.controls[password_confirmation];
+  
       if (confirmPassControl.errors && !confirmPassControl.errors['mustMatch']) {
         return;
       }
+  
       if (passControl.value !== confirmPassControl.value) {
         confirmPassControl.setErrors({ mustMatch: true });
       } else {
         confirmPassControl.setErrors(null);
       }
     };
+  }
+  
+
+  togglePasswordVisibility() {
+    this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
   }
 
 }

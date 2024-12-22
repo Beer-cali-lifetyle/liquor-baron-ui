@@ -1,6 +1,7 @@
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { HttpServie } from './http.service';
+import { UiToasterService } from '../../core/services/toaster.service';
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
@@ -9,6 +10,7 @@ export class ApiService {
 
   constructor(
     private httpRequest: HttpServie,
+    private toaster: UiToasterService,
     @Inject(PLATFORM_ID) private platformId: Object  // Inject PLATFORM_ID for SSR checks
   ) {
     this.isBrowser = isPlatformBrowser(platformId);  // Detect if it's a browser or server
@@ -103,7 +105,9 @@ export class ApiService {
   }
 
   async addToCart(data: any) {
-    return await this.httpRequest.POST(`/cart`, data);
+    return await this.httpRequest.POST(`/cart`, data).then(async (res) => {
+      await this.toaster.Cart()
+    });
   }
 
   async getCartProducts() {

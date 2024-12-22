@@ -32,8 +32,7 @@ export class MiniCartComponent implements OnInit {
         this.calculateSubTotal(cartData.data);
       }
     });
-    await this.getCart();
-    await this.fetchRelatedProducts();
+    await Promise.all([this.getCart(), this.fetchRelatedProducts()]);
   }
 
   async getCart() {

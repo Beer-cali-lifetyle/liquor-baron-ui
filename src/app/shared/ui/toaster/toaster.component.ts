@@ -21,16 +21,15 @@ import { MiniCartComponent } from "../../../modules/shopping-cart/mini-cart/mini
 
 <ng-template #text>
   <span *ngIf="!toast?.cart">
-<h1>No hit</h1>
-  <ngb-toast-header ngbToastHeader style="background-color: yellow; color: black;">
+  <ngb-toast-header ngbToastHeader style="background-color: #840029; color: white;">
     <div style="display: flex; align-items: center;">
       <img src="assets/images/logo-light.png" alt="" class="me-2" height="28">
-      <small style="margin-left: auto; color: black;">just now</small>
+      <small style="margin-left: auto; color: white;">just now</small>
     </div>
   </ngb-toast-header>
-  <div class="message-container" style="background-color: yellow; padding: 10px;">
-    <span [ngClass]="toast.iconClass" style="margin-left: 10px; margin-right: 10px; color: black; margin-top:10px;"></span>
-    <span style="color: black;">{{ toast.textOrTpl }}</span>
+  <div class="message-container" style="background-color: #840029; padding: 10px;">
+    <span [ngClass]="toast.iconClass" style="margin-left: 10px; margin-right: 10px; color: white; margin-top:10px;"></span>
+    <span style="color: white;">{{ toast.textOrTpl }}</span>
   </div>
 </span>
 <span *ngIf="toast?.cart">

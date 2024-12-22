@@ -6,18 +6,18 @@
           <div class="nav flex-column nav-pills me-3 text-start" id="v-pills-tab" role="tablist"
             aria-orientation="vertical">
             <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home"
-              type="button" role="tab" aria-controls="v-pills-home" aria-selected="true" (click)="setActiveTab(1)">My
+              type="button" role="tab" aria-controls="v-pills-home" aria-selected="true" (click)="setActiveTab(1, 'account')" fragment="account">My
               Account</button>
             <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile"
               type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false"
-              (click)="setActiveTab(2)">My Orders</button>
+              (click)="setActiveTab(2, 'orders')" fragment="orders">My Orders</button>
             <button class="nav-link" id="v-pills-wishlist-tab" data-bs-toggle="pill" data-bs-target="#v-pills-wishlist"
               type="button" role="tab" aria-controls="v-pills-wishlist" aria-selected="false"
-              (click)="setActiveTab(3)">My Wish List</button>
+              (click)="setActiveTab(3, 'wishlist')" fragment="wishlist">My Wish List</button>
             <hr>
             <button class="nav-link" id="v-pills-disabled-tab" data-bs-toggle="pill" data-bs-target="#v-pills-personal-info"
             type="button" role="tab" aria-controls="v-pills-disabled" aria-selected="false"
-            (click)="setActiveTab(4)">My Account Information</button>
+            (click)="setActiveTab(4, 'info')" fragment="info">My Account Information</button>
             <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages"
               type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false"
               (click)="logout()">Logout</button>
@@ -45,8 +45,10 @@
                     <p>{{user?.email}}</p>
                     <!-- <p>sidherthsid@gmail.com</p> -->
                     <ul class="d-flex ">
-                      <li><a class="text-maroon">Edit</a></li>
-                      <li><a class="text-maroon">Change password</a></li>
+                      <li><a (click)="setActiveTab(4, 'info')" class="text-maroon" seta id="v-pills-disabled-tab" data-bs-toggle="pill" data-bs-target="#v-pills-personal-info"
+                        type="button" role="tab" aria-controls="v-pills-disabled" aria-selected="false">Edit</a></li>
+                      <li><a  (click)="setActiveTab(4, 'info')" class="text-maroon" id="v-pills-disabled-tab" data-bs-toggle="pill" data-bs-target="#v-pills-personal-info"
+                        type="button" role="tab" aria-controls="v-pills-disabled" aria-selected="false">Change password</a></li>
                     </ul>
                   </div>
                 </div>
@@ -59,11 +61,11 @@
                     <button class="btn-maroon" type="button" (click)="openModal(addressModal)">Add</button>
                   </div>
                   <div class="list-group mt-4">
-                    <label class="list-group-item" *ngFor="let item of address; let i=index">
+                    <label class="" *ngFor="let item of address; let i=index">
                       <div class="d-flex w-100">
                         <div class="billing-radio me-2">
                           <div class="form-check">
-                            <input type="radio" name="billingAddress" id="billingAddress1" [checked]="item?.is_default">
+                            <input type="radio" name="billingAddress" class="mt-3 me-2" id="billingAddress1" [checked]="item?.is_default">
                           </div>
                         </div>
                         <div class="billing-content">
@@ -84,6 +86,7 @@
                         </div>
                       </div>
                     </label>
+                    <label class="ms-3 text-maroon" *ngIf="address.length < 1">You have not added any address yet.</label>
                   </div>
 
                 </div>
@@ -372,7 +375,7 @@
             <label class="form-label flex-">State *</label>
             <select class="form-control" formControlName="state">
               <option disabled value="">Select State</option>
-              <option *ngFor="let state of USStates" [value]="state">{{ state }}</option>
+              <option *ngFor="let state of CanadianProvincesAndTerritories" [value]="state">{{ state }}</option>
             </select>
             <div *ngIf="form.get('state')?.touched && form.get('state')?.invalid">
               <div class="text-danger p-small" *ngIf="form.get('state')?.errors?.['required']">State is required.</div>

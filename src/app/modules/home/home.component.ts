@@ -26,6 +26,7 @@ declare var Isotope: any
 })
 export class HomeComponent extends AppBase implements OnInit {
   categories: any;
+  subCategories: any[] = [];
   products: any = [];
   currentYear: number = new Date().getFullYear();
   imgBaseUrl: string = environment.api.base_url;
@@ -42,12 +43,11 @@ export class HomeComponent extends AppBase implements OnInit {
     await this.fetchCategories();
     await this.fetchProducts();
   }
-
-  redirectToShopList(type: string, id: number) {
+  redirectToShopList(type: string, id: number, title: string) {
     if (type === 'category') {
-      this.router.navigate(['/shop'], { queryParams: { categoryId: id } });
+      this.router.navigate(['/shop'], { queryParams: { categoryId: id, title: title } });
     } else if (type === 'subcategory') {
-      this.router.navigate(['/shop'], { queryParams: { subcategoryId: id } });
+      this.router.navigate(['/shop'], { queryParams: { subcategoryId: id, title: title } });
     }
   }
 
@@ -58,7 +58,7 @@ export class HomeComponent extends AppBase implements OnInit {
 
   async fetchCategories() {
     await this.ApiService.getCategories().then(async (res) => {
-      this.categories = res?.categories;
+      this.subCategories = res?.categories[0]?.subcategories;
     })
   }
 
@@ -80,7 +80,7 @@ export class HomeComponent extends AppBase implements OnInit {
       }
       await this.ApiService.addToCart(payload).then(async res => {
         await this.getCart();
-        await this.toaster.Cart()
+        // await this.toaster.Cart()
       })
     }
     else {

@@ -6,7 +6,7 @@ import { ApiService } from '../../../shared/services/api.service';
 import { UiToasterService } from '../../../core/services/toaster.service';
 import { OrdersComponent } from '../orders/orders.component';
 import { WishlistComponent } from '../wishlist/wishlist.component';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal, NgbModalRef, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
 import { ContextService } from '../../../core/services/context.service';
@@ -23,18 +23,15 @@ export class MainComponent extends AppBase implements OnInit {
   @ViewChild('addressModal', { static: true }) addressModal!: TemplateRef<any>;
   address: any;
   user: any;
-  USStates = [
-    "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut",
-    "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana",
-    "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts",
-    "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada",
-    "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina",
-    "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island",
-    "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont",
-    "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"
+  CanadianProvincesAndTerritories = [
+    "Alberta", "British Columbia", "Manitoba", "New Brunswick", "Newfoundland and Labrador",
+    "Nova Scotia", "Ontario", "Prince Edward Island", "Quebec", "Saskatchewan",
+    "Northwest Territories", "Nunavut", "Yukon"
   ];
+  
   public editId: any = null;
   constructor(
+    private route: ActivatedRoute,
     public router: Router,
     private fb: FormBuilder,
     private ApiService: ApiService,
@@ -48,11 +45,56 @@ export class MainComponent extends AppBase implements OnInit {
 
 
   activeTab = 1;
-  setActiveTab(tab: number) {
+  setActiveTab(tab: number, fragment?: string): void {
     this.activeTab = tab;
+    this.setTabByFragment(fragment);
+  
+    // Find the corresponding button ID based on the tab number
+    const tabMap: any = {
+      1: 'v-pills-home-tab',
+      2: 'v-pills-profile-tab',
+      3: 'v-pills-wishlist-tab',
+      4: 'v-pills-disabled-tab',
+    };
+  
+    const tabId = tabMap[tab];
+    if (tabId) {
+      const tabButton = document.getElementById(tabId);
+      if (tabButton) {
+        tabButton.click(); // Trigger the tab change programmatically
+      }
+    }
+  }
+  
+  setTabByFragment(fragment: any) {
+    switch (fragment) {
+      case 'account':
+        this.activeTab = 1;
+        break;
+      case 'orders':
+        this.activeTab = 2;
+        break;
+      case 'wishlist':
+        this.activeTab = 3;
+        break;
+      case 'info':
+        this.activeTab = 4;
+        break;
+      case 'logout':
+        this.logout();
+        break;
+      default:
+        this.activeTab = 1; // Default to the first tab
+        break;
+    }
   }
 
   async ngOnInit() {
+    this.route.fragment.subscribe((fragment) => {
+      if (fragment) {
+        this.setTabByFragment(fragment);
+      }
+    });
     console.log(this.user)
     this.form = this.fb.group({
       fullName: ['', Validators.required],
