@@ -1,4 +1,4 @@
-<section class="single-pro-page">
+<section class="single-pro-page ">
   <div class="container-fluid">
     <div class="row">
       <div class="wrapper">
@@ -24,64 +24,57 @@
                 data-bs-slide="prev">Prev</button>
               <button type="button" class="btn btn-secondary btn-arrow-right" data-bs-target="#productCarousel"
                 data-bs-slide="next">Next</button>
-              <!-- <button class="carousel-control" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-              </button>
-              <button class="carousel-control" type="button">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-              </button> -->
             </div>
           </div>
 
 
-          <div class="review-section-starts mb-5">
-            <h2>Customer Reviews</h2>
-          </div>
+          <div class="reviewing">
+            <div class="review-section-starts mb-5">
+              <h2>Customer Reviews</h2>
+            </div>
 
-          <div class="row">
-            <div class="col">
-              <!-- <ul class="text-decoration-none">
-                <li> -->
-              <div class="rating-res">
-              </div>
-              <!-- </li> -->
-              <!-- <li> -->
-              <div class="d-flex text-maroon">
-                <h2 class="fs-1 fw-bold me-3">{{averageRating | number: '1.1-1'}}</h2>
-                <div class="stars-box ">
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
-                  <p>Based on {{productInfo?.reviews.length}} review<span
-                      *ngIf="productInfo?.reviews.length > 1">s</span></p>
+            <div class="row">
+              <div class="col">
+                <!-- <ul class="text-decoration-none">
+                  <li> -->
+                <div class="rating-res">
                 </div>
-              </div>
-              <!-- </li> -->
-              <!-- </ul> -->
-            </div>
-
-            <div class="col">
-              <div class="chart">
-                <div *ngFor="let rating of ratings; let i = index" class="rate-box">
-                  <span class="value text-marron">{{ 5 - i }}<i class=" ms-2 bi bi-star-fill"></i></span>
-                  <div class="progress-bar">
-                    <span class="progress" [style.width.%]="(rating.count / totalRatings) * 100"></span>
+                <!-- </li> -->
+                <!-- <li> -->
+                <div class="d-flex text-maroon">
+                  <h2 class="fs-1 fw-bold me-3">{{averageRating | number: '1.1-1'}}</h2>
+                  <div class="stars-box ">
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <p>Based on {{productInfo?.reviews.length}} review<span
+                        *ngIf="productInfo?.reviews.length > 1">s</span></p>
                   </div>
-                  <span class="count text-marron value">{{ rating.count }}</span>
+                </div>
+                <!-- </li> -->
+                <!-- </ul> -->
+              </div>
+
+              <div class="col">
+                <div class="chart">
+                  <div *ngFor="let rating of ratings; let i = index" class="rate-box">
+                    <span class="value text-marron">{{ 5 - i }}<i class=" ms-2 bi bi-star-fill"></i></span>
+                    <div class="progress-bar">
+                      <span class="progress" [style.width.%]="(rating.count / totalRatings) * 100"></span>
+                    </div>
+                    <span class="count text-marron value">{{ rating.count }}</span>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="col">
-              <button type="button" class="btn btn-secondary btn-review" (click)="openReviewForm(reviewmodal)">Write A
-                Review</button>
+              <div class="col">
+                <button type="button" class="btn btn-secondary btn-review" (click)="openReviewForm(reviewmodal)">Write A
+                  Review</button>
+              </div>
             </div>
           </div>
-          <br>
-          <br>
+
           <hr>
 
           <div class="row justify-content-between" *ngFor="let item of productInfo?.reviews">
@@ -105,7 +98,7 @@
                       <i class="bi bi-star-fill" *ngIf="item?.rating > 2"></i>
                       <i class="bi bi-star-fill" *ngIf="item?.rating > 1"></i>
                       <i class="bi bi-star-fill" *ngIf="item?.rating > 0"></i>
-                    <span class="ms-3">{{item?.review}}</span> 
+                      <span class="ms-3">{{item?.review}}</span>
                     </div>
                     <p>{{item?.comment}}</p>
                   </div>
@@ -120,14 +113,16 @@
             <hr>
           </div>
 
-          <div class="row mb-5">
+          <div class="row mb-5 collection-section">
+
+            <h2>You May Also Like </h2>
             <div class="col-4 product-card-container" *ngFor="let product of relatedProducts; let i=index">
 
               <div class="product-card" [routerLink]="['/product', product?.id]">
                 <div class="product-tumb pt-4 pb-1">
                   <img [src]="imgBaseUrl + product?.product_image" class="img-fluid uniform-img" alt="product">
                   <!-- <div class="badge-wrapper"> -->
-                    <div class="badge"   [ngClass]="{
+                  <div class="badge" [ngClass]="{
                       'bg-auccess': product.producttag === '3', 
                       'badge-yellow': product.producttag !== '3'
                     }">{{product.producttag === '3' ? 'New Item' : 'Limited Edition'}}</div>
@@ -168,13 +163,13 @@
             </div>
           </div>
 
-          <div class="row">
-            <div class="col">
+          <div class="row product-love">
+            <div class="wiskey-heading">
               <div class="reviews-ratings text-white">
                 <h3>{{productInfo?.product?.name}}</h3>
               </div>
             </div>
-            <div class="col">
+            <div class="wiskey-love">
               <div class="write-reviews text-end">
                 <a class="text-white" (click)="addToWishlist(productInfo?.product?.id)" *ngIf="!wishlist">
                   <i class="bi bi-heart"></i>
@@ -185,22 +180,18 @@
               </div>
             </div>
           </div>
-          <div class="row">
+          <div class="row wiskey-descriptions">
             <div class="col">
               <div class="product-descriptions text-white">
                 <p>{{productInfo?.product?.description}}</p>
               </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col">
-              <div class="product-descriptions text-white">
+              <div class="product-description text-white">
                 <p>Price: ${{productInfo?.product?.price}} <span class="saved-perc">Saved
                     {{productInfo?.product?.discount}}%</span></p>
               </div>
             </div>
           </div>
+
 
           <div class="row">
             <div class="col">

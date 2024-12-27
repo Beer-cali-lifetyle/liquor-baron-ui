@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="row">
       <div id="homepageCarousel" class="carousel slide px-0" data-bs-ride="carousel" data-bs-interval="5000" data-bs-pause="false">
-       <div class="px-5"> <div class="carousel-inner">
+       <div class="carousel-liquor px-5"> <div class="carousel-inner">
           <!-- Third slide -->
           <div class="carousel-item " *ngFor="let item of subCategories">
             <img [src]="imgBaseUrl + item?.image_file" class="d-block w-100" alt="Banner 3">
@@ -32,11 +32,11 @@
           </div> -->
         </div>
         <!-- Left and Right Controls -->
-        <button class="carousel-control-prev" type="button" data-bs-target="#homepageCarousel" data-bs-slide="prev">
+        <button class="carousel-control-prev prev-button" type="button" data-bs-target="#homepageCarousel" data-bs-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Previous</span>
         </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#homepageCarousel" data-bs-slide="next">
+        <button class="carousel-control-next next-button" type="button" data-bs-target="#homepageCarousel" data-bs-slide="next">
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Next</span>
         </button>
@@ -46,7 +46,7 @@
     
   </div>
 </section>
-<section class="main-section pb-3">
+<section class="main-section pb-3 collection-section">
   <div class="container-baron container-fluid">
     <div class="row">
       <div class="col-12">
@@ -56,7 +56,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-3 product-card-container" *ngFor="let product of products; let i=index">
+      <div class="col-3 col-xs-12 product-card-container" *ngFor="let product of products; let i=index">
   
         <div class="product-card" [routerLink]="['/product', product?.id]">
           <div class="product-tumb pt-4 pb-1">
