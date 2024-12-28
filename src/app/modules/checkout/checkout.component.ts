@@ -23,7 +23,8 @@ export class CheckoutComponent extends AppBase implements OnInit {
   activeTab = 1;
   addresses: any = [];
   stores: any = [];
-  storePickupForm: any;
+  storePickupForm!: any;
+  deliveryForm!: any;
   @ViewChild('modalContent') modalContent: TemplateRef<any> | undefined;
   subTotal: any;
   selectedBillingAddress: any;
@@ -66,6 +67,11 @@ export class CheckoutComponent extends AppBase implements OnInit {
       selectedStore: ['', Validators.required],
       pickupDate: ['', Validators.required],
       pickupTime: ['']
+    })
+    this.deliveryForm = this.fb.group({
+      deliveryAddress: ['', Validators.required],
+      deliveryDate: ['', Validators.required],
+      deliveryTime: ['']
     })
     await this.fetchAddres();
     await this.fetchStores();

@@ -20,6 +20,7 @@ import { SharedModule } from '../../shared/shared/shared.module';
 export class ShoppingCartComponent implements OnInit {
   imgBaseUrl: string = environment.api.base_url;
   cartInfo: any;
+  address: any;
   quantityOptions: number[] = Array.from({ length: 100 }, (_, i) => i + 1);
   constructor(
     private ApiService: ApiService,
@@ -36,6 +37,12 @@ export class ShoppingCartComponent implements OnInit {
       }
     });
     await this.getCart();
+  }
+
+  async fetchAddres() {
+    await this.ApiService.fetchAddress().then((res) => {
+      this.address = res
+    })
   }
 
   async getCart() {

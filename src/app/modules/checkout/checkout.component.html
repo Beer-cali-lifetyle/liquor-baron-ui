@@ -21,36 +21,27 @@
           <h4>Shipping Method</h4>
           <div class="three-section">
 
-            <div 
-            class="one-box select-one" 
-            [class.active]="activeTab === 1" 
-            (click)="setActiveTab(1)">
-            <i class="bi bi-shop-window fs-1"></i>
-            <p>Store Pickup</p>
-            <hr>
-            <button type="button">{{activeTab === 1 ? 'Selected' : 'Select'}}</button>
-          </div>
-          
-          <div 
-            class="one-box select-one" 
-            [class.active]="activeTab === 2" 
-            (click)="setActiveTab(2)">
-            <i class="bi bi-truck fs-1"></i>
-            <p>Home Delivery</p>
-            <hr>
-            <button type="button">{{activeTab === 2 ? 'Selected' : 'Select'}}</button>
-          </div>
-          
-          <div 
-            class="one-box select-one" 
-            [class.active]="activeTab === 3" 
-            (click)="setActiveTab(3)">
-            <i class="bi bi-globe-europe-africa fs-1"></i>
-            <p>Shipping</p>
-            <hr>
-            <button type="button">{{activeTab === 3 ? 'Selected' : 'Select'}}</button>
-          </div>
-          
+            <div class="one-box select-one" [class.active]="activeTab === 1" (click)="setActiveTab(1)">
+              <i class="bi bi-shop-window fs-1"></i>
+              <p>Store Pickup</p>
+              <hr>
+              <button type="button">{{activeTab === 1 ? 'Selected' : 'Select'}}</button>
+            </div>
+
+            <div class="one-box select-one" [class.active]="activeTab === 2" (click)="setActiveTab(2)">
+              <i class="bi bi-truck fs-1"></i>
+              <p>Home Delivery</p>
+              <hr>
+              <button type="button">{{activeTab === 2 ? 'Selected' : 'Select'}}</button>
+            </div>
+
+            <div class="one-box select-one" [class.active]="activeTab === 3" (click)="setActiveTab(3)">
+              <i class="bi bi-globe-europe-africa fs-1"></i>
+              <p>Shipping</p>
+              <hr>
+              <button type="button">{{activeTab === 3 ? 'Selected' : 'Select'}}</button>
+            </div>
+
 
           </div>
         </div>
@@ -60,25 +51,20 @@
             <div class="pickup-location mb-4">
               <p class="pickup-heading mb-2">Select pickup location:</p>
               <div class="picking-location">
-                <div
-                  class="inputting-pickup active d-flex align-items-center mb-2"
-                  *ngFor="let item of stores?.data?.data"
-                >
-                  <input
-                    type="radio"
-                    [id]="item?.id"
-                    formControlName="selectedAddress"
-                    [value]="item?.id"
-                    class="me-2"
-                  />
-                  <label [for]="item?.id" class="m-0">{{ item?.head_office_address }}</label>
+                <div class="inputting-pickup active d-flex align-items-center mb-2"
+                  *ngFor="let item of stores?.data?.data">
+                  <input type="radio" [id]="item?.id" formControlName="selectedStore" [value]="item?.id"
+                    class="me-2" />
+                  <label [for]="item?.id" class="m-0 fw-bold">{{ item?.head_office_address }}</label>
                 </div>
-                <div *ngIf="storePickupForm.get('selectedAddress')?.invalid && storePickupForm.get('selectedAddress')?.touched" class="text-danger">
+                <div
+                  *ngIf="storePickupForm.get('selectedStore')?.invalid && storePickupForm.get('selectedStore')?.touched"
+                  class="text-danger">
                   Please select a pickup location.
                 </div>
               </div>
             </div>
-          
+
             <!-- Pickup Date and Time -->
             <div class="pickup-location mb-4">
               <p class="pickup-heading mb-2">Choose pickup date and time:</p>
@@ -86,43 +72,35 @@
                 <!-- Date -->
                 <div class="col-6">
                   <div class="form-floating mb-3">
-                    <input
-                      type="date"
-                      class="form-control border-2"
-                      id="datepicker1"
-                      formControlName="pickupDate"
-                    />
+                    <input type="date" class="form-control border-2" id="datepicker1" formControlName="pickupDate" />
                     <label for="datepicker1">Select Date</label>
                   </div>
-                  <div *ngIf="storePickupForm.get('pickupDate')?.invalid && storePickupForm.get('pickupDate')?.touched" class="text-danger">
+                  <div *ngIf="storePickupForm.get('pickupDate')?.invalid && storePickupForm.get('pickupDate')?.touched"
+                    class="text-danger">
                     Please select a valid date.
                   </div>
                 </div>
-          
+
                 <!-- Time -->
                 <div class="col-6">
                   <div class="form-floating mb-3">
-                    <input
-                      type="time"
-                      class="form-control border-2"
-                      id="timepicker1"
-                      formControlName="pickupTime"
-                    />
+                    <input type="time" class="form-control border-2" id="timepicker1" formControlName="pickupTime" />
                     <label for="timepicker1">Select Time</label>
                   </div>
-                  <div *ngIf="storePickupForm.get('pickupTime')?.invalid && storePickupForm.get('pickupTime')?.touched" class="text-danger">
+                  <div *ngIf="storePickupForm.get('pickupTime')?.invalid && storePickupForm.get('pickupTime')?.touched"
+                    class="text-danger">
                     Please select a valid time.
                   </div>
                 </div>
               </div>
             </div>
-          
+
             <!-- Store Pickup Info -->
             <div class="store-pickup text-center mb-4">
               <p class="store-light m-0">Store pickup</p>
               <p class="store-dark m-0">Free</p>
             </div>
-          
+
             <!-- Submit Button -->
             <!-- <div class="text-center">
               <button type="submit" class="btn btn-primary" [disabled]="storePickupForm.invalid">
@@ -133,53 +111,49 @@
         </div>
 
         <div class="locally-deliver" id="deliver-local" *ngIf="activeTab === 2">
+          <form [formGroup]="deliveryForm">
           <div class="pickup-location">
-            <p class="pickup-heading">Choose a delivery date and time:</p>
+            <p class="pickup-heading">Choose a delivery date and time:</p><br>
             <div class="row row-selector">
 
-              <div class="inputting-added">
-                <div class="form-floating mb-4 d-flex">
-                  <input type="text" class="datepicker_input form-control border-2" id="datepicker1" required>
-                  <label for="datepicker1">Select Date</label>
+              <div class="row">
+                <div class="col-6">
+                  <div class="form-floating mb-3">
+                    <input type="date" class="form-control border-2" id="datepicker1" formControlName="deliveryDate" />
+                    <label for="datepicker1">Select Date</label>
+                  </div>
+                  <div *ngIf="storePickupForm.get('pickupDate')?.invalid && storePickupForm.get('pickupDate')?.touched"
+                    class="text-danger">
+                    Please select a valid date.
+                  </div>
+                </div>
+
+                <!-- Time -->
+                <div class="col-6">
+                  <div class="form-floating mb-3">
+                    <input type="time" class="form-control border-2" id="timepicker1" formControlName="deliveryTime" />
+                    <label for="timepicker1">Select Time</label>
+                  </div>
+                  <div *ngIf="storePickupForm.get('pickupTime')?.invalid && storePickupForm.get('pickupTime')?.touched"
+                    class="text-danger">
+                    Please select a valid time.
+                  </div>
                 </div>
               </div>
 
-              <div class="inputting-added">
-
-                <div class="form-floating mb-4 d-flex">
-                  <input type="text" class="datepicker_input form-control border-2" id="datepicker1" required>
-                  <label for="datepicker1">Select Time</label>
-                </div>
-              </div>
-
-
             </div>
           </div>
-          <div class="pickup-location">
-            <p class="pickup-heading">Select pickup location:</p>
-            <div class="picking-location">
-              <div class="inputting-pickup active">
-                <input type="radio" name="select-address">
-                <label>Local Delivery North/Central</label>
-                <p>$9.99</p>
-              </div>
-              <div class="inputting-pickup">
-                <input type="radio" name="select-address">
-                <label>Local Delivery North/Central</label>
-                <p>$9.99</p>
-              </div>
-              <div class="inputting-pickup">
-                <input type="radio" name="select-address">
-                <label>Local Delivery North/Central</label>
-                <p>$9.99</p>
-              </div>
-              <div class="inputting-pickup">
-                <input type="radio" name="select-address">
-                <label>Local Delivery North/Central</label>
-                <p>$9.99</p>
-              </div>
+          <div class="picking-location" *ngFor="let item of addresses; let i=index">
+            <div class="inputting-pickup d-flex align-items-center justify-content-between">
+              <span class="d-flex align-items-center"><input type="radio" formControlName="deliveryAddress" name="deliveryAddress" class="me-2" id="select-address">
+       
+              <label class="fw-bold ms-2">{{item?.address}}, {{item?.locality}}, {{item?.city}}, {{item?.state}}, {{item?.mobile_number}}</label>
+               
+            </span>
+              <!-- <p class="mb-0">$9.99</p> -->
             </div>
           </div>
+        </form>
         </div>
 
         <div class="locally-deliver shipping" id="shipping-locally" *ngIf="activeTab === 3">
