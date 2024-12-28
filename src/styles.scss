@@ -54,6 +54,10 @@
   .pb-50{
       padding-bottom: 50px;
   }
+
+  a{
+    cursor: pointer;
+  }
   @keyframes fadeIn {
        from {
            opacity: 0;
