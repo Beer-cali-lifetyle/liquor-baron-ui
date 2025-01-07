@@ -2,6 +2,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { ApiService } from '../../../shared/services/api.service';
 import { CommonModule } from '@angular/common';
+import { ContextService } from '../../../core/services/context.service';
 
 @Component({
   selector: 'app-header',
@@ -17,7 +18,7 @@ export class HeaderComponent implements OnInit {
   scrolledClass = 'main-nav-scrolled'; // Class to add on scroll
   headerHeight: number = 0; // To store header height dynamically
 
-  constructor(private ApiService: ApiService, private router: Router) {}
+  constructor(private ApiService: ApiService, private router: Router, public contextService: ContextService) {}
 
   async ngOnInit() {
     await this.fetchCategories();
@@ -28,7 +29,10 @@ export class HeaderComponent implements OnInit {
     if (headerElement) {
       this.headerHeight = headerElement.offsetHeight;
     }
+
   }
+  consoleCart() {
+  console.log(this.contextService.cart())}
 
   async fetchCategories() {
     await this.ApiService.getCategories().then(async (res) => {

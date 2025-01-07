@@ -56,6 +56,7 @@ export class ShopListComponent extends AppBase implements OnInit, AfterViewInit 
         console.log(this.products)
       })
     }
+    await this.getCart();
   }
 
   async ngAfterViewInit() {
@@ -78,11 +79,31 @@ export class ShopListComponent extends AppBase implements OnInit, AfterViewInit 
         quantity: 1
       }
       await this.ApiService.addToCart(payload).then(async res => {
-        // await this.toaster.Success('Added to cart successfully')
+        await this.getCart();
       })
     }
     else {
       this.router.navigate(['/auth/sign-in'])
+    }
+  }
+
+  async getCart() {
+    if (this.contextService.user()) {
+      await this.ApiService.getCartProducts().then((res) => {
+        res?.data.forEach((dataItem: any) => {
+          const productIndex = this.products.findIndex((prod: any) => prod.id === dataItem.product_id);
+          debugger;
+          if (productIndex !== -1) {
+            this.products[productIndex]['cart_details'] = {
+              id: dataItem?.id,
+              product_id: dataItem?.product_id,
+              quantity: dataItem?.quantity,
+            };
+          }
+          console.log(this.products)
+        });
+        this.contextService.cart.set(res)
+      })
     }
   }
 
@@ -123,6 +144,32 @@ export class ShopListComponent extends AppBase implements OnInit, AfterViewInit 
         await this.fetchproductsWithFilter({ categoryId: this.categoryId, perPage: this.pageSize, page: this.currentPage })
       }
     }
+  }
+
+
+  decrementProductCard(id: any, quantity: any, i: any, event: any) {
+    event.stopPropagation();
+    this.updateQuantityProductCard(id, quantity, i, 'dec');
+  }
+
+  incrementProductCard(id: any, quantity: any, i: any, event: any) {
+    event.stopPropagation();
+    this.updateQuantityProductCard(id, quantity, i, 'inc');
+  }
+
+  async updateQuantityProductCard(id: any, quantity: any, i: any, value: 'inc' | 'dec') {
+    const calculateQuantity = value === 'inc' ? quantity + 1 : quantity - 1;
+    const payload = {
+      quantity: calculateQuantity,
+    };
+    await this.ApiService.updateQuantity(payload, id).then(async (res) => {
+      debugger;
+      this.products[i].cart_details.quantity = calculateQuantity;
+
+      if (this.products[i].cart_details.quantity === 0) {
+        this.products[i].cart_details.quantity = null;
+      }
+    });
   }
 
 }

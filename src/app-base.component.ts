@@ -27,7 +27,7 @@ export abstract class AppBase {
 
     // Report common variables
     // start
-    public today = new Date();
+    public today:any = new Date();
     public firstDayOfMonth = new Date(this.today.getFullYear(), this.today.getMonth(), 1);
     public currentDate = new Date(this.today.getFullYear(), this.today.getMonth(), this.today.getDate());
 

@@ -1,6 +1,6 @@
 .image img {
     object-fit: contain;
-    max-height: 100px;
+    /* max-height: 100px; */
     max-width: 100px;
 }
 
@@ -106,7 +106,7 @@
 
     .shopping-productss img {
         object-fit: cover !important;
-        height: 94px;
+        height: 150px;
     }
 
     .shopping-productss h5.name-text {
@@ -178,7 +178,7 @@
 
     .shopping-productss img {
         object-fit: cover !important;
-        height: 94px;
+        height: 150px;
     }
 
     .shopping-productss h5.name-text {
@@ -322,7 +322,7 @@
 
     .shopping-productss img {
         object-fit: cover !important;
-        height: 94px;
+        height: 150px;
     }
 
     .shopping-productss h5.name-text {
@@ -469,7 +469,7 @@
 
     .shopping-productss img {
         object-fit: cover !important;
-        height: 94px;
+        height: 150px;
     }
 
     .shopping-productss h5.name-text {
@@ -616,7 +616,7 @@
 
     .shopping-productss img {
         object-fit: cover !important;
-        height: 94px;
+        height: 150px;
     }
 
     .shopping-productss h5.name-text {

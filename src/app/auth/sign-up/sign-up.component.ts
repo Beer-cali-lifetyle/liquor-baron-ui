@@ -37,9 +37,18 @@ export class SignUpComponent extends AppBase implements OnInit {
   console.log(this.form.value)
     if (this.form.valid) {
       try {
-        const res = await this.ApiService.SignUp(this.form.value);
+        const payload ={
+            name: this.form.value.firstName + ' ' + this.form.value.lastName ,
+            first_name: this.form.value.firstName,
+            last_name: this.form.value.lastName,
+            email :this.form.value.email,
+            password: this.form.value.password,
+            password_confirmation: this.form.value.password_confirmation
+        }
+        const res = await this.ApiService.SignUp(payload);
+        debugger;
         this.context.user.set(res?.user);
-          localStorage.setItem('access_token', res?.access_token);
+          localStorage.setItem('access_token', res?.token);
           localStorage.setItem('user_id', res?.user?.id);
           localStorage.setItem('user', JSON.stringify(res?.user));
         this.router.navigate(['/home'])

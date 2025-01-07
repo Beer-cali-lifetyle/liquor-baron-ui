@@ -1,28 +1,31 @@
 <section class="slider-content px-0">
   <div class="container-fluid">
     <div class="row">
-      <div id="homepageCarousel" class="carousel slide px-0" data-bs-ride="carousel" data-bs-interval="5000" data-bs-pause="false">
-       <div class="carousel-liquor px-5"> <div class="carousel-inner">
-          <!-- Third slide -->
-          <div class="carousel-item " *ngFor="let item of subCategories">
-            <img [src]="imgBaseUrl + item?.image_file" class="d-block w-100" alt="Banner 3">
-            <div class="carousel-caption d-none d-md-block text-start start-0">
-              <p>{{item?.description}}</p>
-              <h2>{{item?.subcategory_name}}</h2>
-              <button class="btn btn-transparent shop-btn" (click)="redirectToShopList('subcategory', item?.id, item?.subcategory_name)">Shop Now</button>
+      <div id="homepageCarousel" class="carousel slide px-5" data-bs-ride="carousel" data-bs-interval="5000"
+        data-bs-pause="false">
+        <div class="carousel-liquor px-5">
+          <div class="carousel-inner">
+            <!-- Third slide -->
+            <div class="carousel-item " *ngFor="let item of subCategories">
+              <img [src]="imgBaseUrl + item?.image_file" class="d-block w-100" alt="Banner 3">
+              <div class="carousel-caption d-none d-md-block text-start start-0">
+                <p>{{item?.description}}</p>
+                <h2>{{item?.subcategory_name}}</h2>
+                <button class="btn btn-transparent shop-btn"
+                  (click)="redirectToShopList('subcategory', item?.id, item?.subcategory_name)">Shop Now</button>
+              </div>
             </div>
-          </div>
- 
-          <div class="carousel-item active">
-            <img src="assets/image/banner/hero-banner1.png" class="d-block w-100" alt="Banner 2">
-            <div class="carousel-caption d-none d-md-block text-start start-0">
-              <p>WINTER 2024 COLLECTIONS</p>
-              <h2>Flayer Essential Collection</h2>
-              <button class="btn btn-transparent shop-btn" routerLink="/shop">Shop Now</button>
+
+            <div class="carousel-item active">
+              <img src="assets/image/banner/hero-banner1.png" class="d-block w-100" alt="Banner 2">
+              <div class="carousel-caption d-none d-md-block text-start start-0">
+                <p>WINTER 2024 COLLECTIONS</p>
+                <h2>Flayer Essential Collection</h2>
+                <button class="btn btn-transparent shop-btn" routerLink="/shop">Shop Now</button>
+              </div>
             </div>
-          </div>
-   
-          <!-- <div class="carousel-item">
+
+            <!-- <div class="carousel-item">
             <img src="assets/image/banner/banner2.jpg" class="d-block w-100" alt="Banner 1">
             <div class="carousel-caption d-none d-md-block text-start start-0">
               <p>WINTER 2024 COLLECTIONS</p>
@@ -30,20 +33,22 @@
               <button class="btn btn-transparent shop-btn" routerLink="/shop">Shop Now</button>
             </div>
           </div> -->
+          </div>
+          <!-- Left and Right Controls -->
+          <button class="carousel-control-prev prev-button" type="button" data-bs-target="#homepageCarousel"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next next-button" type="button" data-bs-target="#homepageCarousel"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
         </div>
-        <!-- Left and Right Controls -->
-        <button class="carousel-control-prev prev-button" type="button" data-bs-target="#homepageCarousel" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next next-button" type="button" data-bs-target="#homepageCarousel" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
-      </div>
       </div>
     </div>
-    
+
   </div>
 </section>
 <section class="main-section pb-3 collection-section">
@@ -57,26 +62,37 @@
     </div>
     <div class="row">
       <div class="col-3 col-xs-12 product-card-container" *ngFor="let product of products; let i=index">
-  
+
         <div class="product-card" [routerLink]="['/product', product?.id]">
           <div class="product-tumb pt-4 pb-1">
             <img [src]="imgBaseUrl + product?.product_image" class="img-fluid uniform-img" alt="product">
             <!-- <div class="badge-wrapper"> -->
-              <div class="badge"   [ngClass]="{
+            <div class="badge" [ngClass]="{
                 'bg-auccess': product.producttag === '3', 
                 'badge-yellow': product.producttag !== '3'
               }">{{product.producttag === '3' ? 'New Item' : 'Limited Edition'}}</div>
             <!-- </div> -->
           </div>
-          <div class="product-details p-3">
+          <div class="product-details p-2">
             <h4>{{product?.name}}</h4>
             <p>{{product?.description}}</p>
             <div class="product-bottom-details d-flex justify-content-between">
               <div class="product-price">
                 ${{product?.price}}
               </div>
-              <i class="bi bi-lg bi-bag-plus" *ngIf="!product?.cart_details" (click)="addToCart($event, product?.id, i)"></i>
-              <i class="bi bi-bag-check" *ngIf="product?.cart_details"></i>
+              <i class="bi bi-lg bi-bag-plus" *ngIf="!product?.cart_details"
+                (click)="addToCart($event, product?.id, i)"></i>
+              <span class="hover-text">Add</span>
+              <div class="qty-container" *ngIf="product?.cart_details">
+                <button class="minus-round btn-light" type="button"
+                  (click)="decrementProductCard(product?.cart_details?.id, product?.cart_details?.quantity, i, $event)"><i
+                    class="bi bi-dash"></i></button>
+                <div class="quantity-round">{{product?.cart_details?.quantity}}</div>
+                <button class="plus-round btn-light" type="button"
+                  (click)="incrementProductCard(product?.cart_details?.id, product?.cart_details?.quantity, i, $event)"><i
+                    class="bi bi-plus-lg"></i></button>
+              </div>
+
             </div>
           </div>
         </div>

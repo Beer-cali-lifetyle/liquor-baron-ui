@@ -59,6 +59,12 @@ const ModuleRoutes: Routes = [
     {
         path: 'checkout', canActivate: [AuthGuard], loadComponent: () => import('./index').then(c => c.CheckoutComponent)
     },
+    {
+        path: 'order-confirmation', loadComponent: () => import('./index').then(c => c.OrderConfirmedComponent)
+    },
+    {
+        path: 'order-reject', loadComponent: () => import('./index').then(c => c.OrderRejectedComponent)
+    },
     // {
     //     path: 'collection', loadComponent: () => import('./index').then(c => c.CollectionComponent)
     // },

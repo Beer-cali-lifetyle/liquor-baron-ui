@@ -58,8 +58,10 @@ export class ProductInfoComponent extends AppBase implements OnInit {
       terms: [false, Validators.requiredTrue],
     });
     await this.ApiService.fetchProduct(this.id).then(async (res) => {
-      this.productInfo = res
+      this.productInfo = res;
       this.mainProductImage = res?.product?.product_image;
+      let imgObj = { product_sub_image: res?.product?.product_image }
+      this.productInfo?.images.unshift(imgObj);
       this.productInfo.reviews.forEach((review: any) => {
         const star = review.rating;
         const ratingItem = this.ratings.find(r => r.stars === star);
@@ -69,6 +71,7 @@ export class ProductInfoComponent extends AppBase implements OnInit {
       });
       this.totalRatings = this.productInfo?.reviews.reduce((sum: any, item: any) => sum + item.rating, 0);
       this.averageRating = this.totalRatings / this.productInfo?.reviews.length;
+      console.log(this.productInfo)
       await this.getCart();
       await this.fetchWishlist();
       await this.fetchRelatedProducts();
@@ -108,7 +111,6 @@ export class ProductInfoComponent extends AppBase implements OnInit {
       }
       await this.ApiService.addToCart(payload).then(async res => {
         await this.getCart();
-        this.relatedProducts[i]['cart_details'] = this.relatedProducts[i]?.cart_details ? !this.relatedProducts[i]?.cart_details : true;
         // await this.toaster.Success('Added to cart successfully')
       })
     }
@@ -142,13 +144,17 @@ export class ProductInfoComponent extends AppBase implements OnInit {
     if (this.contextService.user()) {
       await this.ApiService.getCartProducts().then((res) => {
         this.contextService.cart.set(res)
-        res?.data?.map((item: any) => {
-
-          if (item?.product?.id === this.productInfo?.product?.id) {
-            this.cartInfo = item
-            this.quantity = item?.quantity;
+        res?.data.forEach((dataItem: any) => {
+          const productIndex = this.relatedProducts.findIndex((prod: any) => prod.id === dataItem.product_id);
+          debugger;
+          if (productIndex !== -1) {
+            this.relatedProducts[productIndex]['cart_details'] = {
+              id: dataItem?.id,
+              product_id: dataItem?.product_id,
+              quantity: dataItem?.quantity,
+            };
           }
-        })
+        });
       })
     }
   }
@@ -256,6 +262,31 @@ export class ProductInfoComponent extends AppBase implements OnInit {
   closeModal() {
     this.form.reset();
     this.modal.dismissAll();
+  }
+
+  decrementProductCard(id: any, quantity: any, i: any, event: any) {
+    event.stopPropagation();
+    this.updateQuantityProductCard(id, quantity, i, 'dec');
+  }
+
+  incrementProductCard(id: any, quantity: any, i: any, event: any) {
+    event.stopPropagation();
+    this.updateQuantityProductCard(id, quantity, i, 'inc');
+  }
+
+  async updateQuantityProductCard(id: any, quantity: any, i: any, value: 'inc' | 'dec') {
+    const calculateQuantity = value === 'inc' ? quantity + 1 : quantity - 1;
+    const payload = {
+      quantity: calculateQuantity,
+    };
+    await this.ApiService.updateQuantity(payload, id).then(async (res) => {
+      debugger;
+      this.relatedProducts[i].cart_details.quantity = calculateQuantity;
+
+      if (this.relatedProducts[i].cart_details.quantity === 0) {
+        this.relatedProducts[i].cart_details.quantity = null;
+      }
+    });
   }
 
 }

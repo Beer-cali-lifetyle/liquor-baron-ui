@@ -37,16 +37,18 @@
         <ul class="navbar-nav ms-auto">
           <li class="nav-item" routerLink="/our-store">
             <img src="assets/image/icons/location.png">
-            <a class="nav-link active" aria-current="page">OUR STORES</a>
+            <a class="nav-link active" aria-current="page" (click)="toggleNavbar()">OUR STORES</a>
           </li>
           <li class="nav-item" routerLink="/my-account">
             <img src="assets/image/icons/user.png">
-            <a class="nav-link">MY ACCOUNT</a>
+            <a class="nav-link" (click)="toggleNavbar()">MY ACCOUNT</a>
           </li>
           <li class="nav-item" routerLink="/cart">
-            <img src="assets/image/icons/basket.png">
-            <a class="nav-link">CART</a>
+            <img src="assets/image/icons/basket.png" alt="Cart">
+            <a class="nav-link" (click)="toggleNavbar()">CART</a>
+            <span class="cart-badge">{{contextService.cart()?.data.length}}</span>
           </li>
+          
           <li class="nav-item">
             <a class="nav-link">
               <img src="assets/image/icons/canada.png" alt="canada">

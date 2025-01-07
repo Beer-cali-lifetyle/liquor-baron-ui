@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild, TemplateRef, ChangeDetectorRef } from '@angular/core';
 import { ApiService } from '../../shared/services/api.service';
-import { NgbModal, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbNavModule, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AppBase } from '../../../app-base.component';
 import { UiToasterService } from '../../core/services/toaster.service';
@@ -17,7 +17,7 @@ import { PaymentComponent } from "../payment/payment.component";
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule, NgbNavModule,
     PaymentComponent, PaymentComponent
-]
+  ]
 })
 export class CheckoutComponent extends AppBase implements OnInit {
   activeTab = 1;
@@ -25,22 +25,29 @@ export class CheckoutComponent extends AppBase implements OnInit {
   stores: any = [];
   storePickupForm!: any;
   deliveryForm!: any;
+  shippingForm!: any;
+  selectedTime: any;
   @ViewChild('modalContent') modalContent: TemplateRef<any> | undefined;
   subTotal: any;
   selectedBillingAddress: any;
-  selectedPaymentMethod: any;
+  selectedPaymentMethod: any = 'online';
   imgBaseUrl: string = environment.api.base_url;
   showPayment: boolean = false;
-  USStates = [
-    "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut",
-    "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana",
-    "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts",
-    "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada",
-    "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina",
-    "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island",
-    "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont",
-    "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"
+  CanadianProvincesAndTerritories = [
+    "Alberta", "British Columbia", "Manitoba", "New Brunswick", "Newfoundland and Labrador",
+    "Nova Scotia", "Ontario", "Prince Edward Island", "Quebec", "Saskatchewan",
+    "Northwest Territories", "Nunavut", "Yukon"
   ];
+  // USStates = [
+  //   "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut",
+  //   "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana",
+  //   "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts",
+  //   "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada",
+  //   "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina",
+  //   "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island",
+  //   "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont",
+  //   "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"
+  // ];
   constructor(
     private ApiService: ApiService,
     private modalService: NgbModal,
@@ -48,9 +55,13 @@ export class CheckoutComponent extends AppBase implements OnInit {
     private toaster: UiToasterService,
     private cdr: ChangeDetectorRef,
     public contextService: ContextService
-  ) { super(); }
+  ) { super(); 
+    const now = new Date();
+    this.today = now.toISOString().split('T')[0]
+  }
 
   async ngOnInit() {
+    await this.fetchAddres();
     this.form = this.fb.group({
       fullName: ['', Validators.required],
       mobileNumber: ['', [Validators.required, Validators.pattern(/^\+?[1-9]\d{1,14}$/)]],
@@ -73,15 +84,28 @@ export class CheckoutComponent extends AppBase implements OnInit {
       deliveryDate: ['', Validators.required],
       deliveryTime: ['']
     })
-    await this.fetchAddres();
+    this.shippingForm = this.fb.group({
+      shippingAddress: ['', Validators.required],
+    })
     await this.fetchStores();
     await this.getCart();
+
+  }
+
+  openModal(content: any) {
+    const modalRef: NgbModalRef = this.modalService.open(content, {
+      centered: true,
+      backdrop: 'static',
+      keyboard: false,
+      size: 'lg'
+    });
 
   }
 
   setActiveTab(tabNumber: number): void {
     this.activeTab = tabNumber;
     console.log('Active Tab Number:', this.activeTab); // Optional for debugging
+    this.selectedTime = null;
   }
 
   async fetchStores() {
@@ -92,7 +116,8 @@ export class CheckoutComponent extends AppBase implements OnInit {
 
   async fetchAddres() {
     await this.ApiService.fetchAddress().then((res) => {
-      this.addresses = res
+      this.addresses = res;
+      console.log(this.addresses)
     })
   }
 
@@ -145,59 +170,125 @@ export class CheckoutComponent extends AppBase implements OnInit {
   }
 
   async placeOrder() {
-    if (this.selectedBillingAddress && this.selectedPaymentMethod) {
-      const value = {
-        cart: this.contextService.cart(),
-        user: this.contextService.user()?.id
-      }
-      console.log(value)
-      if (this.contextService.cart()?.data.length > 0 && this.contextService.user()?.id) {
-        if (this.selectedPaymentMethod === 'cod') {
-          const payload = {
+    switch (this.activeTab) {
+      case 1:
+        if (this.storePickupForm.valid) {
+          const storePickupPayload = {
             user_id: this.contextService.user()?.id,
             items: this.contextService.cart()?.data?.map((product: any) => {
               return { product_id: product?.product?.id, name: product?.product?.name, quantity: product?.quantity, price: product?.product?.price }
             }),
             total_amount: this.subTotal,
-            delivery_address: this.formatAddress(this.selectedBillingAddress),
             payment_method: this.selectedPaymentMethod,
-            status: 'active'
+            delivery_type: "store",
+            pickup_date: this.storePickupForm.value.pickupDate,
+            delivery_time: this.selectedTime,
+            store: this.storePickupForm.value.selectedStore
           }
-
-          await this.ApiService.placeOrder(payload).then(async (res) => {
-            if (res) {
-              this.toaster.Success('Order Placed Succesfully')
+          console.log(JSON.stringify(storePickupPayload))
+          await this.ApiService.placeOrder(storePickupPayload).then((res) => {
+            const checkoutUrl = res?.checkout_url;
+            if (checkoutUrl) {
+              // Redirect to the checkout URL
+              window.location.href = checkoutUrl;
+            } else {
+              console.error('Checkout URL not found');
             }
           })
         } else {
-          const payload = {
+          this.validateForm(this.storePickupForm)
+        }
+        break;
+      case 2:
+        if (this.deliveryForm.valid) {
+          const localDeliveryPayload = {
             user_id: this.contextService.user()?.id,
             items: this.contextService.cart()?.data?.map((product: any) => {
-              return { product_id: product?.product?.id, name: product?.product?.name, quantity: product?.quantity, price: product?.product?.price }
+              return {
+                product_id: product?.product?.id,
+                name: product?.product?.name,
+                quantity: product?.quantity,
+                price: product?.product?.price
+              };
             }),
-            amount: this.subTotal,
-            delivery_address: this.formatAddress(this.selectedBillingAddress),
+            total_amount: this.subTotal,
+            delivery_address: this.formatAddress(this.addresses.find((item: any) => item?.id === this.deliveryForm.get('deliveryAddress')?.value)),
             payment_method: this.selectedPaymentMethod,
-            status: 'pending'
-          }
-
-          await this.ApiService.placeOrderOnline(payload).then(async (res) => {
-            if (res && res.url) {
-              window.location.href = res.url;
+            delivery_type: "local",
+            pickup_date: this.deliveryForm.value.deliveryDate,
+            delivery_time: this.selectedTime,
+          };
+          console.log(JSON.stringify(localDeliveryPayload))
+          await this.ApiService.placeOrder(localDeliveryPayload).then((res) => {
+            const checkoutUrl = res?.checkout_url;
+            if (checkoutUrl) {
+              // Redirect to the checkout URL
+              window.location.href = checkoutUrl;
+            } else {
+              console.error('Checkout URL not found');
             }
           })
+        } else {
+          this.validateForm(this.deliveryForm)
         }
-      }
-    } else {
-      this.toaster.Warning('Please select delivery address and Payment method to proceed.');
+        break;
+      case 3:
+        const shippingPayload = {
+          user_id: this.contextService.user()?.id,
+          items: this.contextService.cart()?.data?.map((product: any) => {
+            return {
+              product_id: product?.product?.id,
+              name: product?.product?.name,
+              quantity: product?.quantity,
+              price: product?.product?.price
+            };
+          }),
+          total_amount: this.subTotal,
+          delivery_address: this.formatAddress(this.addresses.find((item: any) => item?.id === this.shippingForm.get('shippingAddress')?.value)),
+          payment_method: this.selectedPaymentMethod,
+          delivery_type: "shipping",
+        };
+        await this.ApiService.placeOrder(shippingPayload).then((res) => {
+          const checkoutUrl = res?.checkout_url;
+          if (checkoutUrl) {
+            // Redirect to the checkout URL
+            window.location.href = checkoutUrl;
+          } else {
+            console.error('Checkout URL not found');
+          }
+        })
+        break;
+
+      default:
+        break;
     }
   }
 
 
   formatAddress(address: any) {
+    if (!address) return null; // Handle case where no address is provided
+    debugger;
     const { full_name, address: addr, locality, landmark, city, state, pin_code, mobile_number } = address;
 
-    return `${full_name || ''}, ${addr || ''}, ${locality || ''}${landmark ? ', ' + landmark : ''}, ${city || ''} - ${pin_code || ''}, ${state || ''}, Mobile: ${mobile_number || ''}`.replace(/,\s*,/g, ',').replace(/,\s*$/, '').trim();
+    return {
+      name: full_name || '', // Full name
+      address: `${addr || ''}, ${locality || ''}${landmark ? ', ' + landmark : ''}, ${city || ''} - ${pin_code || ''}, ${state || ''}`.replace(/,\s*,/g, ',').replace(/,\s*$/, '').trim(),
+      mobile: mobile_number || '' // Mobile number (optional if required)
+    };
+  }
+
+  formatTime(form: FormGroup, field: string) {
+    const timeValue = form.get(field)?.value; // Get the raw value
+    if (timeValue) {
+      const [hours, minutes] = timeValue.split(':');
+      let hour = parseInt(hours, 10);
+      const ampm = hour >= 12 ? 'PM' : 'AM';
+      hour = hour % 12 || 12; // Convert to 12-hour format
+      const formattedHour = String(hour).padStart(2, '0'); // Add leading zero if necessary
+      const formattedMinutes = String(minutes).padStart(2, '0'); // Add leading zero if necessary
+      const formattedTime = `${formattedHour}:${formattedMinutes} ${ampm}`; // Format the time
+      this.selectedTime = formattedTime // Dynamically set the field value
+    }
   }
 
   continue() {

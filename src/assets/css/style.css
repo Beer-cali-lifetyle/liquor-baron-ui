@@ -2733,6 +2733,13 @@ p.store-dark {
   gap: 10px;
   border-radius: 0px 0px 7px 7px;
 }
+.confirmation .alert-danger.alerting {
+  background: #f5bbaa;
+  padding: 15px;
+  display: flex;
+  gap: 10px;
+  border-radius: 0px 0px 7px 7px;
+}
 
 .confirmation img {
   width: 100%;

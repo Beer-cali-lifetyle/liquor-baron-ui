@@ -53,8 +53,7 @@
               <div class="picking-location">
                 <div class="inputting-pickup active d-flex align-items-center mb-2"
                   *ngFor="let item of stores?.data?.data">
-                  <input type="radio" [id]="item?.id" formControlName="selectedStore" [value]="item?.id"
-                    class="me-2" />
+                  <input type="radio" [id]="item?.id" formControlName="selectedStore" [value]="item?.id" class="me-2" />
                   <label [for]="item?.id" class="m-0 fw-bold">{{ item?.head_office_address }}</label>
                 </div>
                 <div
@@ -72,7 +71,8 @@
                 <!-- Date -->
                 <div class="col-6">
                   <div class="form-floating mb-3">
-                    <input type="date" class="form-control border-2" id="datepicker1" formControlName="pickupDate" />
+                    <input [min]="today" type="date" class="form-control border-2" id="datepicker1"
+                      formControlName="pickupDate" />
                     <label for="datepicker1">Select Date</label>
                   </div>
                   <div *ngIf="storePickupForm.get('pickupDate')?.invalid && storePickupForm.get('pickupDate')?.touched"
@@ -84,7 +84,8 @@
                 <!-- Time -->
                 <div class="col-6">
                   <div class="form-floating mb-3">
-                    <input type="time" class="form-control border-2" id="timepicker1" formControlName="pickupTime" />
+                    <input type="time" class="form-control border-2" id="timepicker1"
+                      (change)="formatTime(storePickupForm, 'pickupTime')" formControlName="pickupTime" />
                     <label for="timepicker1">Select Time</label>
                   </div>
                   <div *ngIf="storePickupForm.get('pickupTime')?.invalid && storePickupForm.get('pickupTime')?.touched"
@@ -112,51 +113,75 @@
 
         <div class="locally-deliver" id="deliver-local" *ngIf="activeTab === 2">
           <form [formGroup]="deliveryForm">
-          <div class="pickup-location">
-            <p class="pickup-heading">Choose a delivery date and time:</p><br>
-            <div class="row row-selector">
+            <div class="pickup-location">
+              <p class="pickup-heading">Choose a delivery date and time:</p><br>
+              <div class="row row-selector">
 
-              <div class="row">
-                <div class="col-6">
-                  <div class="form-floating mb-3">
-                    <input type="date" class="form-control border-2" id="datepicker1" formControlName="deliveryDate" />
-                    <label for="datepicker1">Select Date</label>
+                <div class="row">
+                  <div class="col-6">
+                    <div class="form-floating mb-3">
+                      <input [min]="today" type="date" class="form-control border-2" id="datepicker1"
+                        formControlName="deliveryDate" />
+                      <label for="datepicker1">Select Date</label>
+                    </div>
+                    <div *ngIf="deliveryForm.get('deliveryDate')?.invalid && deliveryForm.get('deliveryDate')?.touched"
+                      class="text-danger">
+                      Please select a valid date.
+                    </div>
                   </div>
-                  <div *ngIf="storePickupForm.get('pickupDate')?.invalid && storePickupForm.get('pickupDate')?.touched"
-                    class="text-danger">
-                    Please select a valid date.
+                  <!-- Time -->
+                  <div class="col-6">
+                    <div class="form-floating mb-3">
+                      <input type="time" class="form-control border-2" id="timepicker1"
+                        (change)="formatTime(deliveryForm, 'deliveryTime')" formControlName="deliveryTime" />
+                      <label for="timepicker1">Select Time</label>
+                    </div>
+                    <div *ngIf="deliveryForm.get('deliveryTime')?.invalid && deliveryForm.get('deliveryTime')?.touched"
+                      class="text-danger">
+                      Please select a valid time.
+                    </div>
                   </div>
                 </div>
 
-                <!-- Time -->
-                <div class="col-6">
-                  <div class="form-floating mb-3">
-                    <input type="time" class="form-control border-2" id="timepicker1" formControlName="deliveryTime" />
-                    <label for="timepicker1">Select Time</label>
-                  </div>
-                  <div *ngIf="storePickupForm.get('pickupTime')?.invalid && storePickupForm.get('pickupTime')?.touched"
-                    class="text-danger">
-                    Please select a valid time.
-                  </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="title-with-forms  d-flex justify-content-between">
+                <div class="title-forms w-100">
+                  <h3>Address Book <span class="text-maroon"><a></a></span></h3>
+                  <hr>
                 </div>
+                <button class="btn-maroon" type="button" (click)="openModal(addressModal)">Add</button>
+              </div>
+              <div class="list-group mt-4">
+                <label class="" *ngFor="let item of addresses; let i=index">
+                  <div class="d-flex w-100">
+                    <div class="billing-radio me-2">
+                      <div class="form-check">
+                        <input type="radio" class="mt-3 me-2" name="deliveryAddress" [id]="'deliveryAddress' + i"
+                          [value]="item?.id" formControlName="deliveryAddress">
+                      </div>
+                    </div>
+                    <div class="billing-content">
+                      <div class="fw-bold fs-5">{{item?.full_name}}</div>
+                      <p>{{item?.address}}, {{item?.locality}}, {{item?.city}}, {{item?.state}}, {{item?.mobile_number}}
+                      </p>
+                    </div>
+                  </div>
+                </label>
+                <div
+                  *ngIf="deliveryForm.get('deliveryAddress')?.invalid && deliveryForm.get('deliveryAddress')?.touched"
+                  class="text-danger">
+                  Please select Address.
+                </div>
+                <label class="ms-3 text-maroon" *ngIf="addresses.length < 1">You have not added any address yet.</label>
               </div>
 
             </div>
-          </div>
-          <div class="picking-location" *ngFor="let item of addresses; let i=index">
-            <div class="inputting-pickup d-flex align-items-center justify-content-between">
-              <span class="d-flex align-items-center"><input type="radio" formControlName="deliveryAddress" name="deliveryAddress" class="me-2" id="select-address">
-       
-              <label class="fw-bold ms-2">{{item?.address}}, {{item?.locality}}, {{item?.city}}, {{item?.state}}, {{item?.mobile_number}}</label>
-               
-            </span>
-              <!-- <p class="mb-0">$9.99</p> -->
-            </div>
-          </div>
-        </form>
+          </form>
         </div>
 
-        <div class="locally-deliver shipping" id="shipping-locally" *ngIf="activeTab === 3">
+        <!-- <div class="locally-deliver shipping" id="shipping-locally" *ngIf="activeTab === 3">
           <div class="pickup-location">
             <div class="picking-location">
               <div class="inputting-pickup active">
@@ -181,8 +206,42 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
 
+
+        <form [formGroup]="shippingForm" class="row" *ngIf="activeTab === 3">
+          <div class="title-with-forms  d-flex justify-content-between">
+            <div class="title-forms w-100">
+              <h3>Address Book <span class="text-maroon"><a></a></span></h3>
+              <hr>
+            </div>
+            <button class="btn-maroon" type="button" (click)="openModal(addressModal)">Add</button>
+          </div>
+          <div class="list-group mt-4">
+            <label class="" *ngFor="let item of addresses; let i=index">
+              <div class="d-flex w-100">
+                <div class="billing-radio me-2">
+                  <div class="form-check">
+                    <input type="radio" class="mt-3 me-2" name="shippingAddress" [id]="'shippingAddress' + i"
+                      [value]="item?.id" formControlName="shippingAddress">
+                  </div>
+                </div>
+                <div class="billing-content">
+                  <div class="fw-bold fs-5">{{item?.full_name}}</div>
+                  <p>{{item?.address}}, {{item?.locality}}, {{item?.city}}, {{item?.state}}, {{item?.mobile_number}}
+                  </p>
+                </div>
+              </div>
+            </label>
+            <div
+              *ngIf="deliveryForm.get('deliveryAddress')?.invalid && deliveryForm.get('deliveryAddress')?.touched"
+              class="text-danger">
+              Please select Address.
+            </div>
+            <label class="ms-3 text-maroon" *ngIf="addresses.length < 1">You have not added any address yet.</label>
+          </div>
+
+        </form>
 
         <div class="text-check inputting-check">
           <div class="button-flex button-return">
@@ -190,7 +249,7 @@
               Payment</button> -->
           </div>
           <div class="button-flex">
-            <button type="submit" class="btn btn-primary" (click)="continue()">Continue to Payment</button>
+            <button class="btn btn-primary" (click)="placeOrder()">Continue to Payment</button>
           </div>
         </div>
 
@@ -249,7 +308,20 @@
   </div>
 </section>
 
-<ng-template #modalContent let-modal>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ng-template #addressModal let-modal>
   <div class="modal-header">
     <h4 class="modal-title">Address</h4>
     <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
@@ -327,7 +399,7 @@
               <label class="form-label flex-">State *</label>
               <select class="form-control" formControlName="state">
                 <option disabled value="">Select State</option>
-                <option *ngFor="let state of USStates" [value]="state">{{ state }}</option>
+                <option *ngFor="let state of CanadianProvincesAndTerritories" [value]="state">{{ state }}</option>
               </select>
               <div *ngIf="form.get('state')?.touched && form.get('state')?.invalid">
                 <div class="text-danger p-small" *ngIf="form.get('state')?.errors?.['required']">State is required.
@@ -345,11 +417,11 @@
             </div>
 
             <!-- <div class="col-md-12 mt-1 type-form">
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" formControlName="defaultAddress" id="customCheck1">
-                  <label class="form-check-label" for="customCheck1">Make this my default address</label>
-                </div>
-              </div> -->
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" formControlName="defaultAddress" id="customCheck1">
+                <label class="form-check-label" for="customCheck1">Make this my default address</label>
+              </div>
+            </div> -->
 
             <div class="col-md-12 modal-footer">
               <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>

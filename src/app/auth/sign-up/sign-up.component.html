@@ -14,7 +14,7 @@
             <div class="register-form">
               <div class="form-labels">
                 <label class="form-label">First Name <span class="red">*</span></label>
-                <input type="text" class="form-control" placeholder="Enter firdt name" formControlName="firstName">
+                <input type="text" class="form-control" placeholder="Enter first name" formControlName="firstName">
                 <div *ngIf="form.get('firstName')?.invalid && form.get('firstName')?.touched" class="text-danger">
                   <small *ngIf="form.get('firstName')?.errors?.['required']">First Name is required.</small>
                 </div>
@@ -97,12 +97,12 @@
                 <label for="show">Show Password</label>
               </div>
 
-              <div class="form-labels">
+              <!-- <div class="form-labels">
                 <p><strong>What’s this?</strong></p>
                 <div class="captcha">
                   <img src="image/Recapcha.png" alt="">
                 </div>
-              </div>
+              </div> -->
 
               <div class="form-labels">
                 <button type="submit" class="btn-border">Create An Account</button>

@@ -21,7 +21,7 @@ export class ApiService {
   }
 
   async SignUp(data: any) {
-    return await this.httpRequest.POST(`/register`, data);
+    return await this.httpRequest.POST(`/createusers`, data);
   }
 
   async getUserDetails(id: string) {
@@ -160,6 +160,10 @@ export class ApiService {
 
   async fetchOrders(id: any) {
     return await this.httpRequest.GET(`/users/${id}/orders`);
+  }
+
+  async fetchParticularOrder(id: any) {
+    return await this.httpRequest.GET(`/orders/${id}`);
   }
 
   async postReview(data: any) {

@@ -18,7 +18,7 @@ declare var Isotope: any
     CommonModule,
     SharedModule,
     MiniCartComponent
-],
+  ],
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
@@ -28,6 +28,8 @@ export class HomeComponent extends AppBase implements OnInit {
   categories: any;
   subCategories: any[] = [];
   products: any = [];
+  quantity: number = 1;
+  cartInfo: any;
   currentYear: number = new Date().getFullYear();
   imgBaseUrl: string = environment.api.base_url;
   constructor(@Inject(PLATFORM_ID) private platformId: Object,
@@ -42,6 +44,7 @@ export class HomeComponent extends AppBase implements OnInit {
   async ngOnInit() {
     await this.fetchCategories();
     await this.fetchProducts();
+    await this.getCart();
   }
   redirectToShopList(type: string, id: number, title: string) {
     if (type === 'category') {
@@ -72,7 +75,7 @@ export class HomeComponent extends AppBase implements OnInit {
 
   async addToCart(event: Event, id: number, i: number) {
     event.stopPropagation();
-    this.products[i]['cart_details'] = this.products[i]?.cart_details ? !this.products[i]?.cart_details : true;
+    // this.products[i]['cart_details'] = this.products[i]?.cart_details ? !this.products[i]?.cart_details : true;
     if (this.contextService.user()) {
       const payload = {
         productId: id,
@@ -91,6 +94,18 @@ export class HomeComponent extends AppBase implements OnInit {
   async getCart() {
     if (this.contextService.user()) {
       await this.ApiService.getCartProducts().then((res) => {
+        res?.data.forEach((dataItem: any) => {
+          const productIndex = this.products.findIndex((prod: any) => prod.id === dataItem.product_id);
+          debugger;
+          if (productIndex !== -1) {
+            this.products[productIndex]['cart_details'] = {
+              id: dataItem?.id,
+              product_id: dataItem?.product_id,
+              quantity: dataItem?.quantity,
+            };
+          }
+          console.log(this.products)
+        });
         this.contextService.cart.set(res)
       })
     }
@@ -126,11 +141,37 @@ export class HomeComponent extends AppBase implements OnInit {
   }
 
 
-  async loadMore() { 
+  async loadMore() {
     let page = this.pageSize + 12
     await this.ApiService.fetcHlatestProducts({ perPage: page, page: this.currentPage }).then(res => {
       this.products = res?.data;
     })
+  }
+
+
+  decrementProductCard(id: any, quantity: any, i: any, event: any) {
+    event.stopPropagation();
+    this.updateQuantityProductCard(id, quantity, i, 'dec');
+  }
+
+  incrementProductCard(id: any, quantity: any, i: any, event: any) {
+    event.stopPropagation();
+    this.updateQuantityProductCard(id, quantity, i, 'inc');
+  }
+
+  async updateQuantityProductCard(id: any, quantity: any, i: any, value: 'inc' | 'dec') {
+    const calculateQuantity = value === 'inc' ? quantity + 1 : quantity - 1;
+    const payload = {
+      quantity: calculateQuantity,
+    };
+    await this.ApiService.updateQuantity(payload, id).then(async (res) => {
+      debugger;
+      this.products[i].cart_details.quantity = calculateQuantity;
+
+      if (this.products[i].cart_details.quantity === 0) {
+        this.products[i].cart_details.quantity = null;
+      }
+    });
   }
 
 }

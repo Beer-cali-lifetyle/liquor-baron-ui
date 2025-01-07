@@ -34,9 +34,10 @@
           <div class="row bg-white" *ngFor="let item of contextService.cart()?.data">
             <div class="col-lg-2">
               <div class="align-items-center text-center image">
-                <img [src]="imgBaseUrl + item?.product?.product_image" width="180px" alt="Thumbnail">
+                <img [src]="imgBaseUrl + item?.product?.product_image" alt="Thumbnail">
               </div>
             </div>
+            
             <div class="col-lg-10 align-self-center">
               <div class="d-flex justify-content-between mb-3 aligner-productss">
                 <h5 class="name-text">

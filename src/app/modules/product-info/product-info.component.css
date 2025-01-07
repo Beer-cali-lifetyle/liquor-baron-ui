@@ -1,5 +1,4 @@
 .carousel-inner img {
-  height: 500px;
   object-fit: cover;
   width: 100%;
 }
@@ -138,6 +137,9 @@ body {
 }
 
 
+.product-main-images{
+  min-height: 65vh;
+}
 
 .shop-box {
   position: relative;
