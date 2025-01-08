@@ -34,7 +34,7 @@
             <a class="nav-link active" aria-current="page">{{ item?.subcategory_name }}</a>
           </li>
         </ul>
-        <ul class="navbar-nav ms-auto">
+        <ul class="navbar-nav ms-auto extra-menus">
           <li class="nav-item" routerLink="/our-store">
             <img src="assets/image/icons/location.png">
             <a class="nav-link active" aria-current="page" (click)="toggleNavbar()">OUR STORES</a>
@@ -48,13 +48,19 @@
             <a class="nav-link" (click)="toggleNavbar()">CART</a>
             <span class="cart-badge">{{contextService.cart()?.data.length}}</span>
           </li>
-          
+
           <li class="nav-item">
             <a class="nav-link">
               <img src="assets/image/icons/canada.png" alt="canada">
             </a>
           </li>
         </ul>
+      </div>
+      <div class="cart-show">
+        <p class="nav-item" routerLink="/cart">
+          <a class="nav-link" (click)="toggleNavbar()"><img src="assets/image/icons/basket.png" alt="Cart"></a>
+          <span class="cart-badge">{{contextService.cart()?.data.length}}</span>
+        </p>
       </div>
     </div>
   </nav>
