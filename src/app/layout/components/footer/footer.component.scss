@@ -115,3 +115,22 @@
         min-height: 40px;
     }
 }
+
+@media (max-width: 600px) {
+    .widget-about img {
+        margin: 0 auto;
+    }
+
+    .footer-big p {
+        text-align: center;
+    }
+
+    .footer-menu {
+        text-align: center;
+    }
+
+    .footer-menu ul {
+        justify-content: center;
+        gap: 10px;
+    }
+}

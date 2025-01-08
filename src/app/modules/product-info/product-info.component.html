@@ -4,32 +4,29 @@
       <div class="wrapper">
         <div class="main text-center">
 
-          <div id="productCarousel" *ngIf="productInfo?.images?.length > 0" class="carousel slide product-main-images d-flex justify-content-center"
-          data-bs-ride="carousel" data-bs-interval="5000" data-bs-pause="false">
-          <div class="carousel-inner">
-            <div
-            *ngFor="let item of productInfo?.images; let i = index"
-            class="carousel-item"
-            [ngClass]="{ 'active': i === 0 }"
-          >
-          <div class="d-flex justify-content-center">
-            <img
-              [src]="imgBaseUrl + item?.product_sub_image"
-              class="d-block centered-image"
-              alt="Product Image {{ i + 1 }}"
-            />
+          <div class="main-prod-bannar">
+            <div id="productCarousel" *ngIf="productInfo?.images?.length > 0"
+              class="carousel slide product-main-images d-flex justify-content-center" data-bs-ride="carousel"
+              data-bs-interval="5000" data-bs-pause="false">
+              <div class="carousel-inner">
+                <div *ngFor="let item of productInfo?.images; let i = index" class="carousel-item"
+                  [ngClass]="{ 'active': i === 0 }">
+                  <div class="d-flex justify-content-center">
+                    <img [src]="imgBaseUrl + item?.product_sub_image" class="d-block centered-image"
+                      alt="Product Image {{ i + 1 }}" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="carousel-controls-bottom" *ngIf="productInfo?.images?.length > 1">
+                <button type="button" class="btn btn-secondary btn-arrow-left" data-bs-target="#productCarousel"
+                  data-bs-slide="prev">Prev</button>
+                <button type="button" class="btn btn-secondary btn-arrow-right" data-bs-target="#productCarousel"
+                  data-bs-slide="next">Next</button>
+              </div>
             </div>
           </div>
-          </div>
-        
-          <div class="carousel-controls-bottom" *ngIf="productInfo?.images?.length > 1">
-            <button type="button" class="btn btn-secondary btn-arrow-left" data-bs-target="#productCarousel"
-              data-bs-slide="prev">Prev</button>
-            <button type="button" class="btn btn-secondary btn-arrow-right" data-bs-target="#productCarousel"
-              data-bs-slide="next">Next</button>
-          </div>
-        </div>
-        
+
 
           <div class="reviewing">
             <div class="review-section-starts mb-5">
@@ -139,17 +136,17 @@
                       ${{product?.price}}
                     </div>
                     <i class="bi bi-lg bi-bag-plus" *ngIf="!product?.cart_details"
-                    (click)="addToCart($event, product?.id, i)"></i>
-                  <span class="hover-text">Add</span>
-                  <div class="qty-container" *ngIf="product?.cart_details">
-                    <button class="minus-round btn-light" type="button"
-                      (click)="decrementProductCard(product?.cart_details?.id, product?.cart_details?.quantity, i, $event)"><i
-                        class="bi bi-dash"></i></button>
-                    <div class="quantity-round">{{product?.cart_details?.quantity}}</div>
-                    <button class="plus-round btn-light" type="button"
-                      (click)="incrementProductCard(product?.cart_details?.id, product?.cart_details?.quantity, i, $event)"><i
-                        class="bi bi-plus-lg"></i></button>
-                  </div>
+                      (click)="addToCart($event, product?.id, i)"></i>
+                    <span class="hover-text">Add</span>
+                    <div class="qty-container" *ngIf="product?.cart_details">
+                      <button class="minus-round btn-light" type="button"
+                        (click)="decrementProductCard(product?.cart_details?.id, product?.cart_details?.quantity, i, $event)"><i
+                          class="bi bi-dash"></i></button>
+                      <div class="quantity-round">{{product?.cart_details?.quantity}}</div>
+                      <button class="plus-round btn-light" type="button"
+                        (click)="incrementProductCard(product?.cart_details?.id, product?.cart_details?.quantity, i, $event)"><i
+                          class="bi bi-plus-lg"></i></button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -158,6 +155,8 @@
           </div>
 
         </div>
+
+
 
         <div class="sidebar">
           <div class="row">
@@ -250,6 +249,29 @@
           </div>
 
           <hr>
+        </div>
+
+        <div class="pick-displayer">
+          <div id="productCarousel" *ngIf="productInfo?.images?.length > 0"
+            class="carousel slide product-main-images d-flex justify-content-center" data-bs-ride="carousel"
+            data-bs-interval="5000" data-bs-pause="false">
+            <div class="carousel-inner">
+              <div *ngFor="let item of productInfo?.images; let i = index" class="carousel-item"
+                [ngClass]="{ 'active': i === 0 }">
+                <div class="d-flex justify-content-center">
+                  <img [src]="imgBaseUrl + item?.product_sub_image" class="d-block centered-image"
+                    alt="Product Image {{ i + 1 }}" />
+                </div>
+              </div>
+            </div>
+
+            <div class="carousel-controls-bottom" *ngIf="productInfo?.images?.length > 1">
+              <button type="button" class="btn btn-secondary btn-arrow-left" data-bs-target="#productCarousel"
+                data-bs-slide="prev">Prev</button>
+              <button type="button" class="btn btn-secondary btn-arrow-right" data-bs-target="#productCarousel"
+                data-bs-slide="next">Next</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
